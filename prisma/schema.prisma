@@ -1,0 +1,16 @@
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Match {
+  id   String @id @default(cuid()) @map("_id")
+  p1   String
+  p2   String
+  p1_p Int
+  p2_p Int
+}
