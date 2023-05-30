@@ -1,5 +1,8 @@
 import React from 'react';
-import data from './data.json';
+import data1 from './data1.json';
+import data2 from './data2.json';
+import data3 from './data3.json';
+import data4 from './data4.json';
 
 interface TournamentCellData {
   text?: string;
@@ -11,56 +14,42 @@ interface TournamentCellData {
   point?: string;
 }
 
-interface TournamentData {
-  name: string;
-  cells: Record<string, TournamentCellData>;
-}
-
-interface TournamentsData {
-  [key: string]: TournamentData;
-}
-
-interface MainProps {
-  tournaments: TournamentsData;
-}
-
-const Main: React.FC<MainProps> = ({ tournaments }) => {
+const Main: React.FC<{ data: Record<string, TournamentCellData> }> = ({ data }) => {
   return (
-    <>
-      {Object.entries(tournaments).map(([t, tournament]) => (
-        <div key={t} style={{ position: 'relative', height: `${Math.max(...Object.keys(tournament.cells).map(cell => parseFloat(cell.split('_')[0]))) + 2}em`, overflowX: 'hidden' }}>
-          <Tournament cells={tournament.cells} />
-        </div>
-      ))}
-    </>
+    <details>
+      <summary>ひらく</summary>
+      <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'hidden', position: "relative" }}>
+        <Tournament cells={data} />
+      </div>
+    </details>
   );
 };
 
-interface TournamentProps {
-  cells: Record<string, TournamentCellData>;
-}
-
-const Tournament: React.FC<TournamentProps> = ({ cells }) => {
+const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ cells }) => {
   const colors = ["#adb5bd", "#dc3545"];
+  const width = 30
+  const height = 50
 
   return (
     <>
       {Object.entries(cells).map(([cell, cellData]) => {
         const cellStyle: React.CSSProperties = {
           position: 'absolute',
-          top: `${parseFloat(cell.split('_')[0])}em`,
-          left: `${parseFloat(cell.split('_')[1]) * 13}%`,
-          height: 'calc(1em + 3px)',
-          width: 'calc(13% + 3px)',
-          paddingRight: cellData.align_left ? '0' : '10px',
+          top: `${(5 - parseFloat(cell.split('_')[1])) * height}px`,
+          left: `${parseFloat(cell.split('_')[0]) * width}px`,
+          height: `${height}px`,
+          width: `${width}px`,
+          paddingRight: cellData.align_left ? '10px' : '0',
           borderTop: cellData.border_top ? `3px solid ${colors[cellData.border_top - 1]}` : 'none',
           borderLeft: cellData.border_left ? `3px solid ${colors[cellData.border_left - 1]}` : 'none',
-          // transform: 'scaleY(0.9999)',
+          verticalAlign: "bottom",
+          display: "flex",
+          alignItems: `${cell.split("_")[1] === "0" ? "" : "flex-end"}`,
         };
 
         return (
           <div key={cell} style={cellStyle}>
-            <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'right', color: cellData.color ? colors[cellData.color - 1] : 'inherit' }}>
+            <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'center', color: cellData.color ? colors[cellData.color - 1] : 'inherit', verticalAlign: "bottom" }}>
               {cellData.point ? cellData.point : cellData.text}
             </div>
           </div>
@@ -72,8 +61,11 @@ const Tournament: React.FC<TournamentProps> = ({ cells }) => {
 
 const App: React.FC = () => {
   return (
-    <div style={{width: 450}}>
-      <Main tournaments={data.tournaments} />
+    <div style={{ width: `${30 * 15}px` }}>
+      <Main data={data1} />
+      <Main data={data2} />
+      <Main data={data3} />
+      <Main data={data4} />
     </div>
   );
 };
