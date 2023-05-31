@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import data1 from './data1.json';
-import data2 from './data2.json';
-import data3 from './data3.json';
-import data4 from './data4.json';
+import axios from "axios"
+import Tournament from '@/components/Tournament';
 
-interface TournamentCellData {
+export interface TournamentCellData {
   text?: string;
   align_left?: boolean;
   border_top?: number;
@@ -14,47 +13,57 @@ interface TournamentCellData {
   point?: string;
 }
 
-const Main: React.FC<{ data: Record<string, TournamentCellData> }> = ({ data }) => {
-  return (
-    <details>
-      <summary>ひらく</summary>
-      <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'hidden', position: "relative" }}>
-        <Tournament cells={data} />
-      </div>
-    </details>
-  );
-};
+interface MyObject {
+  [key: string]: any;
+}
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ cells }) => {
-  const colors = ["#adb5bd", "#dc3545"];
-  const width = 30
-  const height = 50
+interface Score {
+  id: string
+  matchId: string
+  position: number
+  score?: number
+  class: number
+}
+
+const Main: React.FC<{ data: Record<string, TournamentCellData> }> = ({ data }) => {
+  const [d, setD] = useState<Score[]>([])
+  const [d2, setD2] = useState(data)
+  const getData = async () => {
+    const da = await axios.get("http://localhost:3000/api/hello")
+    setD(da.data.data)
+  }
+  useEffect(() => {
+    try {
+      getData()
+    } catch (err) {}
+  }, [])
+  useEffect(() => {
+    let d3:MyObject = {}
+    d.forEach((val) => {
+      d3[val.position.toString()] = val
+    })
+
+    if (Object.keys(d3).length !== 0) {
+      if (d3["1"].score > d3["2"].score) {
+        setD2((d2_p) => {d2_p["1_1"] = {border_left: 2, border_top: 2};return d2_p})
+      } else if (d3["2"].score > d3["1"].score) {
+        setD2((d2_p) => {d2_p["2_1"] = {border_top: 2};d2_p["3_1"] = {border_left: 2};return d2_p})
+      } else {
+      }
+    }
+  }, [d, d2])
 
   return (
     <>
-      {Object.entries(cells).map(([cell, cellData]) => {
-        const cellStyle: React.CSSProperties = {
-          position: 'absolute',
-          top: `${(5 - parseFloat(cell.split('_')[1])) * height}px`,
-          left: `${parseFloat(cell.split('_')[0]) * width}px`,
-          height: `${height}px`,
-          width: `${width}px`,
-          paddingRight: cellData.align_left ? '10px' : '0',
-          borderTop: cellData.border_top ? `3px solid ${colors[cellData.border_top - 1]}` : 'none',
-          borderLeft: cellData.border_left ? `3px solid ${colors[cellData.border_left - 1]}` : 'none',
-          verticalAlign: "bottom",
-          display: "flex",
-          alignItems: `${cell.split("_")[1] === "0" ? "" : "flex-end"}`,
-        };
-
-        return (
-          <div key={cell} style={cellStyle}>
-            <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'center', color: cellData.color ? colors[cellData.color - 1] : 'inherit', verticalAlign: "bottom" }}>
-              {cellData.point ? cellData.point : cellData.text}
-            </div>
-          </div>
-        );
-      })}
+      <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'hidden', position: "relative" }}>
+        <Tournament cells={d2} />
+      </div>
+      <div>
+        <code>
+          {JSON.stringify(d2)}
+          {JSON.stringify(d)}
+        </code>
+      </div>
     </>
   );
 };
@@ -63,9 +72,6 @@ const App: React.FC = () => {
   return (
     <div style={{ width: `${30 * 15}px` }}>
       <Main data={data1} />
-      <Main data={data2} />
-      <Main data={data3} />
-      <Main data={data4} />
     </div>
   );
 };

@@ -8,9 +8,18 @@ datasource db {
 }
 
 model Match {
-  id   String @id @default(cuid()) @map("_id")
-  p1   String
-  p2   String
-  p1_p Int
-  p2_p Int
+  id        String   @id @default(cuid()) @map("_id")
+  name      String
+  grade     Int
+  scores    Score[]
+}
+
+model Score {
+  id         String   @id @default(cuid()) @map("_id")
+  matchId    String
+  position   Int
+  score      Int?
+  class      Int?
+
+  match      Match    @relation(fields: [matchId], references: [id])
 }
