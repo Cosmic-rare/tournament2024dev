@@ -38,6 +38,8 @@ const Main: React.FC = () => {
        <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'hidden', position: "relative" }}>
         <Tournament cells={cells} />
       </div>
+
+      <code>{JSON.stringify(cells)}</code>
     </div>
   );
 };
