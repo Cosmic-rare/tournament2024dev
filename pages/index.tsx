@@ -19,7 +19,7 @@ const Main: React.FC = () => {
   const [remote, setRemote] = useState()
 
   const getData = async () => {
-    const da = await axios.get("http://localhost:3000/api/hello")
+    const da = await axios.get("api/hello")
     setRemote(da.data.data)
   }
 
