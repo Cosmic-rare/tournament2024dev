@@ -11,6 +11,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-
-  res.status(200).json({ data: await prisma.match.findFirst({ where: { id: 'clignzwna0000vch8i35ps7vx' } }) })
+  console.log('loaded')
+  const data = await prisma.match.findFirst({ where: { id: 'clignzwna0000vch8i35ps7vx' } })
+  console.log('readed')
+  res.status(200).json({ data: data })
 }
