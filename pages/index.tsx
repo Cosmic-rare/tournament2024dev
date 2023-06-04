@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
-import Tournament from '@/components/Tournament';
+import Main from '@/components/Main';
+import { PrismaClient } from '@prisma/client'
+import data1 from './data1.json';
+import draw from '@/util/draw';
 
 export interface TournamentCellData {
   text?: string;
@@ -12,35 +15,27 @@ export interface TournamentCellData {
   point?: string;
 }
 
-const Main: React.FC = () => {
-  const [cells, setCells] = useState({})
+export async function getStaticProps() {
+  const prisma = new PrismaClient();
+  
+  const data = await prisma.match.findFirst({ where: { id: 'clignzwna0000vch8i35ps7vx' } });
+  const data2 = draw(data, data1)
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get('/api/hello');
-        setCells(response.data.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  return {
+    props: {
+      data: data2
+    },
+  };
+}
 
-    getData();
-  }, []);
+interface YourComponentProps {
+  data: any;
+}
 
-  return (
-    <div>
-       <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'hidden', position: "relative" }}>
-        <Tournament cells={cells} />
-      </div>
-    </div>
-  );
-};
-
-const App: React.FC = () => {
+const App: React.FC<YourComponentProps> = ({ data }) => {
   return (
     <div style={{ width: `${30 * 15}px` }}>
-      <Main />
+      <Main data={data} />
     </div>
   );
 };
