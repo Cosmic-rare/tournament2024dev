@@ -2,6 +2,8 @@ const draw = (remote: any, setCells: Function) => {
   if (remote === undefined) { console.log('found undifind'); return }
   
   setCells((p_cells: any) => { 
+    console.log(p_cells)
+
     p_cells['0.5_0'] = { "text": `${remote.gread}-${remote.c_1}` }
     p_cells['2.5_0'] = { "text": `${remote.gread}-${remote.c_2}` }
     p_cells['4.5_0'] = { "text": `${remote.gread}-${remote.c_3}` }
@@ -65,6 +67,8 @@ const draw = (remote: any, setCells: Function) => {
     if(remote.p_6.l_p !== 0 && remote.p_6.h_p !== 0) {
       p_cells["8_4"] = { "border_left": 2 }
     }
+
+    console.log(p_cells)
 
     return p_cells 
   })
