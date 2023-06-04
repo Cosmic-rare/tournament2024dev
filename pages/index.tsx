@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import data1 from './data1.json';
 import axios from "axios"
 import Tournament from '@/components/Tournament';
-import draw from '@/util/draw';
 
 export interface TournamentCellData {
   text?: string;
@@ -15,31 +13,26 @@ export interface TournamentCellData {
 }
 
 const Main: React.FC = () => {
-  const [cells, setCells] = useState(data1)
-  const [remote, setRemote] = useState()
-
-  const getData = async () => {
-    const da = await axios.get("api/hello")
-    setRemote(da.data.data)
-  }
+  const [cells, setCells] = useState({})
 
   useEffect(() => {
-    try {
-      getData()
-    } catch (err) {}
-  }, [])
+    const getData = async () => {
+      try {
+        const response = await axios.get('/api/hello');
+        setCells(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  useEffect(() => {
-    draw(remote, setCells)
-  }, [remote])
+    getData();
+  }, []);
 
   return (
     <div>
        <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'hidden', position: "relative" }}>
         <Tournament cells={cells} />
       </div>
-
-      <code>{JSON.stringify(cells)}</code>
     </div>
   );
 };
