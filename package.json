@@ -24,6 +24,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
     "prisma": "^4.15.0"
   }
 }

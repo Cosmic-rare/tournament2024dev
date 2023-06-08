@@ -12,6 +12,7 @@ export interface TournamentCellData {
   class?: string;
   color?: number;
   point?: string;
+  edit?: number;
 }
 
 export async function getServerSideProps() {
