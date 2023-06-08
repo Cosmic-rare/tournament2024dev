@@ -106,6 +106,32 @@ const draw = (r: any, c: any) => {
   c['11.5_2'] = { 'edit': 5 }
   c['7.5_3'] = { 'edit': 6 }
 
+  if (r.p_6.l_p > r.p_6.h_p) {
+    if (r.p_4.l_p > r.p_4.h_p) {
+      if (r.p_1.l_p > r.p_1.h_p) {
+        c['7.5_5'] = { 'text': `${r.gread}-${r.c_1}` }
+      } else {
+        c['7.5_5'] = { 'text': `${r.gread}-${r.c_2}` }
+      }
+    } else {
+      if (r.p_2.l_p > r.p_2.h_p) {
+        c['7.5_5'] = { 'text': `${r.gread}-${r.c_3}` }
+      } else {
+        c['7.5_5'] = { 'text': `${r.gread}-${r.c_4}` }
+      }
+    }
+  } else {
+    if (r.p_5.l_p > r.p_5.h_p) {
+      if (r.p_3.l_p > r.p_3.h_p) {
+        c['7.5_5'] = { 'text': `${r.gread}-${r.c_5}` }
+      } else {
+        c['7.5_5'] = { 'text': `${r.gread}-${r.c_6}` }
+      }
+    } else {
+      c['7.5_5'] = { 'text': `${r.gread}-${r.c_7}` }
+    }
+  }
+
   return c
 }
 
