@@ -15,7 +15,7 @@ export interface TournamentCellData {
   point?: string;
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const prisma = new PrismaClient();
   
   const data = await prisma.match.findFirst({ where: { id: 'clignzwna0000vch8i35ps7vx' } });
