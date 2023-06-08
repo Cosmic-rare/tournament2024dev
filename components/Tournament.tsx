@@ -25,7 +25,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ c
         return (
           <div key={cell} style={cellStyle}>
             <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'center', color: cellData.color ? colors[cellData.color - 1] : 'inherit', verticalAlign: "bottom" }}>
-              {cellData.point ? cellData.point : cellData.text}
+              {cellData.point ? <span className='point'>{cellData.point}</span> : cellData.text}
             </div>
           </div>
         );

@@ -30,9 +30,12 @@ interface YourComponentProps {
 }
 
 const App: React.FC<YourComponentProps> = ({ data }) => {
+  const [displayPoint, setDisplayPoint] = useState(false)
   return (
     <div style={{ width: `${30 * 15}px` }}>
       <Main data={data} />
+      <button onClick={() => setDisplayPoint((p) => !p)}>{displayPoint ? 'hidden point' : 'display point'}</button>
+      <style>{`.point { display: ${displayPoint ? 'inline' : 'none'} }`}</style>
     </div>
   );
 };
