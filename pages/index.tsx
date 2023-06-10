@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Main from '@/components/Main';
 import prisma from '@/util/prisma';
-import data1 from './data1.json';
-import draw from '@/util/draw';
 
 export interface TournamentCellData {
   text?: string;
@@ -16,25 +14,27 @@ export interface TournamentCellData {
 }
 
 export async function getServerSideProps() {
-  const data = await prisma.match.findFirst({ where: { id: 'clipk8mit0006iob6dfih69qw' } });
-  const data2 = draw(data, data1)
-
+  const data = await prisma.match.findMany();
   return {
     props: {
-      data: data2
+      data: data
     },
   };
 }
 
 interface YourComponentProps {
-  data: any;
+  data: any[];
 }
 
 const App: React.FC<YourComponentProps> = ({ data }) => {
   const [displayPoint, setDisplayPoint] = useState(false)
   return (
     <div style={{ width: `${30 * 15}px` }}>
-      <Main data={data} />
+      {data.map((val, index) => {
+        return (
+          <Main data={val} key={index} />
+        )
+      })}
       <button onClick={() => setDisplayPoint((p) => !p)}>{displayPoint ? 'hidden point' : 'display point'}</button>
       <style>{`.point { display: ${displayPoint ? 'inline' : 'none'} }`}</style>
     </div>
