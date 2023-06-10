@@ -31,7 +31,7 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
       <Button type="primary" onClick={showModal}>
         {data.title} ({data.gread}年)
       </Button>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={30 * 15 + 24 * 2}>
         <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'hidden', position: "relative" }}>
           <Tournament cells={draw(data, template)} />
         </div>
