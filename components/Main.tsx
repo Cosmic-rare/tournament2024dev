@@ -32,8 +32,10 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
         {data.title} ({data.gread}年)
       </Button>
       <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={30 * 15 + 24 * 2}>
-        <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'hidden', position: "relative" }}>
-          <Tournament cells={draw(data, template)} />
+        <div style={{ height: `320px`, overflowX: 'scroll', position: "relative" }}>
+          <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'scroll', position: "relative" }}>
+            <Tournament cells={draw(data, template)} />
+          </div>
         </div>
       </Modal>  
     </div>
