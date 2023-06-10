@@ -16,7 +16,7 @@ export interface TournamentCellData {
 }
 
 export async function getServerSideProps() {
-  const data = await prisma.match.findFirst({ where: { id: 'clignzwna0000vch8i35ps7vx' } });
+  const data = await prisma.match.findFirst({ where: { id: 'clipk8mit0006iob6dfih69qw' } });
   const data2 = draw(data, data1)
 
   return {

@@ -13,25 +13,25 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   try {
-    // await prisma.match.create({
-    //   data: {
-    //     title: "女子ドッヂボール",
-    //     gread: 1,
-    //     c_1: 5,
-    //     c_2: 2,
-    //     c_3: 6,
-    //     c_4: 4,
-    //     c_5: 1,
-    //     c_6: 3,
-    //     c_7: 7,
-    //     p_1: { l_p: 5, h_p: 6 },
-    //     p_2: { l_p: 6, h_p: 3 },
-    //     p_3: { l_p: 6, h_p: 9 },
-    //     p_4: { l_p: 10, h_p: 9 },
-    //     p_5: { l_p: 5, h_p: 7 },
-    //     p_6: { l_p: 4, h_p: 5 },
-    //   },
-    // });
+    await prisma.match.create({
+      data: {
+        title: "aa",
+        gread: 0,
+        c_1: 1,
+        c_2: 2,
+        c_3: 3,
+        c_4: 4,
+        c_5: 5,
+        c_6: 6,
+        c_7: 7,
+        p_1: { l_p: -1, h_p: -1 },
+        p_2: { l_p: -1, h_p: -1 },
+        p_3: { l_p: -1, h_p: -1 },
+        p_4: { l_p: -1, h_p: -1 },
+        p_5: { l_p: -1, h_p: -1 },
+        p_6: { l_p: -1, h_p: -1 },
+      },
+    });
 
     res.status(200).json({ ok: true });
   } catch (error) {
