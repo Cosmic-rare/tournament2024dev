@@ -14,27 +14,52 @@ export interface TournamentCellData {
 }
 
 export async function getServerSideProps() {
-  const data = await prisma.match.findMany();
+  const data1 = await prisma.match.findMany({where: {gread: 1}});
+  const data2 = await prisma.match.findMany({where: {gread: 2}});
+  const data3 = await prisma.match.findMany({where: {gread: 3}});
+
   return {
     props: {
-      data: data
+      data1: data1,
+      data2: data2,
+      data3: data3
     },
   };
 }
 
 interface YourComponentProps {
-  data: any[];
+  data1: any[];
+  data2: any[];
+  data3: any[];
 }
 
-const App: React.FC<YourComponentProps> = ({ data }) => {
+const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
   const [displayPoint, setDisplayPoint] = useState(false)
   return (
     <div style={{ width: `${30 * 15}px` }}>
-      {data.map((val, index) => {
+      <h2>1年</h2>
+      {data1.map((val, index) => {
         return (
           <Main data={val} key={index} />
         )
       })}
+      <hr />
+
+      <h2>2年</h2>
+      {data2.map((val, index) => {
+        return (
+          <Main data={val} key={index} />
+        )
+      })}
+      <hr />
+
+      <h2>3年</h2>
+      {data3.map((val, index) => {
+        return (
+          <Main data={val} key={index} />
+        )
+      })}
+
       <button onClick={() => setDisplayPoint((p) => !p)}>{displayPoint ? 'hidden point' : 'display point'}</button>
       <style>{`.point { display: ${displayPoint ? 'inline' : 'none'} }`}</style>
     </div>
