@@ -33,22 +33,6 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ c
           <div key={cell} style={cellStyle}>
             <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'center', color: cellData.color ? colors[cellData.color - 1] : 'inherit', verticalAlign: "bottom" }}>
               {cellData.point ? <span className='point'>{cellData.point}</span> : cellData.text}
-
-              {cellData.edit !== undefined ? (
-                <div
-                  onClick={() => onEdit(cellData.edit!)}
-                  style={{
-                    marginTop: 10,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Edit width={20} height={20} stroke={'#bbb'} strokeWidth={2.5} />
-                  </div>
-                </div>
-              ) : null}      
             </div>
           </div>
         );

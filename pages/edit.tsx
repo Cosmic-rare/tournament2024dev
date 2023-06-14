@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Main from '@/components/top/Main';
+import Main from '@/components/edit/EditMain';
 import prisma from '@/util/prisma';
 
 export interface TournamentCellData {
@@ -13,7 +13,7 @@ export interface TournamentCellData {
   edit?: number;
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const data1 = await prisma.match.findMany({where: {gread: 1}});
   const data2 = await prisma.match.findMany({where: {gread: 2}});
   const data3 = await prisma.match.findMany({where: {gread: 3}});
