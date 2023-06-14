@@ -16,7 +16,13 @@ export interface TournamentCellData {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id: string = context.params?.id || "aa";
+  let id: string
+
+  if (context.params?.id === undefined || context.params?.id === null || typeof(context.params?.id) !== 'string') {
+    id = ""
+  } else {
+    id = context.params?.id
+  }
 
   const data1 = await prisma.match.findFirst({ where: { id: id } });
 
