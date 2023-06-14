@@ -24,6 +24,11 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
     setIsModalOpen(false);
   };
 
+  const handleReset = () => {
+    console.log('reset request!')
+    setIsModalOpen(false)
+  }
+
   const template = _.cloneDeep(data1)
 
   return (
@@ -31,13 +36,27 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
       <Button type="primary" onClick={showModal}>
         {data.title} ({data.gread}年)
       </Button>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={30 * 15 + 24 * 2}>
-        <div style={{ height: `320px`, overflowX: 'scroll', position: "relative" }}>
-          <div style={{ width: `${30 * 15}px`, height: `320px`, overflowX: 'scroll', position: "relative" }}>
+      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={30 * 15 + 24 * 2} footer={[
+        <Button key="a" onClick={handleReset}>
+          Reset
+        </Button>,
+        <Button key='b' onClick={handleCancel}>
+          Cancel
+        </Button>,
+        <Button
+          key='c'
+          type="primary"
+          onClick={handleOk}
+        >
+          Submit
+        </Button>,
+      ]}>
+        <div style={{ height: `320px`, overflowX: 'hidden', position: "relative" }}>
+          <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'hidden', position: "relative" }}>
             <Tournament cells={draw(data, template)} />
           </div>
         </div>
-      </Modal>  
+      </Modal>
     </div>
   );
 };
