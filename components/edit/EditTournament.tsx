@@ -9,7 +9,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ c
 
   const onEdit = (p: number) => {
     console.log(p)
-    axios.get(`api/edit/${p}`).then((res) => {console.log(res.data)}).catch((err) => {console.log(err)})
+    axios.post(`api/edit/${p}`, { l_p: 3, h_p: 3}).then((res) => {console.log(res.data)}).catch((err) => {console.log(err)})
   }
 
   return (
