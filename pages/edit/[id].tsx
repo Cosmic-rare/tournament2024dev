@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import prisma from '@/util/prisma';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
@@ -29,11 +29,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     id = context.params?.id
   }
 
-  const data1 = await prisma.match.findFirst({ where: { id: id } });
+  const d = await prisma.match.findFirst({ where: { id: id } });
 
   return {
     props: {
-      data1: data1,
+      data1: d,
     },
   };
 };
@@ -48,20 +48,31 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
   const [l_point, setL_point] = useState(-1)
   const [h_point, setH_point] = useState(-1)
   const [editPoint, setEditPoint] = useState(0)
+  const [d, sD] = useState(data1)
+  const [di, sDi] = useState(draw(data1, template))
+
+  useEffect(() => {
+    sDi(draw(d, template))
+    console.log("re render")
+  }, [d])
 
   const onUpdate = (p: number, l_p: number, h_p: number) => {
     if (p===0) {
       return
     }
     
-    axios.post(`/api/edit`, { l_p: l_p, h_p: h_p, id: data1.id, p: p })
-      .then((res) => {console.log("sucess")})
+    axios.post(`/api/edit`, { l_p: l_p, h_p: h_p, id: d.id, p: p })
+      .then((res) => { 
+        axios.get(`/api/match/${d.id}`)
+          .then((res) => { sD(res.data); console.log(l_p, h_p) })
+          .catch((err) => (console.log(err)))
+      })
       .catch((err) => {console.log(err)})
   }
 
   return (
     <div style={{ width: `${30 * 15}px` }}>
-      <h2>{data1.title} ({data1.gread}年)</h2>
+      <h2>{d.title} ({d.gread}年)</h2>
       <Link href="/edit">edit</Link><br />
       <Link href="/">index</Link>
       <Modal
@@ -126,20 +137,20 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
       </Modal>
       <div style={{ position: "relative" }}>
         <Tournament 
-          cells={draw(data1, template)} 
+          cells={di} 
           onModalOpen={(p:number) => {
             setEditPoint(p)
 
-            if (data1[`p_${p}`]["l_p"] === -1) {
+            if (d[`p_${p}`]["l_p"] === -1) {
               setL_point(0)  
             } else {
-              setL_point(data1[`p_${p}`]["l_p"])
+              setL_point(d[`p_${p}`]["l_p"])
             }
 
-            if (data1[`p_${p}`]["h_p"] === -1) {
+            if (d[`p_${p}`]["h_p"] === -1) {
               setH_point(0)  
             } else {
-              setH_point(data1[`p_${p}`]["h_p"])
+              setH_point(d[`p_${p}`]["h_p"])
             }
 
             setIsModalOpen(true)
