@@ -54,8 +54,8 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
       return
     }
     
-    axios.post(`api/edit/${p}`, { l_p: l_p, h_p: h_p})
-      .then((res) => {console.log(res.data)})
+    axios.post(`/api/edit`, { l_p: l_p, h_p: h_p, id: data1.id, p: p })
+      .then((res) => {console.log("sucess")})
       .catch((err) => {console.log(err)})
   }
 
