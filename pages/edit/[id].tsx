@@ -7,6 +7,7 @@ import _ from 'lodash'
 import Tournament from '@/components/edit/EditTournament';
 import draw from '@/util/draw';
 import { Modal, Input, Row, Col, Button } from 'antd';
+import axios from 'axios';
 
 export interface TournamentCellData {
   text?: string;
@@ -46,6 +47,17 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [l_point, setL_point] = useState(-1)
   const [h_point, setH_point] = useState(-1)
+  const [editPoint, setEditPoint] = useState(0)
+
+  const onUpdate = (p: number, l_p: number, h_p: number) => {
+    if (p===0) {
+      return
+    }
+    
+    axios.post(`api/edit/${p}`, { l_p: l_p, h_p: h_p})
+      .then((res) => {console.log(res.data)})
+      .catch((err) => {console.log(err)})
+  }
 
   return (
     <div style={{ width: `${30 * 15}px` }}>
@@ -55,12 +67,27 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
       <Modal
         open={isModalOpen}
         closable={false}
-        onOk={() => setIsModalOpen(false)}
         onCancel={() => setIsModalOpen(false)}
         footer={[
-          <Button key="cancel">Cancel</Button>,
-          <Button key="reset" danger>Reset</Button>,
-          <Button key="apply" type="primary">Apply</Button>
+          <Button key="cancel" onClick={() => setIsModalOpen(false)}>Cancel</Button>,
+          <Button 
+            key="reset" 
+            danger 
+            onClick={() => {
+              onUpdate(editPoint, -1, -1)
+              setIsModalOpen(false)
+          }}>
+            Reset
+          </Button>,
+          <Button 
+            key="apply" 
+            type="primary" 
+            onClick={() => {
+              onUpdate(editPoint, l_point, h_point)
+              setIsModalOpen(false)
+          }}>
+            Apply
+          </Button>
         ]}
       >
         <div>
@@ -101,6 +128,8 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
         <Tournament 
           cells={draw(data1, template)} 
           onModalOpen={(p:number) => {
+            setEditPoint(p)
+
             if (data1[`p_${p}`]["l_p"] === -1) {
               setL_point(0)  
             } else {
