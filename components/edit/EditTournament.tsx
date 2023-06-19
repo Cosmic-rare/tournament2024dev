@@ -2,14 +2,15 @@ import axios from 'axios'
 import { TournamentCellData } from "@/pages";
 import Edit from '../edit.svg'
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ cells }) => {
+const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalOpen: Function }> = ({ cells, onModalOpen }) => {
   const colors = ["#adb5bd", "#dc3545"];
   const width = 30
   const height = 50
 
   const onEdit = (p: number) => {
-    console.log(p)
-    axios.post(`api/edit/${p}`, { l_p: 3, h_p: 3}).then((res) => {console.log(res.data)}).catch((err) => {console.log(err)})
+    onModalOpen()
+    // console.log(p)
+    // axios.post(`api/edit/${p}`, { l_p: 3, h_p: 3}).then((res) => {console.log(res.data)}).catch((err) => {console.log(err)})
   }
 
   return (
