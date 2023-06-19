@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Main from '@/components/edit/EditMain';
+import React from 'react';
 import prisma from '@/util/prisma';
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
+import data from '../data1.json';
+import _ from 'lodash'
+import Tournament from '@/components/edit/EditTournament';
+import draw from '@/util/draw';
 
 export interface TournamentCellData {
   text?: string;
@@ -39,12 +41,16 @@ interface YourComponentProps {
 }
 
 const App: React.FC<YourComponentProps> = ({ data1 }) => {
+  const template = _.cloneDeep(data)
+
   return (
     <div style={{ width: `${30 * 15}px` }}>
       <h2>{data1.title} ({data1.gread}年)</h2>
       <Link href="/edit">edit</Link><br />
       <Link href="/">index</Link>
-      {data1 ? <Main data={data1} /> : <></>}
+      <div style={{ position: "relative" }}>
+        <Tournament cells={draw(data1, template)} />
+      </div>
     </div>
   );
 };
