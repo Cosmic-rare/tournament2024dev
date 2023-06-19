@@ -1,6 +1,7 @@
 import React from 'react';
 import prisma from '@/util/prisma';
 import { Button } from 'antd';
+import Link from 'next/link';
 
 export interface TournamentCellData {
   text?: string;
@@ -50,6 +51,8 @@ interface YourComponentProps {
 const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
   return (
     <div style={{ width: `${30 * 15}px` }}>
+      <p><code>edit</code></p>
+      <Link href="/">index</Link>
       <h2>1年</h2>
       {data1.map((val, index) => {
         return (

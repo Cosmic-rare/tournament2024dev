@@ -3,6 +3,7 @@ import Main from '@/components/edit/EditMain';
 import prisma from '@/util/prisma';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 
 export interface TournamentCellData {
   text?: string;
@@ -40,7 +41,9 @@ interface YourComponentProps {
 const App: React.FC<YourComponentProps> = ({ data1 }) => {
   return (
     <div style={{ width: `${30 * 15}px` }}>
-      <h2>1年</h2>
+      <h2>{data1.title} ({data1.gread}年)</h2>
+      <Link href="/edit">edit</Link><br />
+      <Link href="/">index</Link>
       {data1 ? <Main data={data1} /> : <></>}
     </div>
   );
