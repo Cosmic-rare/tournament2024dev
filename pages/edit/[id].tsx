@@ -44,6 +44,8 @@ interface YourComponentProps {
 const App: React.FC<YourComponentProps> = ({ data1 }) => {
   const template = _.cloneDeep(data)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [l_point, setL_point] = useState(-1)
+  const [h_point, setH_point] = useState(-1)
 
   return (
     <div style={{ width: `${30 * 15}px` }}>
@@ -68,7 +70,10 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
                 <span style={{ marginBottom: '10px' }}>1</span>
               </div>
               <Input
-                placeholder="Team 1 Score"
+                value={l_point}
+                onChange={(e) => {
+                  setL_point(parseInt(e.target.value, 10))
+                }}
                 type="number"
               />
             </Col>
@@ -82,7 +87,10 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
                 <span style={{ marginBottom: '10px' }}>2</span>
               </div>
               <Input
-                placeholder="Team 2 Score"
+                value={h_point}
+                onChange={(e) => {
+                  setH_point(parseInt(e.target.value, 10))
+                }}
                 type="number"
               />
             </Col>
@@ -90,7 +98,24 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
         </div>
       </Modal>
       <div style={{ position: "relative" }}>
-        <Tournament cells={draw(data1, template)} onModalOpen={() => setIsModalOpen(true)} />
+        <Tournament 
+          cells={draw(data1, template)} 
+          onModalOpen={(p:number) => {
+            if (data1[`p_${p}`]["l_p"] === -1) {
+              setL_point(0)  
+            } else {
+              setL_point(data1[`p_${p}`]["l_p"])
+            }
+
+            if (data1[`p_${p}`]["h_p"] === -1) {
+              setH_point(0)  
+            } else {
+              setH_point(data1[`p_${p}`]["h_p"])
+            }
+
+            setIsModalOpen(true)
+          }} 
+        />
       </div>
     </div>
   );

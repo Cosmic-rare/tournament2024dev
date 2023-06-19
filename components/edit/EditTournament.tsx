@@ -8,7 +8,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalO
   const height = 50
 
   const onEdit = (p: number) => {
-    onModalOpen()
+    onModalOpen(p)
     // console.log(p)
     // axios.post(`api/edit/${p}`, { l_p: 3, h_p: 3}).then((res) => {console.log(res.data)}).catch((err) => {console.log(err)})
   }
