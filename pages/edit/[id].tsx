@@ -49,22 +49,36 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
   const [h_point, setH_point] = useState(-1)
   const [editPoint, setEditPoint] = useState(0)
   const [d, sD] = useState(data1)
-  const [di, sDi] = useState(draw(data1, template))
+  const [cells, setCells] = useState({})
 
   useEffect(() => {
-    sDi(draw(d, _.cloneDeep(data)))
+    setCells((p) => draw(d, template))
     console.log("re render")
   }, [d])
 
-  const onUpdate = (p: number, l_p: number, h_p: number) => {
-    if (p===0) {
-      return
+  const handleOnOpenModal = (p:number) => {
+    setEditPoint(p)
+
+    if (d[`p_${p}`]["l_p"] === -1) {
+      setL_point(0)  
+    } else {
+      setL_point(d[`p_${p}`]["l_p"])
     }
-    
+
+    if (d[`p_${p}`]["h_p"] === -1) {
+      setH_point(0)  
+    } else {
+      setH_point(d[`p_${p}`]["h_p"])
+    }
+
+    setIsModalOpen(true)
+  }
+
+  const onUpdate = (p: number, l_p: number, h_p: number) => {
     axios.post(`/api/edit`, { l_p: l_p, h_p: h_p, id: d.id, p: p })
-      .then((res) => { 
+      .then(() => { 
         axios.get(`/api/match/${d.id}`)
-          .then((res) => { sD(res.data); console.log(l_p, h_p) })
+          .then((res) => { sD(res.data); })
           .catch((err) => (console.log(err)))
       })
       .catch((err) => {console.log(err)})
@@ -137,24 +151,8 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
       </Modal>
       <div style={{ position: "relative" }}>
         <Tournament 
-          cells={di} 
-          onModalOpen={(p:number) => {
-            setEditPoint(p)
-
-            if (d[`p_${p}`]["l_p"] === -1) {
-              setL_point(0)  
-            } else {
-              setL_point(d[`p_${p}`]["l_p"])
-            }
-
-            if (d[`p_${p}`]["h_p"] === -1) {
-              setH_point(0)  
-            } else {
-              setH_point(d[`p_${p}`]["h_p"])
-            }
-
-            setIsModalOpen(true)
-          }} 
+          cells={cells} 
+          onModalOpen={handleOnOpenModal} 
         />
       </div>
     </div>
