@@ -52,7 +52,7 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
   const [di, sDi] = useState(draw(data1, template))
 
   useEffect(() => {
-    sDi(draw(d, template))
+    sDi(draw(d, _.cloneDeep(data)))
     console.log("re render")
   }, [d])
 
