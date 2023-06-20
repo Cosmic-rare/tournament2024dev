@@ -1,11 +1,11 @@
 const draw = (r: any, c: any) => {
-  c['0.5_0'] = { "text": `${r.gread}-${r.c_1}` }
-  c['2.5_0'] = { "text": `${r.gread}-${r.c_2}` }
-  c['4.5_0'] = { "text": `${r.gread}-${r.c_3}` }
-  c['6.5_0'] = { "text": `${r.gread}-${r.c_4}` }
-  c['8.5_0'] = { "text": `${r.gread}-${r.c_5}` }
-  c['10.5_0'] = { "text": `${r.gread}-${r.c_6}` }
-  c['13.5_0'] = { "text": `${r.gread}-${r.c_7}` }
+  c['0.5_0'] = { "text": `${r.gread}-${r.c_1}`, 'edit2': 1 }
+  c['2.5_0'] = { "text": `${r.gread}-${r.c_2}`, 'edit2': 2 }
+  c['4.5_0'] = { "text": `${r.gread}-${r.c_3}`, 'edit2': 3 }
+  c['6.5_0'] = { "text": `${r.gread}-${r.c_4}`, 'edit2': 4 }
+  c['8.5_0'] = { "text": `${r.gread}-${r.c_5}`, 'edit2': 5 }
+  c['10.5_0'] = { "text": `${r.gread}-${r.c_6}`, 'edit2': 6 }
+  c['13.5_0'] = { "text": `${r.gread}-${r.c_7}`, 'edit2': 7 }
 
   if (r.p_1.l_p === -1 && r.p_1.h_p === -1) {
   } else if(r.p_1.l_p > r.p_1.h_p) {

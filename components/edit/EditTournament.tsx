@@ -49,7 +49,24 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalO
                     <Edit width={20} height={20} stroke={'#bbb'} strokeWidth={2.5} />
                   </div>
                 </div>
-              ) : null}      
+              ) : null}
+
+              {cellData.edit2 !== undefined ? (
+                <div>
+                  <div
+                    style={{
+                      marginTop: 10,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <Edit width={20} height={20} stroke={'#bbb'} strokeWidth={2.5} />
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         );
