@@ -36,8 +36,9 @@ const draw = (r: any, c: any) => {
     c['2_2'] = { "border_left": 2, "border_top": 2 }
     c['3_2'] = { "border_top": 2 }
   } else {
-    c['4_1'] = { "border_top": 2 }
-    c['5_1'] = { "border_left": 2, "border_top": 2 }
+    c['4_2'] = { "border_top": 2 }
+    c['5_2'] = { "border_top": 2 }
+    c['6_2'] = { "border_left": 2 }
   }
 
   if (r.p_5.l_p === -1 && r.p_5.h_p === -1) {
