@@ -172,38 +172,45 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
             : null}
           <div>
             <Row gutter={16} justify="center">
-              <Col>
+              <Col span={5}>
                 <div style={{ textAlign: 'center' }}>
                   <span style={{ marginBottom: '10px' }}>1</span>
                 </div>
-                <Input
-                  value={l_point}
-                  disabled={isLoading}
-                  onChange={(e) => {
-                    setL_point(parseInt(e.target.value, 10))
-                  }}
-                  type="number"
-                />
+                <div style={{ textAlign: 'center' }}>
+                  <Input
+                    value={l_point}
+                    disabled={isLoading}
+                    onChange={(e) => {
+                      setL_point(parseInt(e.target.value, 10))
+                    }}
+                    type="number"
+                    style={{ width: "80%", textAlign: "center" }}
+                  />
+                </div>
               </Col>
-              <Col>
+              <Col span={2}>
                 <div style={{ textAlign: 'center' }}>
                   <span style={{ marginTop: '25px', display: 'inline-block' }}>-</span>
                 </div>
               </Col>
-              <Col>
+              <Col span={5}>
                 <div style={{ textAlign: 'center' }}>
                   <span style={{ marginBottom: '10px' }}>2</span>
                 </div>
-                <Input
-                  value={h_point}
-                  disabled={isLoading}
-                  onChange={(e) => {
-                    setH_point(parseInt(e.target.value, 10))
-                  }}
-                  type="number"
-                />
+                <div style={{ textAlign: 'center' }}>
+                  <Input
+                    value={h_point}
+                    disabled={isLoading}
+                    onChange={(e) => {
+                      setH_point(parseInt(e.target.value, 10))
+                    }}
+                    type="number"
+                    style={{ width: "80%", textAlign: "center" }}
+                  />
+                </div>
               </Col>
             </Row>
+            <div style={{ height: 10 }} />
           </div>
         </div>
       </Modal>
