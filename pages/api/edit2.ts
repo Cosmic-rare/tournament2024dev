@@ -48,6 +48,8 @@ export default async function handler(
       }
     })
 
+    await res.revalidate('/')
+
     res.status(200).end()
   } catch (error) {
     console.error(error)
