@@ -9,7 +9,12 @@ declare module "next-auth" {
       /** The user's postal address. */
       id: string,
       name: string,
-      email: string
+      email: string,
+      role: string,
     }
+  }
+
+  interface User extends DefaultUser {
+    role: string;
   }
 }
