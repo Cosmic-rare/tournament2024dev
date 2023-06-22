@@ -29,3 +29,4 @@ eスポーツ
 男子サッカー -->
 
 - PointEditModalとClassEditModaの幅
+- editpointの初期値がおかしい
