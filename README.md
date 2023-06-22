@@ -30,4 +30,3 @@ eスポーツ
 
 - PointEditModalとClassEditModaの幅
 - editpointの初期値がおかしい
-- USERのときの表示
