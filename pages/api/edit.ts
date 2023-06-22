@@ -13,11 +13,9 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const { id, p, l_p, h_p } = req.body
-  let user
 
   try {
-    const { currentUser } = await serverAuth(req, res);
-    user = currentUser
+    await serverAuth(req, res);
   } catch (error) {
     if (error instanceof SignInError) {
       return res.status(401).end()

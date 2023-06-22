@@ -13,11 +13,8 @@ export default async function handler(
 ) {
   const { id, targetPosition, insertNumber } = req.body
 
-  let user
-
   try {
-    const { currentUser } = await serverAuth(req, res);
-    user = currentUser
+    await serverAuth(req, res);
   } catch (error) {
     if (error instanceof SignInError) {
       return res.status(401).end()

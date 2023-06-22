@@ -9,7 +9,6 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: (credentials) => {
-        // database look up
         if (
           credentials?.password === "test"
         ) {
@@ -24,5 +23,5 @@ export default NextAuth({
       },
     }),
   ],
-  secret: "test",
+  secret: "dbe2de07f88c3a9b60a4503bb1d015a8",
 });
