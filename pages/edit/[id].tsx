@@ -1,3 +1,4 @@
+import { useSession, getSession } from "next-auth/react"
 import React, { useState, useEffect } from 'react';
 import prisma from '@/util/prisma';
 import { GetServerSideProps } from 'next';
@@ -23,6 +24,17 @@ export interface TournamentCellData {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
   let id: string
 
   if (context.params?.id === undefined || context.params?.id === null || typeof (context.params?.id) !== 'string') {
@@ -54,8 +66,8 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
   const [editClass, setEditClass] = useState(0)
   const [d, sD] = useState(data1)
   const [cells, setCells] = useState({})
-
   const [isLoading, setIsLoading] = useState(false)
+  const { data: session } = useSession()
 
   useEffect(() => {
     setCells((p) => draw(d, template))
@@ -174,40 +186,47 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
       .finally(() => { setIsLoading(false); setIsModalOpen(false) })
   }
 
-  return (
-    <div style={{ width: `${30 * 15}px` }}>
-      <h2>{d.title} ({d.gread}年)</h2>
-      {contextHolder}
-      <Link href="/edit">edit</Link><br />
-      <Link href="/">index</Link>
-      <PointEditModal 
-        isModalOpen={isModalOpen} 
-        setIsModalOpen={setIsModalOpen} 
-        isLoading={isLoading} 
-        onUpdate={onUpdate} 
-        editPoint={editPoint} 
-        l_point={l_point} 
-        h_point={h_point} 
-        setL_point={setL_point} 
-        setH_point={setH_point}
-      />
-      <ClassEditModal 
-        isModalOpen={isClassEditModalOpen} 
-        setIsModalOpen={setIsClassEditModalOpen} 
-        isLoading={isLoading} 
-        onUpdate={onUpdate2} 
-        editPoint={editClass} 
-        gread={data1.gread}
-      />
-      <div style={{ position: "relative" }}>
-        <Tournament
-          cells={cells}
-          onModalOpen={handleOnOpenModal}
-          onClassEditModalOpen={onClassEditModalOpen}
+  if (session) {
+    return (
+      <div style={{ width: `${30 * 15}px` }}>
+        <h2>{d.title} ({d.gread}年)</h2>
+        {contextHolder}
+        <Link href="/edit">edit</Link><br />
+        <Link href="/">index</Link>
+        <PointEditModal 
+          isModalOpen={isModalOpen} 
+          setIsModalOpen={setIsModalOpen} 
+          isLoading={isLoading} 
+          onUpdate={onUpdate} 
+          editPoint={editPoint} 
+          l_point={l_point} 
+          h_point={h_point} 
+          setL_point={setL_point} 
+          setH_point={setH_point}
         />
+        <ClassEditModal 
+          isModalOpen={isClassEditModalOpen} 
+          setIsModalOpen={setIsClassEditModalOpen} 
+          isLoading={isLoading} 
+          onUpdate={onUpdate2} 
+          editPoint={editClass} 
+          gread={data1.gread}
+        />
+        <div style={{ position: "relative" }}>
+          <Tournament
+            cells={cells}
+            onModalOpen={handleOnOpenModal}
+            onClassEditModalOpen={onClassEditModalOpen}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return (
+    <>
+      ログインしろ
+    </>
+  )
 };
 
 export default App;

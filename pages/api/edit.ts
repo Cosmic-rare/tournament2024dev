@@ -1,5 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from "util/prisma"
+import serverAuth from "@/util/serverAuth";
+import { SignInError } from "@/util/serverAuth"
+
 
 type Data = {
   data: any
@@ -10,6 +13,16 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const { id, p, l_p, h_p } = req.body
+  let user
+
+  try {
+    const { currentUser } = await serverAuth(req, res);
+    user = currentUser
+  } catch (error) {
+    if (error instanceof SignInError) {
+      return res.status(401).end()
+    }
+  }
 
   // バリデーションチェック
   if (l_p < -1 || h_p < -1) {

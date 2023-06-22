@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { signIn } from "next-auth/react"
 import Main from '@/components/top/Main';
 import prisma from '@/util/prisma';
 import Link from 'next/link';
@@ -66,6 +67,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
 
       <button onClick={() => setDisplayPoint((p) => !p)}>{displayPoint ? 'hidden point' : 'display point'}</button>
       <style>{`.point { display: ${displayPoint ? 'inline' : 'none'} }`}</style>
+      <button onClick={() => signIn()}>Sign in</button>
     </div>
   );
 };
