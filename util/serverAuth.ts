@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import authOptions from '@/pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 
 export class SignInError extends Error {
@@ -13,7 +13,7 @@ export class SignInError extends Error {
 const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
-  if (!session?.user?.name) {
+  if (!session) {
     throw new SignInError()
   } 
 
