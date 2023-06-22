@@ -122,8 +122,8 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
       .finally(() => { setIsLoading(false); setIsClassEditModalOpen(false) })
   }
 
-  const onUpdate = (p: number, l_p: number, h_p: number) => {
-    if (l_p < 0 || h_p < 0) {
+  const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean) => {
+    if ((l_p < 0 || h_p < 0) && !isReset) {
       return api.warning({
         message: 'Valid',
         description:
