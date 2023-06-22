@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { TournamentCellData } from "@/pages";
 import Edit from '../edit.svg'
 
@@ -9,8 +8,6 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalO
 
   const onEdit = (p: number) => {
     onModalOpen(p)
-    // console.log(p)
-    // axios.post(`api/edit/${p}`, { l_p: 3, h_p: 3}).then((res) => {console.log(res.data)}).catch((err) => {console.log(err)})
   }
 
   return (
