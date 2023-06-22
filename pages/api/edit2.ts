@@ -18,10 +18,6 @@ export default async function handler(
   try {
     const { currentUser } = await serverAuth(req, res);
     user = currentUser
-
-    if (user.role !== "ADMIN" && user.role !== "EDITOR") {
-      return res.status(401).end()
-    }
   } catch (error) {
     if (error instanceof SignInError) {
       return res.status(401).end()

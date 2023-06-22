@@ -33,14 +33,14 @@ const Main2: React.FC<YourComponentProps2> = ({ data }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false,
+  //     },
+  //   }
+  // }
 
   const data1 = await prisma.match.findMany({where: {gread: 1}});
   const data2 = await prisma.match.findMany({where: {gread: 2}});
@@ -101,6 +101,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
   return (
     <>
       ログインせい
+      <p style={{fontSize: 8}}>{JSON.stringify(session)}</p>
     </>
   )
 };

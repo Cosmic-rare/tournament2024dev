@@ -30,7 +30,7 @@ interface YourComponentProps {
 const Escalation: React.FC<YourComponentProps> = () => {
   const { data: session } = useSession()
 
-  if (session?.user.role === "ADMIN") {
+  if (session) {
     return (
       <div>
         Signed in as {session?.user?.name} <br />
