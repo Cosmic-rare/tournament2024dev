@@ -1,13 +1,17 @@
 import { TournamentCellData } from "@/pages";
 import Edit from '../edit.svg'
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalOpen: Function }> = ({ cells, onModalOpen }) => {
+const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalOpen: Function, onClassEditModalOpen: Function }> = ({ cells, onModalOpen, onClassEditModalOpen }) => {
   const colors = ["#adb5bd", "#dc3545"];
   const width = 30
   const height = 50
 
   const onEdit = (p: number) => {
     onModalOpen(p)
+  }
+
+  const onEdit2 = (p: number) => {
+    onClassEditModalOpen(p)
   }
 
   return (
@@ -51,6 +55,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalO
               {cellData.edit2 !== undefined ? (
                 <div>
                   <div
+                    onClick={() => onEdit2(cellData.edit2!)}
                     style={{
                       marginTop: 10,
                       display: 'flex',

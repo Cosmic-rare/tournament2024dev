@@ -9,6 +9,7 @@ import draw from '@/util/draw';
 import { notification } from 'antd';
 import axios from 'axios';
 import PointEditModal from '@/components/pointEditModal';
+import ClassEditModal from '@/components/classEditModa';
 
 export interface TournamentCellData {
   text?: string;
@@ -46,9 +47,11 @@ interface YourComponentProps {
 const App: React.FC<YourComponentProps> = ({ data1 }) => {
   const template = _.cloneDeep(data)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isClassEditModalOpen, setIsClassEditModalOpen] = useState(false)
   const [l_point, setL_point] = useState(-1)
   const [h_point, setH_point] = useState(-1)
   const [editPoint, setEditPoint] = useState(0)
+  const [editClass, setEditClass] = useState(0)
   const [d, sD] = useState(data1)
   const [cells, setCells] = useState({})
 
@@ -77,7 +80,47 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
     setIsModalOpen(true)
   }
 
+  const onClassEditModalOpen = (p: number) => {
+    setEditClass(p)
+
+    setIsClassEditModalOpen(true)
+  }
+
   const [api, contextHolder] = notification.useNotification();
+
+  const onUpdate2 = (p: number, c: number) => {
+    console.log(p, c)
+
+    setIsLoading(true)
+
+    axios.post(`/api/edit2`, { targetPosition: p, insertNumber: c, id: d.id })
+      .then(() => {
+        axios.get(`/api/match/${d.id}`)
+          .then((res) => {
+            sD(res.data);
+          })
+          .catch((err) => {
+            console.log(err)
+
+            api.error({
+              message: 'Faild to get new data',
+              description:
+                'だめですごめんなさい',
+              duration: 10,
+            });
+          })
+      })
+      .catch((err) => {
+        console.log(err)
+        api.error({
+          message: 'Faild to update',
+          description:
+            'だめですごめんなさい',
+          duration: 10,
+        });
+      })
+      .finally(() => { setIsLoading(false); setIsClassEditModalOpen(false) })
+  }
 
   const onUpdate = (p: number, l_p: number, h_p: number) => {
     if (l_p < 0 || h_p < 0) {
@@ -137,11 +180,30 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
       {contextHolder}
       <Link href="/edit">edit</Link><br />
       <Link href="/">index</Link>
-      <PointEditModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} isLoading={isLoading} onUpdate={onUpdate} editPoint={editPoint} l_point={l_point} h_point={h_point} setL_point={setL_point} setH_point={setH_point} />
+      <PointEditModal 
+        isModalOpen={isModalOpen} 
+        setIsModalOpen={setIsModalOpen} 
+        isLoading={isLoading} 
+        onUpdate={onUpdate} 
+        editPoint={editPoint} 
+        l_point={l_point} 
+        h_point={h_point} 
+        setL_point={setL_point} 
+        setH_point={setH_point}
+      />
+      <ClassEditModal 
+        isModalOpen={isClassEditModalOpen} 
+        setIsModalOpen={setIsClassEditModalOpen} 
+        isLoading={isLoading} 
+        onUpdate={onUpdate2} 
+        editPoint={editClass} 
+        gread={data1.gread}
+      />
       <div style={{ position: "relative" }}>
         <Tournament
           cells={cells}
           onModalOpen={handleOnOpenModal}
+          onClassEditModalOpen={onClassEditModalOpen}
         />
       </div>
     </div>
