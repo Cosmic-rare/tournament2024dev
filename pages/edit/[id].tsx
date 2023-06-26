@@ -1,7 +1,5 @@
-import { useSession, getSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import React, { useState, useEffect } from 'react';
-import prisma from '@/util/prisma';
-import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import data from '../data1.json';
 import _ from 'lodash'
@@ -11,6 +9,7 @@ import { notification } from 'antd';
 import axios from 'axios';
 import PointEditModal from '@/components/pointEditModal';
 import ClassEditModal from '@/components/classEditModa';
+import { useRouter } from 'next/router'
 
 export interface TournamentCellData {
   text?: string;
@@ -23,40 +22,7 @@ export interface TournamentCellData {
   edit?: number;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
-
-  let id: string
-
-  if (context.params?.id === undefined || context.params?.id === null || typeof (context.params?.id) !== 'string') {
-    id = ""
-  } else {
-    id = context.params?.id
-  }
-
-  const d = await prisma.match.findFirst({ where: { id: id } });
-
-  return {
-    props: {
-      data1: d,
-    },
-  };
-};
-
-interface YourComponentProps {
-  data1: any;
-}
-
-const App: React.FC<YourComponentProps> = ({ data1 }) => {
+const App: React.FC = () => {
   const template = _.cloneDeep(data)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isClassEditModalOpen, setIsClassEditModalOpen] = useState(false)
@@ -64,15 +30,28 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
   const [h_point, setH_point] = useState(-1)
   const [editPoint, setEditPoint] = useState(0)
   const [editClass, setEditClass] = useState(0)
-  const [d, sD] = useState(data1)
+  const [d, sD] = useState<any>(null)
   const [cells, setCells] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const { data: session } = useSession()
+  const router = useRouter()
 
   useEffect(() => {
-    setCells((p) => draw(d, template))
-    console.log("re render")
+    if (d !== null) { setCells((p) => draw(d, template)) }
   }, [d])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/api/match/${router.query.id}`);
+        sD(res.data);
+      } catch (err) {
+        notification.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10 });
+      }
+    };
+
+    if (router.query.id) { fetchData(); }
+  }, [router.query.id]);
 
   const handleOnOpenModal = (p: number) => {
     setEditPoint(p)
@@ -94,15 +73,12 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
 
   const onClassEditModalOpen = (p: number) => {
     setEditClass(p)
-
     setIsClassEditModalOpen(true)
   }
 
   const [api, contextHolder] = notification.useNotification();
 
   const onUpdate2 = (p: number, c: number) => {
-    console.log(p, c)
-
     setIsLoading(true)
 
     axios.post(`/api/edit2`, { targetPosition: p, insertNumber: c, id: d.id })
@@ -112,47 +88,22 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
             sD(res.data);
           })
           .catch((err) => {
-            console.log(err)
-
-            api.error({
-              message: 'Faild to get new data',
-              description:
-                'だめですごめんなさい',
-              duration: 10,
-            });
+            api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10 });
           })
       })
       .catch((err) => {
-        console.log(err)
-        api.error({
-          message: 'Faild to update',
-          description:
-            'だめですごめんなさい',
-          duration: 10,
-        });
+        api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10 });
       })
       .finally(() => { setIsLoading(false); setIsClassEditModalOpen(false) })
   }
 
   const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean) => {
     if ((l_p < 0 || h_p < 0) && !isReset) {
-      return api.warning({
-        message: 'Valid',
-        description:
-          'まいなすはないで',
-        duration: 10,
-      });
+      return api.warning({ message: 'Valid', description: 'まいなすはないで', duration: 10 });
     }
 
-    if (l_p === h_p) {
-      if (l_p !== -1) {
-        return api.warning({
-          message: 'Valid',
-          description:
-            'どうてん無理やで',
-          duration: 10,
-        });
-      }
+    if (l_p === h_p && l_p !== -1) {
+      return api.warning({ message: 'Valid', description: 'どうてん無理やで', duration: 10 });
     }
 
     setIsLoading(true)
@@ -164,26 +115,17 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
             sD(res.data);
           })
           .catch((err) => {
-            console.log(err)
-
-            api.error({
-              message: 'Faild to get new data',
-              description:
-                'だめですごめんなさい',
-              duration: 10,
-            });
+            api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10 });
           })
       })
       .catch((err) => {
-        console.log(err)
-        api.error({
-          message: 'Faild to update',
-          description:
-            'だめですごめんなさい',
-          duration: 10,
-        });
+        api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10 });
       })
       .finally(() => { setIsLoading(false); setIsModalOpen(false) })
+  }
+
+  if (d === null) {
+    return <div>Loading...</div>;
   }
 
   if (session) {
@@ -210,7 +152,7 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
           isLoading={isLoading} 
           onUpdate={onUpdate2} 
           editPoint={editClass} 
-          gread={data1.gread}
+          gread={d.gread}
         />
         <div style={{ position: "relative" }}>
           <Tournament
@@ -224,7 +166,7 @@ const App: React.FC<YourComponentProps> = ({ data1 }) => {
   }
   return (
     <>
-      ログインしろ
+      ログインしろorエラーやで
     </>
   )
 };
