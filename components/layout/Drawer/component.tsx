@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useTheme, styled } from '@mui/material/styles';
 import { Stack, Box } from '@mui/material';
 import SimpleBar from './SimpleBar';
+import SideBar from './sidebar';
 
 const DrawerHeaderStyled = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }: { theme: any; open: boolean }) => ({
   ...theme.mixins.toolbar,
@@ -27,17 +28,10 @@ DrawerHeader.propTypes = {
   open: PropTypes.bool
 };
 
-export const DrawerContent = () => (
+export const DrawerContent = ({ open } : { open:boolean }) => (
   <SimpleBar>
-    side
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    barrrrr
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    is
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    here
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    !!!
+    <SideBar drawerOpen={open} />
+    {/* {open ? "open" : "close"} */}
   </SimpleBar>
 );
 

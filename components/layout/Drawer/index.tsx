@@ -55,7 +55,7 @@ const MainDrawer = ({ open, handleDrawerToggle, window }: { open: boolean; handl
   const container = window !== undefined ? () => window().document.body : undefined;
 
   // header content
-  const drawerContent = useMemo(() => <DrawerContent />, []);
+  const drawerContent = useMemo(() => <DrawerContent open={open} />, [open]);
   const drawerHeader = useMemo(() => <DrawerHeader open={open} />, [open]);
 
   return (
