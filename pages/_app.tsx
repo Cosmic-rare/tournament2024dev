@@ -1,4 +1,5 @@
 import '@/styles/home.css'
+import "@/styles/scroll-bar.css"
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react';
 
