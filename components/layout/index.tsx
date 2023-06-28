@@ -10,7 +10,7 @@ import Header from './Header';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({ children, page, setPage }: { children: React.ReactNode, page: null | string, setPage: Function }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -26,7 +26,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
       <Header open={open} handleDrawerToggle={handleDrawerToggle} />
-      <Drawer open={open} handleDrawerToggle={handleDrawerToggle} />
+      <Drawer open={open} handleDrawerToggle={handleDrawerToggle} page={page} setPage={setPage} />
       <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
         <Toolbar />
         {children}

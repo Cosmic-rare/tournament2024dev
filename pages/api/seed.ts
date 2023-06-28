@@ -138,6 +138,26 @@ export default async function handler(
     //   ]
     // });
 
+    const data1 = await prisma.match.findMany({where: {gread: 1},select: {
+      id: true,
+      title: true,
+      gread: true,
+    },});
+    const data2 = await prisma.match.findMany({where: {gread: 2},select: {
+      id: true,
+      title: true,
+      gread: true,
+    },});
+    const data3 = await prisma.match.findMany({where: {gread: 3},select: {
+      id: true,
+      title: true,
+      gread: true,
+    },});
+
+    console.log(data1)
+    console.log(data2)
+    console.log(data3)
+
     res.status(200).json({ ok: true });
   } catch (error) {
     res.status(500).json({ ok: false });
