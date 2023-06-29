@@ -3,6 +3,7 @@ import { useTheme, styled } from '@mui/material/styles';
 import { Stack, Box } from '@mui/material';
 import SimpleBar from './SimpleBar';
 import SideBar from './sidebar';
+import Link from 'next/link';
 
 const DrawerHeaderStyled = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }: { theme: any; open: boolean }) => ({
   ...theme.mixins.toolbar,
@@ -18,7 +19,7 @@ export const DrawerHeader = ({ open }: { open: boolean }) => {
   return (
     <DrawerHeaderStyled theme={theme} open={open}>
       <Stack direction="row" spacing={1} alignItems="center">
-        logo
+        <Link href={"/"} style={{textDecoration: "none"}}>Tournament</Link>
       </Stack>
     </DrawerHeaderStyled>
   );
