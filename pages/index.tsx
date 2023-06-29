@@ -41,7 +41,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
   return (
     <div style={{ width: `${30 * 15}px` }}>
       <p><code>/</code></p>
-      <Link href="/edit">edit</Link>
+      <Link href="/sample">edit</Link>
       <h2>1年</h2>
       {data1.map((val, index) => {
         return (

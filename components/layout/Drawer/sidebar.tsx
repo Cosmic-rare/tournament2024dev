@@ -8,6 +8,7 @@ import MuiAccordionSummary, {
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@mui/material/styles';
+import { useSession, signOut, getSession } from "next-auth/react"
 
 const drawerWidth = 260
 
@@ -78,7 +79,7 @@ const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose }: { drawe
   const level = 1
   const theme = useTheme()
   const textColor = 'text.primary';
-  const iconSelectedColor = 'primary.main';
+  const iconSelectedColor = 'primary.main'
 
   return (
     <ListItemButton
@@ -128,6 +129,8 @@ const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose }: { drawe
 };
 
 const SideBar = ({ drawerOpen, page, setPage, onClose }: { drawerOpen: boolean, page: null | string, setPage: Function, onClose: () => void }) => {
+  const { data: session } = useSession()
+  
   return (
     <>
       <Accordion>
@@ -178,6 +181,11 @@ const SideBar = ({ drawerOpen, page, setPage, onClose }: { drawerOpen: boolean, 
           })}
         </AccordionDetails>
       </Accordion>
+      {session ? 
+      <><p style={{fontSize: 8}}>{JSON.stringify(session)}</p>
+      <button onClick={() => signOut()}>Sign out</button>
+      </>
+      : null }
     </>
   )
 }
