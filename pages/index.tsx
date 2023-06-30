@@ -21,36 +21,26 @@ export interface TournamentCellData {
 export async function getStaticProps() {
   const data1 = await prisma.match.findMany({
     where: { gread: 1 },
-    orderBy: [
-      {
-        order: 'asc',
-      },
-    ]
+    orderBy: [{order: 'asc'}]
   });
   const data2 = await prisma.match.findMany({
     where: { gread: 2 },
-    orderBy: [
-      {
-        order: 'asc',
-      },
-    ]
+    orderBy: [{order: 'asc'}]
   });
   const data3 = await prisma.match.findMany({
     where: { gread: 3 },
-    orderBy: [
-      {
-        order: 'asc',
-      },
-    ]
+    orderBy: [{order: 'asc'}]
   });
 
   return {
     props: {
-      data1: data1,
-      data2: data2,
-      data3: data3
+      data1: data1, data2: data2, data3: data3
     },
   };
+}
+
+const width = {
+  xs: 0.9, sm: 400, md: 550, lg: 550, xl: 550,
 }
 
 interface YourComponentProps {
@@ -97,15 +87,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Card
-          sx={{
-            width: {
-              xs: 0.9, // theme.breakpoints.up('xs')
-              sm: 400, // theme.breakpoints.up('sm')
-              md: 550, // theme.breakpoints.up('md')
-              lg: 550, // theme.breakpoints.up('lg')
-              xl: 550, // theme.breakpoints.up('xl')
-            },
-          }}
+          sx={{ width: width }}
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <ul>
@@ -117,15 +99,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
         <Card
-          sx={{
-            width: {
-              xs: 0.9, // theme.breakpoints.up('xs')
-              sm: 400, // theme.breakpoints.up('sm')
-              md: 550, // theme.breakpoints.up('md')
-              lg: 550, // theme.breakpoints.up('lg')
-              xl: 550, // theme.breakpoints.up('xl')
-            },
-          }}
+          sx={{ width: width }}
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <h2>1年</h2>
@@ -141,15 +115,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
         <Card
-          sx={{
-            width: {
-              xs: 0.9, // theme.breakpoints.up('xs')
-              sm: 400, // theme.breakpoints.up('sm')
-              md: 550, // theme.breakpoints.up('md')
-              lg: 550, // theme.breakpoints.up('lg')
-              xl: 550, // theme.breakpoints.up('xl')
-            },
-          }}
+          sx={{ width: width }}
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <h2>2年</h2>
@@ -165,15 +131,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
         <Card
-          sx={{
-            width: {
-              xs: 0.9, // theme.breakpoints.up('xs')
-              sm: 400, // theme.breakpoints.up('sm')
-              md: 550, // theme.breakpoints.up('md')
-              lg: 550, // theme.breakpoints.up('lg')
-              xl: 550, // theme.breakpoints.up('xl')
-            },
-          }}
+          sx={{ width: width }}
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <h2>3年</h2>
