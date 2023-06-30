@@ -40,7 +40,7 @@ export async function getStaticProps() {
 }
 
 const width = {
-  xs: 0.9, sm: 400, md: 550, lg: 550, xl: 550,
+  xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
 }
 
 interface YourComponentProps {
