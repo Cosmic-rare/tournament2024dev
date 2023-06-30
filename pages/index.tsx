@@ -60,6 +60,33 @@ interface YourComponentProps {
 }
 
 const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
+  const groupedData1 = data1.reduce((groups, item) => {
+    const { order } = item;
+    if (!groups[order]) {
+      groups[order] = [];
+    }
+    groups[order].push(item);
+    return groups;
+  }, []);
+
+  const groupedData2 = data2.reduce((groups, item) => {
+    const { order } = item;
+    if (!groups[order]) {
+      groups[order] = [];
+    }
+    groups[order].push(item);
+    return groups;
+  }, []);
+
+  const groupedData3 = data3.reduce((groups, item) => {
+    const { order } = item;
+    if (!groups[order]) {
+      groups[order] = [];
+    }
+    groups[order].push(item);
+    return groups;
+  }, []);
+
   return (
     <div>
       <Link href="/edit">edit</Link>
@@ -102,9 +129,13 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <h2>1年</h2>
-          {data1.map((val, index) => {
-            return <Main data={val} key={index} />;
-          })}
+          {groupedData1.map((group: any, index: any) => (
+            <div key={index} style={{display: "flex"}}>
+              {group.map((val: any, i: any) => {
+                return <Main data={val} key={i} />
+              })}
+            </div>
+          ))}
         </Card>
       </div>
 
@@ -122,9 +153,13 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <h2>2年</h2>
-          {data2.map((val, index) => {
-            return <Main data={val} key={index} />;
-          })}
+          {groupedData2.map((group: any, index: any) => (
+            <div key={index} style={{display: "flex"}}>
+              {group.map((val: any, i: any) => {
+                return <Main data={val} key={i} />
+              })}
+            </div>
+          ))}
         </Card>
       </div>
 
@@ -142,9 +177,13 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <h2>3年</h2>
-          {data3.map((val, index) => {
-            return <Main data={val} key={index} />;
-          })}
+          {groupedData3.map((group: any, index: any) => (
+            <div key={index} style={{display: "flex"}}>
+              {group.map((val: any, i: any) => {
+                return <Main data={val} key={i} />
+              })}
+            </div>
+          ))}
         </Card>
       </div>
 
