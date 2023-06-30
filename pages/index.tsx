@@ -14,6 +14,7 @@ export interface TournamentCellData {
   point?: string;
   edit?: number;
   edit2?: number;
+  edit2_data?: number;
 }
 
 export async function getStaticProps() {
