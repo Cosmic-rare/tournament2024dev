@@ -62,10 +62,33 @@ interface YourComponentProps {
 const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
   return (
     <div>
-      <p><code>/</code></p>
       <Link href="/edit">edit</Link>
 
       <div style={{ display: "flex", justifyContent: "center" }}>
+        <h2>トーナメント表</h2>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Card
+          sx={{
+            width: {
+              xs: 0.9, // theme.breakpoints.up('xs')
+              sm: 400, // theme.breakpoints.up('sm')
+              md: 550, // theme.breakpoints.up('md')
+              lg: 550, // theme.breakpoints.up('lg')
+              xl: 550, // theme.breakpoints.up('xl')
+            },
+          }}
+          style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
+        >
+          <ul>
+            <li>SNS等で不特定多数にシェアしないでください</li>
+            <li>不具合や間違いがあったらここから報告してください</li>
+          </ul>
+        </Card>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
         <Card
           sx={{
             width: {
