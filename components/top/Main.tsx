@@ -25,9 +25,15 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
   return (
     <div>
       <Button type="primary" onClick={showModal}>
-        {data.title} ({data.gread}年)
+        {data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}{data.title} ({data.gread}年)
       </Button>
-      <Modal title={`${data.title} (${data.gread}年)`} open={isModalOpen} onCancel={handleCancel} width={30 * 15 + 24 * 2} footer={[]}>
+      <Modal 
+        title={`${data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}${data.title} (${data.gread}年)`} 
+        open={isModalOpen} 
+        onCancel={handleCancel} 
+        width={30 * 15 + 24 * 2} 
+        footer={[]}
+      >
         <div style={{ height: `320px`, overflowX: 'scroll', position: "relative" }}>
           <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'scroll', position: "relative" }}>
             <Tournament cells={draw(data, template)} />

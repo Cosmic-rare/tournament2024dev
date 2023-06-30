@@ -11,6 +11,7 @@ model Match {
   id String @id @default(cuid()) @map("_id")
   title String
   gread Int
+  sex  Type?
 
   c_1 Int
   c_2 Int
@@ -31,4 +32,10 @@ model Match {
 type Point {
   l_p Int
   h_p Int
+}
+
+enum Type {
+  male
+  female
+  mix
 }

@@ -126,7 +126,7 @@ const Edit: React.FC = () => {
       <ThemeCustomization>
         <MainLayout page={page} setPage={setPage}>
           <div style={{ width: `${30 * 15}px` }}>
-            {d ? <h2>{d.title} ({d.gread}年)</h2> : null}
+            {d ? <h2>{d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}{d.title} ({d.gread}年)</h2> : null}
             {contextHolder}
             {d ? <><PointEditModal
               isModalOpen={isModalOpen}
