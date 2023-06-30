@@ -4,7 +4,7 @@ import data1 from '../data1.json';
 import _ from 'lodash'
 import { Modal } from 'antd';
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import { Button, FormControlLabel, Checkbox } from '@mui/material';
 
 interface YourComponentProps {
   data: any;
@@ -36,7 +36,12 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
         width={30 * 15 + 24 * 2} 
         footer={[]}
       >
-        <button onClick={() => setDisplayPoint((p: boolean) => !p)}>{displayPoint ? 'hidden point' : 'display point'}</button>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <FormControlLabel
+            control={<Checkbox checked={displayPoint} onChange={() => setDisplayPoint((p: boolean) => !p)} />}
+            label="点数表示"
+          />
+        </div>
         <div style={{ height: `320px`, overflowX: 'scroll', position: "relative" }}>
           <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'scroll', position: "relative" }}>
             <Tournament cells={draw(data, template)} displayPoint={displayPoint} />
