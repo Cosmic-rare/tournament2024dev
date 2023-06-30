@@ -11,7 +11,8 @@ model Match {
   id String @id @default(cuid()) @map("_id")
   title String
   gread Int
-  sex  Type?
+  sex  Type
+  order Int?
 
   c_1 Int
   c_2 Int

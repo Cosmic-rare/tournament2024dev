@@ -11,6 +11,7 @@ interface YourComponentProps {
 
 const Main: React.FC<YourComponentProps> = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [displayPoint, setDisplayPoint] = useState(false)
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -34,9 +35,10 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
         width={30 * 15 + 24 * 2} 
         footer={[]}
       >
+        <button onClick={() => setDisplayPoint((p: boolean) => !p)}>{displayPoint ? 'hidden point' : 'display point'}</button>
         <div style={{ height: `320px`, overflowX: 'scroll', position: "relative" }}>
           <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'scroll', position: "relative" }}>
-            <Tournament cells={draw(data, template)} />
+            <Tournament cells={draw(data, template)} displayPoint={displayPoint} />
           </div>
         </div>
       </Modal>

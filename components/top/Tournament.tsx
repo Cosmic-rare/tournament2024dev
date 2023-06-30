@@ -2,15 +2,10 @@ import axios from 'axios'
 import { TournamentCellData } from "@/pages";
 import Edit from './edit.svg'
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ cells }) => {
+const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, displayPoint: boolean }> = ({ cells, displayPoint }) => {
   const colors = ["#adb5bd", "#dc3545"];
   const width = 30
   const height = 50
-
-  const onEdit = (p: number) => {
-    console.log(p)
-    axios.get(`api/edit/${p}`).then((res) => {console.log(res.data)}).catch((err) => {console.log(err)})
-  }
 
   return (
     <>
@@ -32,7 +27,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ c
         return (
           <div key={cell} style={cellStyle}>
             <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'center', color: cellData.color ? colors[cellData.color - 1] : 'inherit', verticalAlign: "bottom" }}>
-              {cellData.point ? <span className='point'>{cellData.point}</span> : cellData.text}
+              {cellData.point && displayPoint  ? <span>{cellData.point}</span> : cellData.text}
             </div>
           </div>
         );
