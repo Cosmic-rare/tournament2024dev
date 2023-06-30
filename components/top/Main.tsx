@@ -25,8 +25,8 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
   const template = _.cloneDeep(data1)
 
   return (
-    <div style={{width: "100%"}}>
-      <Button variant="contained" onClick={showModal} sx={{width: "100%"}} style={{textTransform: 'none'}}>
+    <div style={{width: "100%", maxWidth: "50%", paddingLeft: 4, paddingRight: 4}}>
+      <Button variant="contained" onClick={showModal} sx={{width: "100%", height: 54, borderRadius: "50rem"}} style={{textTransform: 'none'}}>
         {data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}{data.title} ({data.gread}年)
       </Button>
       <Modal 

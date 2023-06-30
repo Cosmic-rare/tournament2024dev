@@ -130,7 +130,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
         >
           <h2>1年</h2>
           {groupedData1.map((group: any, index: any) => (
-            <div key={index} style={{display: "flex"}}>
+            <div key={index} style={{display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4}}>
               {group.map((val: any, i: any) => {
                 return <Main data={val} key={i} />
               })}
@@ -154,7 +154,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
         >
           <h2>2年</h2>
           {groupedData2.map((group: any, index: any) => (
-            <div key={index} style={{display: "flex"}}>
+            <div key={index} style={{display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4}}>
               {group.map((val: any, i: any) => {
                 return <Main data={val} key={i} />
               })}
@@ -178,7 +178,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
         >
           <h2>3年</h2>
           {groupedData3.map((group: any, index: any) => (
-            <div key={index} style={{display: "flex"}}>
+            <div key={index} style={{display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4}}>
               {group.map((val: any, i: any) => {
                 return <Main data={val} key={i} />
               })}
