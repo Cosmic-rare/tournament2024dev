@@ -122,13 +122,14 @@ const Edit: React.FC = () => {
     if (page) { fetchData(); }
   }, [page]);
 
-    return (
-      <ThemeCustomization>
-        <MainLayout page={page} setPage={setPage}>
+  return (
+    <ThemeCustomization>
+      <MainLayout page={page} setPage={setPage}>
+        {d ?
           <div style={{ width: `${30 * 15}px` }}>
-            {d ? <h2>{d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}{d.title} ({d.gread}年)</h2> : null}
+            <h3>{d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}{d.title} ({d.gread}年)</h3>
             {contextHolder}
-            {d ? <><PointEditModal
+            <PointEditModal
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
               isLoading={isLoading}
@@ -146,7 +147,7 @@ const Edit: React.FC = () => {
               onUpdate={onUpdate2}
               editPoint={editClass}
               gread={d.gread}
-            /></> : null}
+            />
             <div style={{ position: "relative" }}>
               <Tournament
                 cells={cells}
@@ -155,9 +156,12 @@ const Edit: React.FC = () => {
               />
             </div>
           </div>
-        </MainLayout>
-      </ThemeCustomization>
-    );
+          :
+          <h4>編集するクラスを選択</h4>
+        }
+      </MainLayout>
+    </ThemeCustomization>
+  );
 
 };
 
