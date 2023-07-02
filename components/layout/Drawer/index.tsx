@@ -48,7 +48,7 @@ const MiniDrawerStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !== 
   };
 });
 
-const MainDrawer = ({ open, handleDrawerToggle, window, page, setPage, sidebarData }: { open: boolean; handleDrawerToggle: () => void; window: any, page: null | string, setPage: Function, sidebarData: dataType | null }) => {
+const MainDrawer = ({ open, handleDrawerToggle, window, page, setPage, sidebarData, isMobile }: { open: boolean; handleDrawerToggle: () => void; window: any, page: null | string, setPage: Function, sidebarData: dataType | null, isMobile: boolean }) => {
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -56,7 +56,7 @@ const MainDrawer = ({ open, handleDrawerToggle, window, page, setPage, sidebarDa
   const container = window !== undefined ? () => window().document.body : undefined;
 
   // header content
-  const drawerContent = useMemo(() => <DrawerContent open={open}  page={page} setPage={setPage} onClose={handleDrawerToggle} sidebarData={sidebarData} />, [open, page, setPage, sidebarData]);
+  const drawerContent = useMemo(() => <DrawerContent open={open}  page={page} setPage={setPage} onClose={handleDrawerToggle} sidebarData={sidebarData} isMobile={isMobile} />, [open, page, setPage, sidebarData, isMobile]);
   const drawerHeader = useMemo(() => <DrawerHeader open={open} />, [open]);
 
   return (

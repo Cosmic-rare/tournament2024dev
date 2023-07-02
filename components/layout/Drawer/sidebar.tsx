@@ -107,8 +107,14 @@ const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose, sex }: { 
 
 
 
-const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOpen: boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType | null }) => {
+const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData, isMobile }: { drawerOpen: boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType | null, isMobile: boolean }) => {
   const { data: session } = useSession()
+
+  const onHandleClone = () => {
+    if (isMobile) {
+      onClose()
+    }
+  }
 
   return (
     <>
@@ -130,7 +136,7 @@ const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOp
             <AccordionDetails>
               {sidebarData.data1.map((val: any, index: number) => {
                 return (
-                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
+                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onHandleClone} />
                 )
               })}
             </AccordionDetails>
@@ -146,7 +152,7 @@ const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOp
             <AccordionDetails>
               {sidebarData.data2.map((val: any, index: number) => {
                 return (
-                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
+                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onHandleClone} />
                 )
               })}
             </AccordionDetails>
@@ -162,7 +168,7 @@ const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOp
             <AccordionDetails>
               {sidebarData.data3.map((val: any, index: number) => {
                 return (
-                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
+                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onHandleClone} />
                 )
               })}
             </AccordionDetails>

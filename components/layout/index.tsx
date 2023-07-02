@@ -17,7 +17,9 @@ const MainLayout = ({ children, page, setPage, sidebarData }: { children: React.
 
   const [open, setOpen] = useState(false);
   const handleDrawerToggle = () => {
-    setOpen(!open);
+    if (matchDownLG) {
+      setOpen(!open);
+    }
   };
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const MainLayout = ({ children, page, setPage, sidebarData }: { children: React.
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
       <Header open={open} handleDrawerToggle={handleDrawerToggle} />
-      <Drawer open={open} handleDrawerToggle={handleDrawerToggle} page={page} setPage={setPage} sidebarData={sidebarData} />
+      <Drawer open={open} handleDrawerToggle={handleDrawerToggle} page={page} setPage={setPage} sidebarData={sidebarData} isMobile={matchDownLG} />
       <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
         <Toolbar />
         {children}
