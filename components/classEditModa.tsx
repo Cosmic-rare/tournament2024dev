@@ -1,6 +1,7 @@
-import { Modal, Radio, Space, Row, Col, Button, Spin, Card } from 'antd';
+import { Modal, Radio, Space, Button } from 'antd';
 import React, { useState, useEffect } from 'react';
 import type { RadioChangeEvent } from 'antd';
+import { CircularProgress, Backdrop } from '@mui/material';
 
 interface YourComponentProps {
   isModalOpen: boolean
@@ -29,10 +30,11 @@ const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
       open={isModalOpen}
       closable={false}
       onCancel={() => setIsModalOpen(false)}
+      zIndex={9998}
       footer={[
-        <Button 
-          key="cancel" 
-          disabled={isLoading} 
+        <Button
+          key="cancel"
+          disabled={isLoading}
           onClick={() => setIsModalOpen(false)}
         >
           Cancel
@@ -49,13 +51,12 @@ const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
       ]}
     >
       <div style={{ position: "relative" }}>
-        {isLoading ?
-          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 100 }}>
-            <Card style={{}} >
-              <Spin />
-            </Card>
-          </div>
-          : null}
+        <Backdrop
+          sx={{ color: '#fff', zIndex: 99999 }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <div>
           <Radio.Group onChange={onChange} value={value}>
             <Space direction="vertical">

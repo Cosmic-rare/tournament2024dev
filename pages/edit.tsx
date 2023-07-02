@@ -154,51 +154,56 @@ const Edit: React.FC = () => {
 
 
   return (
-    <ThemeCustomization>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <MainLayout page={page} setPage={setPage} sidebarData={sidebarData}>
-        {d ?
-          <div style={{ width: `${30 * 15}px` }}>
-            <h3>{d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}{d.title} ({d.gread}年)</h3>
-            {contextHolder}
-            <PointEditModal
-              isModalOpen={isModalOpen}
-              setIsModalOpen={setIsModalOpen}
-              isLoading={isLoading}
-              onUpdate={onUpdate}
-              editPoint={editPoint}
-              l_point={l_point}
-              h_point={h_point}
-              setL_point={setL_point}
-              setH_point={setH_point}
-            />
-            <ClassEditModal
-              isModalOpen={isClassEditModalOpen}
-              setIsModalOpen={setIsClassEditModalOpen}
-              isLoading={isLoading}
-              onUpdate={onUpdate2}
-              editPoint={editClassPosition}
-              gread={d.gread}
-              defaultClass={editClass}
-            />
-            <div style={{ position: "relative" }}>
-              <Tournament
-                data={d}
-                onModalOpen={handleOnOpenModal}
-                onClassEditModalOpen={onClassEditModalOpen}
-              />
-            </div>
-          </div>
+    <>
+    {d ? <>
+          <PointEditModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            isLoading={isLoading}
+            onUpdate={onUpdate}
+            editPoint={editPoint}
+            l_point={l_point}
+            h_point={h_point}
+            setL_point={setL_point}
+            setH_point={setH_point}
+          />
+          <ClassEditModal
+            isModalOpen={isClassEditModalOpen}
+            setIsModalOpen={setIsClassEditModalOpen}
+            isLoading={isLoading}
+            onUpdate={onUpdate2}
+            editPoint={editClassPosition}
+            gread={d.gread}
+            defaultClass={editClass}
+          /></>
           :
-          <h4>編集するクラスを選択</h4>
-        }
-      </MainLayout>
-    </ThemeCustomization>
+          null}
+      <ThemeCustomization>
+        <Backdrop
+          sx={{ color: '#fff', zIndex: 99999 }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <MainLayout page={page} setPage={setPage} sidebarData={sidebarData}>
+          {d ?
+            <div style={{ width: `${30 * 15}px` }}>
+              <h3>{d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}{d.title} ({d.gread}年)</h3>
+              {contextHolder}
+              <div style={{ position: "relative" }}>
+                <Tournament
+                  data={d}
+                  onModalOpen={handleOnOpenModal}
+                  onClassEditModalOpen={onClassEditModalOpen}
+                />
+              </div>
+            </div>
+            :
+            <h4>編集するクラスを選択</h4>
+          }
+        </MainLayout>
+      </ThemeCustomization>
+    </>
   );
 
 };

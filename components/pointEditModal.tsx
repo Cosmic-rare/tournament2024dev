@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, Input, Row, Col, Button, Spin, Card } from 'antd';
+import { Modal, Input, Row, Col, Button } from 'antd';
+import { CircularProgress, Backdrop } from '@mui/material';
 
 interface YourComponentProps {
   isModalOpen: boolean
@@ -19,6 +20,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
     <Modal
       open={isModalOpen}
       closable={false}
+      zIndex={9998}
       onCancel={() => setIsModalOpen(false)}
       footer={[
         <Button key="cancel" disabled={isLoading} onClick={() => setIsModalOpen(false)}>Cancel</Button>,
@@ -43,13 +45,12 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
       ]}
     >
       <div style={{ position: "relative" }}>
-        {isLoading ?
-          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 100 }}>
-            <Card style={{}} >
-              <Spin />
-            </Card>
-          </div>
-          : null}
+        <Backdrop
+          sx={{ color: '#fff', zIndex: 99999 }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <div>
           <Row gutter={16} justify="center">
             <Col span={5}>
