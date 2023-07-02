@@ -1,17 +1,24 @@
-import { TournamentCellData } from "@/pages";
 import Edit from '../edit.svg'
+import cellTemplate from '../data1.json';
+import draw from "@/util/draw";
+import _ from "lodash";
+import { TournamentCellData } from '@/pages';
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalOpen: Function, onClassEditModalOpen: Function }> = ({ cells, onModalOpen, onClassEditModalOpen }) => {
+const Tournament: React.FC<{ data: any, onModalOpen: Function, onClassEditModalOpen: Function }> = ({ data, onModalOpen, onClassEditModalOpen }) => {
   const colors = ["#adb5bd", "#dc3545"];
   const width = 30
   const height = 50
+
+  const template = _.cloneDeep(cellTemplate)
+
+  const cells: Array<TournamentCellData> = draw(data, template)
 
   const onEdit = (p: number) => {
     onModalOpen(p)
   }
 
-  const onEdit2 = (p: number) => {
-    onClassEditModalOpen(p)
+  const onEdit2 = (p: number, d: number) => {
+    onClassEditModalOpen(p, d)
   }
 
   return (
@@ -55,7 +62,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalO
               {cellData.edit2 !== undefined ? (
                 <div>
                   <div
-                    onClick={() => onEdit2(cellData.edit2!)}
+                    onClick={() => onEdit2(cellData.edit2!, cellData.edit2_data!)}
                     style={{
                       marginTop: 10,
                       display: 'flex',

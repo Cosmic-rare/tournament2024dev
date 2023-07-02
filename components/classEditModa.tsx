@@ -9,14 +9,15 @@ interface YourComponentProps {
   onUpdate: Function
   editPoint: number
   gread: number
+  defaultClass: number
 }
 
-const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, gread }) => {
-  const [value, setValue] = useState(editPoint);
+const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, gread, defaultClass }) => {
+  const [value, setValue] = useState(defaultClass);
 
   useEffect(() => {
-    setValue(editPoint)
-  }, [editPoint])
+    setValue(defaultClass)
+  }, [defaultClass])
 
   const onChange = (e: RadioChangeEvent) => {
     console.log('radio checked', e.target.value);

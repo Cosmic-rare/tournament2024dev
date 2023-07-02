@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import data from './data1.json';
 import _ from 'lodash'
 import Tournament from '@/components/edit/EditTournament';
-import draw from '@/util/draw';
 import { notification } from 'antd';
 import axios from 'axios';
 import PointEditModal from '@/components/pointEditModal';
@@ -23,22 +20,17 @@ export interface TournamentCellData {
 }
 
 const Edit: React.FC = () => {
-  const template = _.cloneDeep(data)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isClassEditModalOpen, setIsClassEditModalOpen] = useState(false)
   const [api, contextHolder] = notification.useNotification();
   const [l_point, setL_point] = useState(-1)
   const [h_point, setH_point] = useState(-1)
   const [editPoint, setEditPoint] = useState(0)
+  const [editClassPosition, setEditClassPosition] = useState(0)
   const [editClass, setEditClass] = useState(0)
   const [d, sD] = useState<any>(null)
-  const [cells, setCells] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(null)
-
-  useEffect(() => {
-    if (d !== null) { setCells((p) => draw(d, template)) }
-  }, [d])
 
   const handleOnOpenModal = (p: number) => {
     setEditPoint(p)
@@ -58,8 +50,9 @@ const Edit: React.FC = () => {
     setIsModalOpen(true)
   }
 
-  const onClassEditModalOpen = (p: number) => {
-    setEditClass(p)
+  const onClassEditModalOpen = (p: number, d: number) => {
+    setEditClassPosition(p)
+    setEditClass(d)
     setIsClassEditModalOpen(true)
   }
 
@@ -140,17 +133,18 @@ const Edit: React.FC = () => {
               setL_point={setL_point}
               setH_point={setH_point}
             />
-            <ClassEditModal
+           <ClassEditModal
               isModalOpen={isClassEditModalOpen}
               setIsModalOpen={setIsClassEditModalOpen}
               isLoading={isLoading}
               onUpdate={onUpdate2}
-              editPoint={editClass}
+              editPoint={editClassPosition}
               gread={d.gread}
-            />
+              defaultClass={editClass}
+            /> 
             <div style={{ position: "relative" }}>
               <Tournament
-                cells={cells}
+                data={d}
                 onModalOpen={handleOnOpenModal}
                 onClassEditModalOpen={onClassEditModalOpen}
               />
