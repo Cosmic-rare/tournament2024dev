@@ -5,13 +5,12 @@ import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from '@mui/material/AccordionSummary';
-import { notification } from 'antd';
-import axios from 'axios';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@mui/material/styles';
 import { useSession, signOut, getSession } from "next-auth/react"
 import { useEffect, useState } from 'react';
+import { dataType } from '@/pages/edit';
 
 const drawerWidth = 260
 
@@ -102,38 +101,13 @@ const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose, sex }: { 
   )
 };
 
-interface dataType {
-  data1: Array<any>
-  data2: Array<any>
-  data3: Array<any>
-}
 
-const SideBar = ({ drawerOpen, page, setPage, onClose }: { drawerOpen: boolean, page: null | string, setPage: Function, onClose: () => void }) => {
+
+const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOpen: boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType }) => {
   const { data: session } = useSession()
-  const [api, contextHolder] = notification.useNotification();
-  const [data, setData] = useState<dataType | null>(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`/api/get`);
-        setData(res.data)
-        
-      } catch (err) {
-        api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
-      }
-    };
-
-    fetchData()
-  }, []);
-  
-  if (!data) {
-    return <></>
-  }
 
   return (
     <>
-      {contextHolder}
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -143,7 +117,7 @@ const SideBar = ({ drawerOpen, page, setPage, onClose }: { drawerOpen: boolean, 
           <Typography>1年</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {data.data1.map((val, index) => {
+          {sidebarData.data1.map((val: any, index: number) => {
             return (
               <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
             )
@@ -159,7 +133,7 @@ const SideBar = ({ drawerOpen, page, setPage, onClose }: { drawerOpen: boolean, 
           <Typography>2年</Typography>
         </AccordionSummary>
         <AccordionDetails>
-        {data.data2.map((val, index) => {
+        {sidebarData.data2.map((val: any, index: number) => {
             return (
               <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
             )
@@ -175,7 +149,7 @@ const SideBar = ({ drawerOpen, page, setPage, onClose }: { drawerOpen: boolean, 
           <Typography>3年</Typography>
         </AccordionSummary>
         <AccordionDetails>
-        {data.data3.map((val, index) => {
+        {sidebarData.data3.map((val: any, index: number) => {
             return (
               <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
             )

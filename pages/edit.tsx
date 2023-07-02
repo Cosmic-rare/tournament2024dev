@@ -19,6 +19,12 @@ export interface TournamentCellData {
   edit?: number;
 }
 
+export interface dataType {
+  data1: Array<any>
+  data2: Array<any>
+  data3: Array<any>
+}
+
 const Edit: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isClassEditModalOpen, setIsClassEditModalOpen] = useState(false)
@@ -31,6 +37,7 @@ const Edit: React.FC = () => {
   const [d, sD] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(null)
+  const [sidebarData, setSidebarData] = useState<dataType | null>(null)
 
   const handleOnOpenModal = (p: number) => {
     setEditPoint(p)
@@ -115,9 +122,25 @@ const Edit: React.FC = () => {
     if (page) { fetchData(); }
   }, [page]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/api/get`);
+        setSidebarData(res.data)
+        
+      } catch (err) {
+        api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+      }
+    };
+
+    fetchData()
+  }, []);
+
+
   return (
     <ThemeCustomization>
-      <MainLayout page={page} setPage={setPage}>
+      {sidebarData ?
+      <MainLayout page={page} setPage={setPage} sidebarData={sidebarData}>
         {d ?
           <div style={{ width: `${30 * 15}px` }}>
             <h3>{d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}{d.title} ({d.gread}年)</h3>
@@ -154,6 +177,8 @@ const Edit: React.FC = () => {
           <h4>編集するクラスを選択</h4>
         }
       </MainLayout>
+      :
+      null}
     </ThemeCustomization>
   );
 

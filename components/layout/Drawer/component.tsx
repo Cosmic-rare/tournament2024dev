@@ -4,6 +4,7 @@ import { Stack, Box } from '@mui/material';
 import SimpleBar from './SimpleBar';
 import SideBar from './sidebar';
 import Link from 'next/link';
+import { dataType } from '@/pages/edit';
 
 const DrawerHeaderStyled = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }: { theme: any; open: boolean }) => ({
   ...theme.mixins.toolbar,
@@ -29,9 +30,9 @@ DrawerHeader.propTypes = {
   open: PropTypes.bool
 };
 
-export const DrawerContent = ({ open, page, setPage, onClose } : { open:boolean, page: null | string, setPage: Function, onClose: () => void }) => (
+export const DrawerContent = ({ open, page, setPage, onClose, sidebarData } : { open:boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType }) => (
   <SimpleBar>
-    <SideBar drawerOpen={open} page={page} setPage={setPage} onClose={onClose} />
+    <SideBar drawerOpen={open} page={page} setPage={setPage} onClose={onClose} sidebarData={sidebarData} />
   </SimpleBar>
 );
 

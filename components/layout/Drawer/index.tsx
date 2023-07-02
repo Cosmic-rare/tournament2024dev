@@ -7,6 +7,7 @@ import { Box, Drawer, useMediaQuery } from '@mui/material';
 
 // project import
 import { DrawerHeader, DrawerContent } from './component';
+import { dataType } from '@/pages/edit';
 
 // project import
 const drawerWidth = 260
@@ -47,7 +48,7 @@ const MiniDrawerStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !== 
   };
 });
 
-const MainDrawer = ({ open, handleDrawerToggle, window, page, setPage }: { open: boolean; handleDrawerToggle: () => void; window: any, page: null | string, setPage: Function }) => {
+const MainDrawer = ({ open, handleDrawerToggle, window, page, setPage, sidebarData }: { open: boolean; handleDrawerToggle: () => void; window: any, page: null | string, setPage: Function, sidebarData: dataType }) => {
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -55,7 +56,7 @@ const MainDrawer = ({ open, handleDrawerToggle, window, page, setPage }: { open:
   const container = window !== undefined ? () => window().document.body : undefined;
 
   // header content
-  const drawerContent = useMemo(() => <DrawerContent open={open}  page={page} setPage={setPage} onClose={handleDrawerToggle} />, [open, page, setPage]);
+  const drawerContent = useMemo(() => <DrawerContent open={open}  page={page} setPage={setPage} onClose={handleDrawerToggle} sidebarData={sidebarData} />, [open, page, setPage, sidebarData]);
   const drawerHeader = useMemo(() => <DrawerHeader open={open} />, [open]);
 
   return (
