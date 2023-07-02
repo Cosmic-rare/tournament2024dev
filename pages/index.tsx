@@ -130,7 +130,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
         </Card>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 24, marginBottom: 36 }}>
         <Card
           sx={{ width: width }}
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
