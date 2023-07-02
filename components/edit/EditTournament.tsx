@@ -55,7 +55,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, onModalO
               {cellData.edit2 !== undefined ? (
                 <div>
                   <div
-                    onClick={() => onEdit2(cellData.edit2_data!)}
+                    onClick={() => onEdit2(cellData.edit2!)}
                     style={{
                       marginTop: 10,
                       display: 'flex',
