@@ -8,6 +8,8 @@ import ClassEditModal from '@/components/classEditModa';
 import ThemeCustomization from "@/components/theme";
 import MainLayout from "@/components/layout";
 import { CircularProgress, Backdrop } from '@mui/material';
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export interface TournamentCellData {
   text?: string;
@@ -39,7 +41,14 @@ const Edit: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(null)
   const [sidebarData, setSidebarData] = useState<dataType | null>(null)
+  const router = useRouter()
 
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/api/auth/signin");
+    },
+  })
   const handleOnOpenModal = (p: number) => {
     setEditPoint(p)
 

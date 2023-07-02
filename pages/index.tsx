@@ -79,9 +79,6 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
 
   return (
     <div>
-      <Link href="/edit">edit</Link>
-      <button onClick={() => signIn()}>Sign in</button>
-
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h2>トーナメント表</h2>
       </div>
