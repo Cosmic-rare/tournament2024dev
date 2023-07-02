@@ -1,4 +1,4 @@
-import { ListItemButton, ListItemText, Typography } from '@mui/material'
+import { ListItemButton, ListItemText, Typography, Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
@@ -17,12 +17,16 @@ const drawerWidth = 260
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
+  // borderTop: `1px solid ${theme.palette.divider}`,
+  // borderBottom: `1px solid ${theme.palette.divider}`,
   '&:not(:last-child)': {
     borderBottom: 0,
   },
   '&:before': {
     display: 'none',
+  },
+  '&:hover': {
+    bgcolor: 'primary.lighter'
   },
 }));
 
@@ -44,7 +48,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: 0,
-  borderTop: '1px solid rgba(0, 0, 0, .125)',
+  // borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
 const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose, sex }: { drawerOpen: boolean, id: string, gread: number, title: string, setPage: Function, onClose: () => void, sex: string }) => {
@@ -110,6 +114,11 @@ const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOp
     <>
       {sidebarData ?
         <>
+          <Box sx={{ pl: 3, mb: 1.5, mt: 2.5 }} >
+            <Typography variant="subtitle2" color="textSecondary">
+              試合
+            </Typography>
+          </Box>
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -158,6 +167,12 @@ const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOp
               })}
             </AccordionDetails>
           </Accordion>
+          <Accordion><></></Accordion>
+          <Box sx={{ pl: 3, mb: 1.5, mt: 2.5 }}>
+            <Typography variant="subtitle2" color="textSecondary">
+              ユーザー情報
+            </Typography>
+          </Box>
           {session ?
             <><p style={{ fontSize: 8 }}>{JSON.stringify(session)}</p>
               <button onClick={() => signOut()}>Sign out</button>

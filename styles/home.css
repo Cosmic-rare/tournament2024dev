@@ -28,3 +28,7 @@ body {
 .blur-background {
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+.MuiAccordionSummary-root:hover{
+  background-color: #e6f4ff;
+  }

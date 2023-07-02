@@ -11,7 +11,8 @@ const DrawerHeaderStyled = styled(Box, { shouldForwardProp: (prop) => prop !== '
   display: 'flex',
   alignItems: 'center',
   justifyContent: open ? 'flex-start' : 'center',
-  paddingLeft: theme.spacing(open ? 3 : 0)
+  paddingLeft: theme.spacing(open ? 3 : 0),
+  borderBottom: `1px solid ${theme.palette.divider}`
 }));
 
 export const DrawerHeader = ({ open }: { open: boolean }) => {
@@ -20,7 +21,7 @@ export const DrawerHeader = ({ open }: { open: boolean }) => {
   return (
     <DrawerHeaderStyled theme={theme} open={open}>
       <Stack direction="row" spacing={1} alignItems="center">
-        <Link href={"/"} style={{textDecoration: "none"}}>Tournament</Link>
+        <Link href={"/"} style={{textDecoration: "none", fontSize: "1.18rem" }}>Tournament</Link>
       </Stack>
     </DrawerHeaderStyled>
   );
