@@ -11,7 +11,7 @@ import { dataType } from '@/pages/edit';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-const MainLayout = ({ children, page, setPage, sidebarData }: { children: React.ReactNode, page: null | string, setPage: Function, sidebarData: dataType }) => {
+const MainLayout = ({ children, page, setPage, sidebarData }: { children: React.ReactNode, page: null | string, setPage: Function, sidebarData: dataType | null }) => {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
 

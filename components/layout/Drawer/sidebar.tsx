@@ -56,7 +56,7 @@ const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose, sex }: { 
 
   return (
     <ListItemButton
-      onClick={() => {setPage(id); onClose()}}
+      onClick={() => { setPage(id); onClose() }}
       selected={isSelected}
       sx={{
         zIndex: 1201,
@@ -103,64 +103,70 @@ const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose, sex }: { 
 
 
 
-const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOpen: boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType }) => {
+const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOpen: boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType | null }) => {
   const { data: session } = useSession()
 
   return (
     <>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>1年</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          {sidebarData.data1.map((val: any, index: number) => {
-            return (
-              <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
-            )
-          })}
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography>2年</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-        {sidebarData.data2.map((val: any, index: number) => {
-            return (
-              <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
-            )
-          })}
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3a-content"
-          id="panel3a-header"
-        >
-          <Typography>3年</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-        {sidebarData.data3.map((val: any, index: number) => {
-            return (
-              <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
-            )
-          })}
-        </AccordionDetails>
-      </Accordion>
-      {session ? 
-      <><p style={{fontSize: 8}}>{JSON.stringify(session)}</p>
-      <button onClick={() => signOut()}>Sign out</button>
-      </>
-      : null }
+      {sidebarData ?
+        <>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>1年</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {sidebarData.data1.map((val: any, index: number) => {
+                return (
+                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
+                )
+              })}
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>2年</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {sidebarData.data2.map((val: any, index: number) => {
+                return (
+                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
+                )
+              })}
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel3a-content"
+              id="panel3a-header"
+            >
+              <Typography>3年</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {sidebarData.data3.map((val: any, index: number) => {
+                return (
+                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onClose} />
+                )
+              })}
+            </AccordionDetails>
+          </Accordion>
+          {session ?
+            <><p style={{ fontSize: 8 }}>{JSON.stringify(session)}</p>
+              <button onClick={() => signOut()}>Sign out</button>
+            </>
+            :
+            null}
+        </>
+        :
+        null}
     </>
   )
 }

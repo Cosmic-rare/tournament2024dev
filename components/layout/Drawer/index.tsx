@@ -48,7 +48,7 @@ const MiniDrawerStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !== 
   };
 });
 
-const MainDrawer = ({ open, handleDrawerToggle, window, page, setPage, sidebarData }: { open: boolean; handleDrawerToggle: () => void; window: any, page: null | string, setPage: Function, sidebarData: dataType }) => {
+const MainDrawer = ({ open, handleDrawerToggle, window, page, setPage, sidebarData }: { open: boolean; handleDrawerToggle: () => void; window: any, page: null | string, setPage: Function, sidebarData: dataType | null }) => {
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 

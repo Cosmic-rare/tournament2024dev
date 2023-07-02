@@ -30,7 +30,7 @@ DrawerHeader.propTypes = {
   open: PropTypes.bool
 };
 
-export const DrawerContent = ({ open, page, setPage, onClose, sidebarData } : { open:boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType }) => (
+export const DrawerContent = ({ open, page, setPage, onClose, sidebarData } : { open:boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType | null }) => (
   <SimpleBar>
     <SideBar drawerOpen={open} page={page} setPage={setPage} onClose={onClose} sidebarData={sidebarData} />
   </SimpleBar>

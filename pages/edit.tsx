@@ -127,7 +127,7 @@ const Edit: React.FC = () => {
       try {
         const res = await axios.get(`/api/get`);
         setSidebarData(res.data)
-        
+
       } catch (err) {
         api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
       }
@@ -139,7 +139,6 @@ const Edit: React.FC = () => {
 
   return (
     <ThemeCustomization>
-      {sidebarData ?
       <MainLayout page={page} setPage={setPage} sidebarData={sidebarData}>
         {d ?
           <div style={{ width: `${30 * 15}px` }}>
@@ -156,7 +155,7 @@ const Edit: React.FC = () => {
               setL_point={setL_point}
               setH_point={setH_point}
             />
-           <ClassEditModal
+            <ClassEditModal
               isModalOpen={isClassEditModalOpen}
               setIsModalOpen={setIsClassEditModalOpen}
               isLoading={isLoading}
@@ -164,7 +163,7 @@ const Edit: React.FC = () => {
               editPoint={editClassPosition}
               gread={d.gread}
               defaultClass={editClass}
-            /> 
+            />
             <div style={{ position: "relative" }}>
               <Tournament
                 data={d}
@@ -177,8 +176,6 @@ const Edit: React.FC = () => {
           <h4>編集するクラスを選択</h4>
         }
       </MainLayout>
-      :
-      null}
     </ThemeCustomization>
   );
 
