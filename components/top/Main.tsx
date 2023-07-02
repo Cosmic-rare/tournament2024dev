@@ -26,7 +26,7 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
 
   return (
     <div style={{width: "100%", maxWidth: "50%", paddingLeft: 4, paddingRight: 4}}>
-      <Button variant="contained" onClick={showModal} sx={{width: "100%", height: 54, borderRadius: "50rem"}} style={{textTransform: 'none', backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#bdbdbd"}}>
+      <Button variant="contained" onClick={showModal} sx={{width: "100%", height: 54, borderRadius: "50rem"}} style={{textTransform: 'none', backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#8BC34A"}}>
         {data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}{data.title}
       </Button>
       <Modal 
