@@ -7,6 +7,7 @@ import PointEditModal from '@/components/pointEditModal';
 import ClassEditModal from '@/components/classEditModa';
 import ThemeCustomization from "@/components/theme";
 import MainLayout from "@/components/layout";
+import { CircularProgress, Backdrop } from '@mui/material';
 
 export interface TournamentCellData {
   text?: string;
@@ -112,10 +113,13 @@ const Edit: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true)
         const res = await axios.get(`/api/match/${page}`);
         sD(res.data);
       } catch (err) {
         api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+      } finally {
+        setIsLoading(false)
       }
     };
 
@@ -125,11 +129,14 @@ const Edit: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true)
         const res = await axios.get(`/api/get`);
         setSidebarData(res.data)
 
       } catch (err) {
         api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+      } finally {
+        setIsLoading(false)
       }
     };
 
@@ -139,6 +146,12 @@ const Edit: React.FC = () => {
 
   return (
     <ThemeCustomization>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <MainLayout page={page} setPage={setPage} sidebarData={sidebarData}>
         {d ?
           <div style={{ width: `${30 * 15}px` }}>
