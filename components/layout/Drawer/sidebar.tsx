@@ -1,4 +1,4 @@
-import { ListItemButton, ListItemText, Typography, Box } from '@mui/material'
+import { ListItemButton, ListItemText, Typography, Box, Button } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
@@ -167,16 +167,10 @@ const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData }: { drawerOp
               })}
             </AccordionDetails>
           </Accordion>
-          <Accordion><></></Accordion>
-          <Box sx={{ pl: 3, mb: 1.5, mt: 2.5 }}>
-            <Typography variant="subtitle2" color="textSecondary">
-              ユーザー情報
-            </Typography>
-          </Box>
+          
+          <Box sx={{ pl: 3, mb: 1.5, mt: 2 }} />
           {session ?
-            <><p style={{ fontSize: 8 }}>{JSON.stringify(session)}</p>
-              <button onClick={() => signOut()}>Sign out</button>
-            </>
+            <Button variant="contained" sx={{width: "70%", height: 44, borderRadius: "50rem", mx: "15%", mb: 10}} style={{textTransform: 'none' }} onClick={() => signOut()}>Logout</Button>
             :
             null}
         </>
