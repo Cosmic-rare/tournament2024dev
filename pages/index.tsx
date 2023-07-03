@@ -90,7 +90,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
         >
           <ul>
             <li>SNS等で不特定多数にシェアしないでください</li>
-            <li>不具合や間違いがあったらここから報告してください</li>
+            <li>各種目をクリックするとトーナメントが開きます</li>
           </ul>
         </Card>
       </div>
