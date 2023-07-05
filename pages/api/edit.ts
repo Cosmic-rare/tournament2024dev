@@ -12,7 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { id, p, l_p, h_p, l_p2, h_p2 } = req.body
+  let { id, p, l_p, h_p, l_p2, h_p2 } = req.body
 
   try {
     await serverAuth(req, res);
@@ -46,15 +46,23 @@ export default async function handler(
           }
         }
       })
+
+      await res.revalidate('/')
+
+      return res.status(200).end()
     }
 
+    l_p2 = -1
+    h_p2 = -1
     await prisma.match.update({
       where: { id },
       data: {
         [`p_${p}`]: {
           update: {
             l_p,
-            h_p
+            h_p,
+            l_p2,
+            h_p2
           }
         }
       }
@@ -62,7 +70,7 @@ export default async function handler(
     
     await res.revalidate('/')
 
-    res.status(200).end()
+    return res.status(200).end()
   } catch (error) {
     console.error(error)
     res.status(500).end()

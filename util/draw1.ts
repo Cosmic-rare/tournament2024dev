@@ -136,31 +136,46 @@ const draw1 = (r: any, c: any) => {
   }
 
   if (r.p_2.l_p !== -1 && r.p_2.h_p !== -1) {
-    if (r.p_2.l_p === r.p_2.h_p) {}
+    if (r.p_2.l_p === r.p_2.h_p) {
+      c['4_1'] = { ...c['4_1'], 'point': r.p_1.l_p, 'point2': r.p_1.l_p2 }
+      c['7_1'] = { ...c['7_1'], 'point': r.p_1.h_p, 'point2': r.p_1.h_p2 }  
+    }
     c['4_1'] = { ...c['4_1'], 'point': r.p_2.l_p }
     c['7_1'] = { ...c['7_1'], 'point': r.p_2.h_p }
   }
 
   if (r.p_3.l_p !== -1 && r.p_3.h_p !== -1) {
-    if (r.p_3.l_p === r.p_3.h_p) {}
+    if (r.p_3.l_p === r.p_3.h_p) {
+      c['8_1'] = { ...c['8_1'], 'point': r.p_1.l_p, 'point2': r.p_1.l_p2 }
+      c['11_1'] = { ...c['11_1'], 'point': r.p_1.h_p, 'point2': r.p_1.h_p2 }  
+    }
     c['8_1'] = { ...c['8_1'], 'point': r.p_3.l_p }
     c['11_1'] = { ...c['11_1'], 'point': r.p_3.h_p }
   }
 
   if (r.p_4.l_p !== -1 && r.p_4.h_p !== -1) {
-    if (r.p_4.l_p === r.p_4.h_p) {}
+    if (r.p_4.l_p === r.p_4.h_p) {
+      c['1_2'] = { ...c['1_2'], 'point': r.p_1.l_p, 'point2': r.p_1.l_p2 }
+      c['6_2'] = { ...c['6_2'], 'point': r.p_1.h_p, 'point2': r.p_1.h_p2 }  
+    }
     c['1_2'] = { ...c['1_2'], 'point': r.p_4.l_p }
     c['6_2'] = { ...c['6_2'], 'point': r.p_4.h_p }
   }
 
   if (r.p_5.l_p !== -1 && r.p_5.h_p !== -1) {
-    if (r.p_5.l_p === r.p_5.h_p) {}
+    if (r.p_5.l_p === r.p_5.h_p) {
+      c['9_2'] = { ...c['9_2'], 'point': r.p_1.l_p, 'point2': r.p_1.l_p2 }
+      c['14_2'] = { ...c['14_2'], 'point': r.p_1.h_p, 'point2': r.p_1.h_p2 }  
+    }
     c['9_2'] = { ...c['9_2'], 'point': r.p_5.l_p }
     c['14_2'] = { ...c['14_2'], 'point': r.p_5.h_p }
   }
 
   if (r.p_6.l_p !== -1 && r.p_6.h_p !== -1) {
-    if (r.p_6.l_p === r.p_6.h_p) {}
+    if (r.p_6.l_p === r.p_6.h_p) {
+      c['3_3'] = { ...c['3_3'], 'point': r.p_1.l_p, 'point2': r.p_1.l_p2 }
+      c['12_3'] = { ...c['12_3'], 'point': r.p_1.h_p, 'point2': r.p_1.h_p2 }  
+    }
     c['3_3'] = { ...c['3_3'], 'point': r.p_6.l_p }
     c['12_3'] = { ...c['12_3'], 'point': r.p_6.h_p }
   }
