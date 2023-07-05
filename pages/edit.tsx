@@ -106,18 +106,20 @@ const Edit: React.FC = () => {
       .finally(() => { setIsLoading(false); setIsClassEditModalOpen(false) })
   }
 
-  const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean) => {
-    if ((l_p < 0 || h_p < 0) && !isReset) {
+  const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean, l_p2: number, h_p2: number) => {
+    // reset以外で得点が0を弾く
+    if ((l_p < 0 || h_p < 0 || l_p2 < 0 || h_p2 < 0) && !isReset) {
       return api.warning({ message: 'Valid', description: 'まいなすはないで', duration: 10, placement: "bottomRight" });
     }
 
-    if (l_p === h_p && l_p !== -1) {
+    
+    if (l_p === h_p && l_p2 === h_p2 && l_p !== -1 && l_p2 !== -1) {
       return api.warning({ message: 'Valid', description: 'どうてん無理やで', duration: 10, placement: "bottomRight" });
     }
 
     setIsLoading(true)
 
-    axios.post(`/api/edit`, { l_p: l_p, h_p: h_p, id: d.id, p: p })
+    axios.post(`/api/edit`, { l_p: l_p, h_p: h_p, l_p2: l_p2, h_p2: h_p2, id: d.id, p: p })
       .then(() => {
         axios.get(`/api/match/${page}`)
           .then((res) => {
