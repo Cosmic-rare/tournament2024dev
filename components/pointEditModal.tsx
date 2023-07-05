@@ -96,7 +96,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
               </div>
             </Col>
           </Row>
-          {type === 1 ? <Row gutter={16} justify="center" style={{ marginTop: 8 }}>
+          {type === 1 || type === 2 ? <Row gutter={16} justify="center" style={{ marginTop: 8 }}>
             <Col span={4}>
               <div style={{ textAlign: 'center' }}>
                 <Input
@@ -112,7 +112,11 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
             </Col>
             <Col span={4}>
               <div style={{ textAlign: 'center' }}>
-                <span style={{ marginTop: '5px', display: 'inline-block', fontSize: 14 }}>最高点</span>
+                {type === 1 ?
+                  <span style={{ marginTop: '5px', display: 'inline-block', fontSize: 14 }}>最高点</span>
+                  :
+                  <span style={{ marginTop: '5px', display: 'inline-block', fontSize: 14 }}>PK</span>
+                }
               </div>
             </Col>
             <Col span={4}>
