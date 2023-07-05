@@ -13,6 +13,7 @@ export interface TournamentCellData {
   class?: string;
   color?: number;
   point?: string;
+  point2?: string
   edit?: number;
   edit2?: number;
   edit2_data?: number;

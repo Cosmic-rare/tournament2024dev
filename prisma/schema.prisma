@@ -14,7 +14,7 @@ model Match {
   sex  Type
   order Int?
 
-  // null-normal, 1-soccer, 2-esports
+  // null-normal, 1-esports, 2-soccer
   type Int?
 
   c_1 Int
