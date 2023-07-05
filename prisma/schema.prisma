@@ -14,6 +14,9 @@ model Match {
   sex  Type
   order Int?
 
+  // null-normal, 1-soccer, 2-esports
+  type Int?
+
   c_1 Int
   c_2 Int
   c_3 Int
@@ -33,6 +36,8 @@ model Match {
 type Point {
   l_p Int
   h_p Int
+  l_p2 Int?
+  h_p2 Int?
 }
 
 enum Type {
