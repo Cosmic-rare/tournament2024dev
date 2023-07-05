@@ -12,7 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { id, p, l_p, h_p } = req.body
+  const { id, p, l_p, h_p, l_p2, h_p2 } = req.body
 
   try {
     await serverAuth(req, res);
@@ -27,17 +27,27 @@ export default async function handler(
     return res.status(400).end()
   }
 
-  if (l_p === h_p) {
-    if (l_p !== -1) {
-      return res.status(400).end
-    }
-  }
-
   if (![1, 2, 3, 4, 5, 6].includes(p)) {
     return res.status(400).end()
   }
 
   try {
+    if (l_p === h_p) {
+      await prisma.match.update({
+        where: { id },
+        data: {
+          [`p_${p}`]: {
+            update: {
+              l_p,
+              h_p,
+              l_p2,
+              h_p2
+            }
+          }
+        }
+      })
+    }
+
     await prisma.match.update({
       where: { id },
       data: {
