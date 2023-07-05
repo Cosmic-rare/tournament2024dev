@@ -34,6 +34,8 @@ const Edit: React.FC = () => {
   const [api, contextHolder] = notification.useNotification();
   const [l_point, setL_point] = useState(-1)
   const [h_point, setH_point] = useState(-1)
+  const [l_point2, setL_point2] = useState(-1)
+  const [h_point2, setH_point2] = useState(-1)
   const [editPoint, setEditPoint] = useState(0)
   const [editClassPosition, setEditClassPosition] = useState(0)
   const [editClass, setEditClass] = useState(0)
@@ -62,6 +64,18 @@ const Edit: React.FC = () => {
       setH_point(0)
     } else {
       setH_point(d[`p_${p}`]["h_p"])
+    }
+
+    if (d[`p_${p}`]["l_p2"] === -1 || d[`p_${p}`]["l_p2"] === null) {
+      setL_point2(0)
+    } else {
+      setL_point2(d[`p_${p}`]["l_p2"])
+    }
+
+    if (d[`p_${p}`]["h_p2"] === -1 || d[`p_${p}`]["h_p2"] === null) {
+      setH_point2(0)
+    } else {
+      setH_point2(d[`p_${p}`]["h_p2"])
     }
 
     setIsModalOpen(true)
@@ -166,6 +180,11 @@ const Edit: React.FC = () => {
             h_point={h_point}
             setL_point={setL_point}
             setH_point={setH_point}
+            l_point2={l_point2}
+            h_point2={h_point2}
+            setL_point2={setL_point2}
+            setH_point2={setH_point2}
+            type={d.type}
           />
           <ClassEditModal
             isModalOpen={isClassEditModalOpen}

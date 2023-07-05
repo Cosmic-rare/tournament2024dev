@@ -12,9 +12,14 @@ interface YourComponentProps {
   h_point: number
   setL_point: Function
   setH_point: Function
+  l_point2: number
+  h_point2: number
+  setL_point2: Function
+  setH_point2: Function
+  type: number
 }
 
-const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, l_point, h_point, setL_point, setH_point }) => {
+const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, l_point, h_point, setL_point, setH_point, type, l_point2, h_point2, setL_point2, setH_point2 }) => {
 
   return (
     <Modal
@@ -91,6 +96,39 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
               </div>
             </Col>
           </Row>
+          {type === 1 ? <Row gutter={16} justify="center" style={{ marginTop: 8 }}>
+            <Col span={4}>
+              <div style={{ textAlign: 'center' }}>
+                <Input
+                  value={l_point2}
+                  disabled={isLoading}
+                  onChange={(e) => {
+                    setL_point2(parseInt(e.target.value, 10))
+                  }}
+                  type="number"
+                  style={{ width: "80%", textAlign: "center" }}
+                />
+              </div>
+            </Col>
+            <Col span={4}>
+              <div style={{ textAlign: 'center' }}>
+                <span style={{ marginTop: '5px', display: 'inline-block', fontSize: 14 }}>最高点</span>
+              </div>
+            </Col>
+            <Col span={4}>
+              <div style={{ textAlign: 'center' }}>
+                <Input
+                  value={h_point2}
+                  disabled={isLoading}
+                  onChange={(e) => {
+                    setH_point2(parseInt(e.target.value, 10))
+                  }}
+                  type="number"
+                  style={{ width: "80%", textAlign: "center" }}
+                />
+              </div>
+            </Col>
+          </Row> : null}
           <div style={{ height: 10 }} />
         </div>
       </div>
