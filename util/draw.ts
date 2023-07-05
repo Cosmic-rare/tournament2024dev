@@ -4,7 +4,7 @@ import draw2 from "./draw2"
 const draw = (r: any, c: any) => {
   if(r.type === 1) {
     return draw1(r, c)
-  } else if (r.type === 1) {
+  } else if (r.type === 2) {
     return draw2(r,c )
   }
 
