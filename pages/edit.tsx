@@ -107,7 +107,7 @@ const Edit: React.FC = () => {
   }
 
   const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean, l_p2: number, h_p2: number) => {
-    // reset以外で得点が0を弾く
+    // reset以外で得点が0未満を弾く
     if ((l_p < 0 || h_p < 0 || l_p2 < 0 || h_p2 < 0) && !isReset) {
       return api.warning({ message: 'Valid', description: 'まいなすはないで', duration: 10, placement: "bottomRight" });
     }
