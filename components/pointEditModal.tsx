@@ -25,7 +25,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
     <Modal
       open={isModalOpen}
       closable={false}
-      zIndex={9998}
+      zIndex={9997}
       onCancel={() => setIsModalOpen(false)}
       footer={[
         <Button key="cancel" disabled={isLoading} onClick={() => setIsModalOpen(false)}>Cancel</Button>,
@@ -51,7 +51,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
     >
       <div style={{ position: "relative" }}>
         <Backdrop
-          sx={{ color: '#fff', zIndex: 99999 }}
+          sx={{ color: '#fff', zIndex: 9999 }}
           open={isLoading}
         >
           <CircularProgress color="inherit" />

@@ -30,7 +30,7 @@ const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
       open={isModalOpen}
       closable={false}
       onCancel={() => setIsModalOpen(false)}
-      zIndex={9998}
+      zIndex={9997}
       footer={[
         <Button
           key="cancel"
@@ -52,7 +52,7 @@ const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
     >
       <div style={{ position: "relative" }}>
         <Backdrop
-          sx={{ color: '#fff', zIndex: 99999 }}
+          sx={{ color: '#fff', zIndex: 9999 }}
           open={isLoading}
         >
           <CircularProgress color="inherit" />

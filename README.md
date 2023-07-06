@@ -1,3 +1,3 @@
 # TODO
 
-- [ ] notoficationをmodalより上になるように
+- [x] notoficationをmodalより上になるように

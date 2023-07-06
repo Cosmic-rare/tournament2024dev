@@ -32,3 +32,11 @@ body {
 .MuiAccordionSummary-root:hover{
   background-color: #e6f4ff;
   }
+
+.custom-notification {
+  z-index: 9998 !important;
+}
+
+.ant-notification {
+  z-index: 9998 !important;
+}

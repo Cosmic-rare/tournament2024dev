@@ -97,11 +97,11 @@ const Edit: React.FC = () => {
             sD(res.data);
           })
           .catch((err) => {
-            api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+            api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
           })
       })
       .catch((err) => {
-        api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+        api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
       })
       .finally(() => { setIsLoading(false); setIsClassEditModalOpen(false) })
   }
@@ -109,16 +109,16 @@ const Edit: React.FC = () => {
   const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean, l_p2: number, h_p2: number, type: number | null) => {
     // reset以外で得点が0未満を弾く
     if ((l_p < 0 || h_p < 0 || l_p2 < 0 || h_p2 < 0) && !isReset) {
-      return api.warning({ message: 'Valid', description: 'まいなすはないで', duration: 10, placement: "bottomRight" });
+      return api.warning({ message: 'Valid', description: 'まいなすはないで', duration: 10, placement: "bottomRight", className: 'custom-notification' });
     }
 
     if (type === 1 || type === 2) {
       if (l_p === h_p && l_p2 === h_p2 && l_p !== -1 && l_p2 !== -1) {
-        return api.warning({ message: 'Valid', description: 'どうてん無理やで(1|2)', duration: 10, placement: "bottomRight" });
+        return api.warning({ message: 'Valid', description: 'どうてん無理やで(1|2)', duration: 10, placement: "bottomRight", className: 'custom-notification' });
       }
     } else {
       if (l_p === h_p && l_p !== -1) {
-        return api.warning({ message: 'Valid', description: 'どうてん無理やで(n)', duration: 10, placement: "bottomRight" });
+        return api.warning({ message: 'Valid', description: 'どうてん無理やで(n)', duration: 10, placement: "bottomRight", className: 'custom-notification' });
       }
     }
 
@@ -131,11 +131,11 @@ const Edit: React.FC = () => {
             sD(res.data);
           })
           .catch((err) => {
-            api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+            api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
           })
       })
       .catch((err) => {
-        api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+        api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
       })
       .finally(() => { setIsLoading(false); setIsModalOpen(false) })
   }
@@ -147,7 +147,7 @@ const Edit: React.FC = () => {
         const res = await axios.get(`/api/match/${page}`);
         sD(res.data);
       } catch (err) {
-        api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+        api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
       } finally {
         setIsLoading(false)
       }
@@ -164,7 +164,7 @@ const Edit: React.FC = () => {
         setSidebarData(res.data)
 
       } catch (err) {
-        api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight" });
+        api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
       } finally {
         setIsLoading(false)
       }
@@ -206,7 +206,7 @@ const Edit: React.FC = () => {
           null}
       <ThemeCustomization>
         <Backdrop
-          sx={{ color: '#fff', zIndex: 99999 }}
+          sx={{ color: '#fff', zIndex: 9999 }}
           open={isLoading}
         >
           <CircularProgress color="inherit" />
