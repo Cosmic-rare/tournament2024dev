@@ -92,6 +92,8 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
           <ul>
             <li>SNS等で不特定多数にシェアしないでください</li>
             <li>各種目をクリックするとトーナメントが開きます</li>
+            <li>括弧の中の数字はPKや最高点です</li>
+            <li>リロード(更新)すると最新のデータが表示されます</li>
           </ul>
         </Card>
       </div>
