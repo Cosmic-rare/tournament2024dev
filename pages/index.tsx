@@ -12,8 +12,8 @@ export interface TournamentCellData {
   border_left?: number;
   class?: string;
   color?: number;
-  point?: string;
-  point2?: string
+  point?: number;
+  point2?: number
   edit?: number;
   edit2?: number;
   edit2_data?: number;

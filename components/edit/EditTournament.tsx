@@ -41,8 +41,8 @@ const Tournament: React.FC<{ data: any, onModalOpen: Function, onClassEditModalO
         return (
           <div key={cell} style={cellStyle}>
             <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'center', color: cellData.color ? colors[cellData.color - 1] : 'inherit', verticalAlign: "bottom" }}>
-              {cellData.point ? 
-                cellData.point2 ? 
+              {cellData.point || cellData.point === 0 ? 
+                cellData.point2 || cellData.point2 === 0 ? 
                   <span style={{color: colors[1]}}>({cellData.point2})<br />{cellData.point}</span>
                   :
                   <span style={{color: colors[1]}}>{cellData.point}</span>
