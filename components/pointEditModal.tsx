@@ -60,7 +60,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
           <Row gutter={16} justify="center">
             <Col span={5}>
               <div style={{ textAlign: 'center' }}>
-                <span style={{ marginBottom: '10px' }}>1</span>
+                <span style={{ marginBottom: '10px', display: "inline-block" }}>{/* 1 */}</span>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <Input
@@ -81,7 +81,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
             </Col>
             <Col span={5}>
               <div style={{ textAlign: 'center' }}>
-                <span style={{ marginBottom: '10px' }}>2</span>
+              <span style={{ marginBottom: '10px', display: "inline-block" }}>{/* 2 */}</span>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <Input
