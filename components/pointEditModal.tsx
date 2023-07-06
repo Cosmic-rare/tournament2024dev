@@ -34,7 +34,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
           danger
           disabled={isLoading}
           onClick={() => {
-            onUpdate(editPoint, -1, -1, true, -1, -1)
+            onUpdate(editPoint, -1, -1, true, -1, -1, type)
           }}>
           Reset
         </Button>,
@@ -43,7 +43,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
           type="primary"
           disabled={isLoading}
           onClick={() => {
-            onUpdate(editPoint, l_point, h_point, false, l_point2, h_point2)
+            onUpdate(editPoint, l_point, h_point, false, l_point2, h_point2, type)
           }}>
           Apply
         </Button>

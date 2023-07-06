@@ -106,15 +106,20 @@ const Edit: React.FC = () => {
       .finally(() => { setIsLoading(false); setIsClassEditModalOpen(false) })
   }
 
-  const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean, l_p2: number, h_p2: number) => {
+  const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean, l_p2: number, h_p2: number, type: number | null) => {
     // reset以外で得点が0未満を弾く
     if ((l_p < 0 || h_p < 0 || l_p2 < 0 || h_p2 < 0) && !isReset) {
       return api.warning({ message: 'Valid', description: 'まいなすはないで', duration: 10, placement: "bottomRight" });
     }
 
-    
-    if (l_p === h_p && l_p2 === h_p2 && l_p !== -1 && l_p2 !== -1) {
-      return api.warning({ message: 'Valid', description: 'どうてん無理やで', duration: 10, placement: "bottomRight" });
+    if (type === 1 || type === 2) {
+      if (l_p === h_p && l_p2 === h_p2 && l_p !== -1 && l_p2 !== -1) {
+        return api.warning({ message: 'Valid', description: 'どうてん無理やで(1|2)', duration: 10, placement: "bottomRight" });
+      }
+    } else {
+      if (l_p === h_p && l_p !== -1) {
+        return api.warning({ message: 'Valid', description: 'どうてん無理やで(n)', duration: 10, placement: "bottomRight" });
+      }
     }
 
     setIsLoading(true)

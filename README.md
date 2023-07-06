@@ -15,7 +15,7 @@
 - [x] サッカーにタイプを適用する
   - [x] renderとinputを1,2両方にする
   - [x] 細かいところを1,2で分ける
-  - [ ] next.js側のvalidationは、typeで判定しなければならない
+  - [x] next.js側のvalidationは、typeで判定しなければならない
     - しなくても動くけども、気持ち悪い
 - [x] ジじゃねーよ
 - [ ] notoficationをmodalより上になるように
