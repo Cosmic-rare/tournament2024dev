@@ -41,7 +41,6 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
             control={<Checkbox checked={displayPoint} onChange={() => setDisplayPoint((p: boolean) => !p)} />}
             label="点数表示"
           />
-          <p>{data.type}</p>
         </div>
         <div style={{ height: `320px`, overflowX: 'scroll', position: "relative" }}>
           <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'scroll', position: "relative" }}>
