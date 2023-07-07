@@ -10,7 +10,7 @@ export default NextAuth({
       },
       authorize: (credentials) => {
         if (
-          credentials?.password === "test"
+          credentials?.password === process.env.PASSWORD
         ) {
           return {
             id: "",
