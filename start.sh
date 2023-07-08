@@ -1,0 +1,1 @@
+sudo docker run --name next -e NEXTAUTH_URL=https://edb3140b-8ba4-414e-8272-1ff165486425.4513echo.dev/ -e DATABASE_URL=mongodb+srv://tani:Nene0720@tani.ilrskse.mongodb.net/supo1 -e NEXTAUTH_SECRET=dbe2de07f88c3a9b60a4503bb1d015a8 -e NEXT_PUBLIC_GA_ID=G-EDWLY08F2Z -e PASSWORD=tawamerishi -p 8080:3000 tournament2023
