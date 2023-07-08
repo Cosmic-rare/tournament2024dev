@@ -94,7 +94,8 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
             <li>SNS等で不特定多数にシェアしないでください</li>
             <li>各種目をクリックするとトーナメントが開きます</li>
             <li>括弧の中の数字はPKや最高点です</li>
-            <li>リロード(更新)すると最新のデータが表示されます</li>
+            <li>リロード(更新)すると(ほとんどの場合)最新のデータが表示されます</li>
+            <li>響(<Link href="https://twitter.com/4513echo">@4513echo</Link>)が提供してくれたアプリの高速化への貢献に心から感謝します</li>
           </ul>
         </Card>
       </div>
