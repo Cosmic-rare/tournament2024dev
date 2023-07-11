@@ -91,7 +91,6 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <ul style={{ paddingLeft: 20 }}>
-            <li>SNS等で不特定多数にシェアしないでください</li>
             <li>各種目をクリックするとトーナメントが開きます</li>
             <li>括弧の中の数字はPKや最高点です</li>
             <li>リロード(更新)すると(ほとんどの場合)最新のデータが表示されます</li>
