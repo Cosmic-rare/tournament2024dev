@@ -1,7 +1,6 @@
 import '@/styles/home.css'
 import "@/styles/scroll-bar.css"
 import type { AppProps } from 'next/app'
-import { SessionProvider } from 'next-auth/react';
 import Script from "next/script";
 import * as gtag from "../lib/gtag";
 import { useRouter } from "next/router";
@@ -20,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events]);
   
   return (
-    <SessionProvider session={pageProps.session}>
+    <>
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_MEASUREMENT_ID}`}
@@ -39,6 +38,6 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       />
       <Component {...pageProps} />
-    </SessionProvider>
+    </>
   )
 }

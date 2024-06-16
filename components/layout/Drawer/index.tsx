@@ -7,7 +7,7 @@ import { Box, Drawer, useMediaQuery } from '@mui/material';
 
 // project import
 import { DrawerHeader, DrawerContent } from './component';
-import { dataType } from '@/pages/edit';
+import { dataType } from '@/util/type';
 
 // project import
 const drawerWidth = 260

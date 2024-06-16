@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { signIn } from "next-auth/react"
+import React, { useEffect, useState } from 'react';
 import Main from '@/components/top/Main';
-import prisma from '@/util/prisma';
-import Link from 'next/link';
+import axios from 'axios';
 import { Card } from '@mui/material';
 
 export interface TournamentCellData {
@@ -19,84 +17,38 @@ export interface TournamentCellData {
   edit2_data?: number;
 }
 
-export async function getStaticProps() {
-  const data1 = await prisma.match.findMany({
-    where: { gread: 1 },
-    orderBy: [{order: 'asc'}]
-  });
-  const data2 = await prisma.match.findMany({
-    where: { gread: 2 },
-    orderBy: [{order: 'asc'}]
-  });
-  const data3 = await prisma.match.findMany({
-    where: { gread: 3 },
-    orderBy: [{order: 'asc'}]
-  });
-
-  return {
-    props: {
-      data1: data1, data2: data2, data3: data3
-    },
-    revalidate: 10
-  };
-}
-
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
 }
 
-interface YourComponentProps {
-  data1: any[];
-  data2: any[];
-  data3: any[];
-}
+const App = () => {
+  const [data, setData] = useState<any>()
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get(`http://localhost:3001/get2`)
 
-const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
-  const groupedData1 = data1.reduce((groups, item) => {
-    const { order } = item;
-    if (!groups[order]) {
-      groups[order] = [];
+      //@ts-ignore
+      const groupedData1 = res.data.data1.reduce((groups, item) => {
+        const { order } = item;
+        if (!groups[order]) {
+          groups[order] = [];
+        }
+        groups[order].push(item);
+        return groups;
+      }, []);
+
+      setData({data1: groupedData1})
     }
-    groups[order].push(item);
-    return groups;
-  }, []);
+    fetchData()
+  }, [])
 
-  const groupedData2 = data2.reduce((groups, item) => {
-    const { order } = item;
-    if (!groups[order]) {
-      groups[order] = [];
-    }
-    groups[order].push(item);
-    return groups;
-  }, []);
+  
 
-  const groupedData3 = data3.reduce((groups, item) => {
-    const { order } = item;
-    if (!groups[order]) {
-      groups[order] = [];
-    }
-    groups[order].push(item);
-    return groups;
-  }, []);
-
+  if (data) {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h2>トーナメント表</h2>
-      </div>
-
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card
-          sx={{ width: width }}
-          style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
-        >
-          <ul style={{ paddingLeft: 20 }}>
-            <li>各種目をクリックするとトーナメントが開きます</li>
-            <li>括弧の中の数字はPKや最高点です</li>
-            <li>リロード(更新)すると(ほとんどの場合)最新のデータが表示されます</li>
-            <li>響(<Link href="https://twitter.com/4513echo">@4513echo</Link>)が提供してくれたアプリの高速化への貢献に心から感謝します</li>
-          </ul>
-        </Card>
       </div>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
@@ -105,39 +57,7 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <h2>1年</h2>
-          {groupedData1.map((group: any, index: any) => (
-            <div key={index} style={{display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4}}>
-              {group.map((val: any, i: any) => {
-                return <Main data={val} key={i} />
-              })}
-            </div>
-          ))}
-        </Card>
-      </div>
-
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
-        <Card
-          sx={{ width: width }}
-          style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
-        >
-          <h2>2年</h2>
-          {groupedData2.map((group: any, index: any) => (
-            <div key={index} style={{display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4}}>
-              {group.map((val: any, i: any) => {
-                return <Main data={val} key={i} />
-              })}
-            </div>
-          ))}
-        </Card>
-      </div>
-
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 24, marginBottom: 36 }}>
-        <Card
-          sx={{ width: width }}
-          style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
-        >
-          <h2>3年</h2>
-          {groupedData3.map((group: any, index: any) => (
+          {data.data1.map((group: any, index: any) => (
             <div key={index} style={{display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4}}>
               {group.map((val: any, i: any) => {
                 return <Main data={val} key={i} />
@@ -148,6 +68,9 @@ const App: React.FC<YourComponentProps> = ({ data1, data2, data3 }) => {
       </div>
     </div>
   );
+} else {
+  return (<div />)
+}
 };
 
 export default App;

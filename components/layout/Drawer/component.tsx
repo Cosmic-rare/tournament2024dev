@@ -4,7 +4,7 @@ import { Stack, Box } from '@mui/material';
 import SimpleBar from './SimpleBar';
 import SideBar from './sidebar';
 import Link from 'next/link';
-import { dataType } from '@/pages/edit';
+import { dataType } from '@/util/type';
 
 const DrawerHeaderStyled = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }: { theme: any; open: boolean }) => ({
   ...theme.mixins.toolbar,

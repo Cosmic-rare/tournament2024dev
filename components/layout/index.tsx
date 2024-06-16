@@ -7,7 +7,7 @@ import { Box, Toolbar, useMediaQuery } from '@mui/material';
 // project import
 import Drawer from './Drawer';
 import Header from './Header';
-import { dataType } from '@/pages/edit';
+import { dataType } from '@/util/type';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 

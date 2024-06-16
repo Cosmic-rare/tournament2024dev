@@ -1,54 +1,11 @@
-import { ListItemButton, ListItemText, Typography, Box, Button } from '@mui/material'
+import { ListItemButton, ListItemText, Typography, Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-import MuiAccordionSummary, {
-  AccordionSummaryProps,
-} from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@mui/material/styles';
-import { useSession, signOut, getSession } from "next-auth/react"
-import { useEffect, useState } from 'react';
-import { dataType } from '@/pages/edit';
-
-const drawerWidth = 260
-
-const Accordion = styled((props: AccordionProps) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-  // borderTop: `1px solid ${theme.palette.divider}`,
-  // borderBottom: `1px solid ${theme.palette.divider}`,
-  '&:not(:last-child)': {
-    borderBottom: 0,
-  },
-  '&:before': {
-    display: 'none',
-  },
-  '&:hover': {
-    bgcolor: 'primary.lighter'
-  },
-}));
-
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
-  <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  backgroundColor: "primary.lighter",
-  flexDirection: 'row-reverse',
-  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-    transform: 'rotate(90deg)',
-  },
-  '& .MuiAccordionSummary-content': {
-    marginLeft: theme.spacing(1),
-  },
-}));
+import { dataType } from '@/util/type';
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: 0,
-  // borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
 const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose, sex }: { drawerOpen: boolean, id: string, gread: number, title: string, setPage: Function, onClose: () => void, sex: string }) => {
@@ -108,7 +65,6 @@ const SideBarItem = ({ drawerOpen, id, gread, title, setPage, onClose, sex }: { 
 
 
 const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData, isMobile }: { drawerOpen: boolean, page: null | string, setPage: Function, onClose: () => void, sidebarData: dataType | null, isMobile: boolean }) => {
-  const { data: session } = useSession()
 
   const onHandleClone = () => {
     if (isMobile) {
@@ -121,18 +77,10 @@ const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData, isMobile }: 
       {sidebarData ?
         <>
           <Box sx={{ pl: 3, mb: 1.5, mt: 2.5 }} >
-            <Typography variant="subtitle2" color="textSecondary">
-              試合
+            <Typography variant="subtitle1" color="textPrimary">
+              1年
             </Typography>
           </Box>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>1年</Typography>
-            </AccordionSummary>
             <AccordionDetails>
               {sidebarData.data1.map((val: any, index: number) => {
                 return (
@@ -140,45 +88,8 @@ const SideBar = ({ drawerOpen, page, setPage, onClose, sidebarData, isMobile }: 
                 )
               })}
             </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>2年</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {sidebarData.data2.map((val: any, index: number) => {
-                return (
-                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onHandleClone} />
-                )
-              })}
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel3a-content"
-              id="panel3a-header"
-            >
-              <Typography>3年</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {sidebarData.data3.map((val: any, index: number) => {
-                return (
-                  <SideBarItem setPage={setPage} sex={val.sex} drawerOpen={drawerOpen} id={val.id} gread={val.gread} title={val.title} key={index} onClose={onHandleClone} />
-                )
-              })}
-            </AccordionDetails>
-          </Accordion>
           
           <Box sx={{ pl: 3, mb: 1.5, mt: 2 }} />
-          {session ?
-            <Button variant="contained" sx={{width: "70%", height: 44, borderRadius: "50rem", mx: "15%", mb: 10}} style={{textTransform: 'none' }} onClick={() => signOut()}>Logout</Button>
-            :
-            null}
         </>
         :
         null}

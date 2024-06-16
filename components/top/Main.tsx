@@ -12,7 +12,7 @@ interface YourComponentProps {
 
 const Main: React.FC<YourComponentProps> = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [displayPoint, setDisplayPoint] = useState(false)
+  const [displayPoint, setDisplayPoint] = useState(true)
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -42,8 +42,8 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
             label="点数表示"
           />
         </div>
-        <div style={{ height: `320px`, overflowX: 'scroll', position: "relative" }}>
-          <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'scroll', position: "relative" }}>
+        <div style={{ height: `320px`, overflowX: 'hidden', position: "relative" }}>
+          <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'hidden', position: "relative" }}>
             <Tournament cells={draw(data, template)} displayPoint={displayPoint} />
           </div>
         </div>

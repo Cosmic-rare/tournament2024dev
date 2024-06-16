@@ -8,34 +8,13 @@ import ClassEditModal from '@/components/classEditModa';
 import ThemeCustomization from "@/components/theme";
 import MainLayout from "@/components/layout";
 import { CircularProgress, Backdrop } from '@mui/material';
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { gameType, dataType } from '@/util/type';
 
-export interface TournamentCellData {
-  text?: string;
-  align_left?: boolean;
-  border_top?: number;
-  border_left?: number;
-  class?: string;
-  color?: number;
-  point?: string;
-  edit?: number;
-}
-
-export interface dataType {
-  data1: Array<any>
-  data2: Array<any>
-  data3: Array<any>
-}
 
 const Edit: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isClassEditModalOpen, setIsClassEditModalOpen] = useState(false)
   const [api, contextHolder] = notification.useNotification();
-  const [l_point, setL_point] = useState(-1)
-  const [h_point, setH_point] = useState(-1)
-  const [l_point2, setL_point2] = useState(-1)
-  const [h_point2, setH_point2] = useState(-1)
   const [editPoint, setEditPoint] = useState(0)
   const [editClassPosition, setEditClassPosition] = useState(0)
   const [editClass, setEditClass] = useState(0)
@@ -43,41 +22,11 @@ const Edit: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(null)
   const [sidebarData, setSidebarData] = useState<dataType | null>(null)
-  const router = useRouter()
+  const [editGame, setEditGame] = useState<gameType | {}>({})
 
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/api/auth/signin");
-    },
-  })
   const handleOnOpenModal = (p: number) => {
     setEditPoint(p)
-
-    if (d[`p_${p}`]["l_p"] === -1) {
-      setL_point(0)
-    } else {
-      setL_point(d[`p_${p}`]["l_p"])
-    }
-
-    if (d[`p_${p}`]["h_p"] === -1) {
-      setH_point(0)
-    } else {
-      setH_point(d[`p_${p}`]["h_p"])
-    }
-
-    if (d[`p_${p}`]["l_p2"] === -1 || d[`p_${p}`]["l_p2"] === null) {
-      setL_point2(0)
-    } else {
-      setL_point2(d[`p_${p}`]["l_p2"])
-    }
-
-    if (d[`p_${p}`]["h_p2"] === -1 || d[`p_${p}`]["h_p2"] === null) {
-      setH_point2(0)
-    } else {
-      setH_point2(d[`p_${p}`]["h_p2"])
-    }
-
+    setEditGame(d[`p_${p}`])
     setIsModalOpen(true)
   }
 
@@ -90,9 +39,9 @@ const Edit: React.FC = () => {
   const onUpdate2 = (p: number, c: number) => {
     setIsLoading(true)
 
-    axios.post(`/api/edit2`, { targetPosition: p, insertNumber: c, id: d.id })
+    axios.post(`http://localhost:3001/edit/2`, { targetPosition: p, insertNumber: c, id: d.id, token: localStorage.getItem("token") })
       .then(() => {
-        axios.get(`/api/match/${page}`)
+        axios.get(`http://localhost:3001/match/${page}`)
           .then((res) => {
             sD(res.data);
           })
@@ -106,27 +55,16 @@ const Edit: React.FC = () => {
       .finally(() => { setIsLoading(false); setIsClassEditModalOpen(false) })
   }
 
-  const onUpdate = (p: number, l_p: number, h_p: number, isReset: boolean, l_p2: number, h_p2: number, type: number | null) => {
-    // reset以外で得点が0未満を弾く
-    if ((l_p < 0 || h_p < 0 || l_p2 < 0 || h_p2 < 0) && !isReset) {
-      return api.warning({ message: 'Valid', description: 'まいなすはないで', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-    }
-
-    if (type === 1 || type === 2) {
-      if (l_p === h_p && l_p2 === h_p2 && l_p !== -1 && l_p2 !== -1) {
-        return api.warning({ message: 'Valid', description: 'どうてん無理やで(1|2)', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-      }
-    } else {
-      if (l_p === h_p && l_p !== -1) {
-        return api.warning({ message: 'Valid', description: 'どうてん無理やで(n)', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-      }
-    }
+  const onUpdate = (game: gameType, p: number, isReset: boolean) => {
+    // validation実装せなあかんなぁ....
 
     setIsLoading(true)
 
-    axios.post(`/api/edit`, { l_p: l_p, h_p: h_p, l_p2: l_p2, h_p2: h_p2, id: d.id, p: p })
+    axios.post(`http://localhost:3001/edit/1`,
+      { d: game, id: d.id, p: p, token: localStorage.getItem("token") }
+    )
       .then(() => {
-        axios.get(`/api/match/${page}`)
+        axios.get(`http://localhost:3001/match/${page}`)
           .then((res) => {
             sD(res.data);
           })
@@ -144,7 +82,7 @@ const Edit: React.FC = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const res = await axios.get(`/api/match/${page}`);
+        const res = await axios.get(`http://localhost:3001/match/${page}`);
         sD(res.data);
       } catch (err) {
         api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
@@ -160,15 +98,14 @@ const Edit: React.FC = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const res = await axios.get(`/api/get`);
+        const res = await axios.get(`http://localhost:3001/get`);
         setSidebarData(res.data)
-
       } catch (err) {
         api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
       } finally {
         setIsLoading(false)
       }
-    };
+    }
 
     fetchData()
   }, []);
@@ -183,15 +120,9 @@ const Edit: React.FC = () => {
             isLoading={isLoading}
             onUpdate={onUpdate}
             editPoint={editPoint}
-            l_point={l_point}
-            h_point={h_point}
-            setL_point={setL_point}
-            setH_point={setH_point}
-            l_point2={l_point2}
-            h_point2={h_point2}
-            setL_point2={setL_point2}
-            setH_point2={setH_point2}
-            type={d.type}
+            // @ts-ignore
+            game={editGame}
+            setGame={setEditGame}
           />
           <ClassEditModal
             isModalOpen={isClassEditModalOpen}
@@ -227,6 +158,10 @@ const Edit: React.FC = () => {
             :
             <h4>編集するクラスを選択</h4>
           }
+          <button onClick={async () => {
+            const r = await axios.get("http://localhost:3001/token")
+            localStorage.setItem("token", r.data.token)
+          }}>issue token</button>
         </MainLayout>
       </ThemeCustomization>
     </>

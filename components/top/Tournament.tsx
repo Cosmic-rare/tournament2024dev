@@ -1,6 +1,4 @@
-import axios from 'axios'
 import { TournamentCellData } from "@/pages";
-import Edit from './edit.svg'
 
 const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, displayPoint: boolean }> = ({ cells, displayPoint }) => {
   const colors = ["#adb5bd", "#dc3545"];
