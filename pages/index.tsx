@@ -25,7 +25,7 @@ const App = () => {
   const [data, setData] = useState<any>()
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:3001/get2`)
+      const res = await axios.get(`http://localhost:3001/get/2`)
 
       //@ts-ignore
       const groupedData1 = res.data.data1.reduce((groups, item) => {

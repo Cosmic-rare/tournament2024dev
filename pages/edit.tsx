@@ -9,7 +9,7 @@ import ThemeCustomization from "@/components/theme";
 import MainLayout from "@/components/layout";
 import { CircularProgress, Backdrop } from '@mui/material';
 import { gameType, dataType } from '@/util/type';
-
+import { APIget, APIpost } from '@/util/api';
 
 const Edit: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -36,23 +36,24 @@ const Edit: React.FC = () => {
     setIsClassEditModalOpen(true)
   }
 
-  const onUpdate2 = (p: number, c: number) => {
+  const onUpdate2 = async (p: number, c: number) => {
     setIsLoading(true)
 
-    axios.post(`http://localhost:3001/edit/2`, { targetPosition: p, insertNumber: c, id: d.id, token: localStorage.getItem("token") })
-      .then(() => {
-        axios.get(`http://localhost:3001/match/${page}`)
-          .then((res) => {
-            sD(res.data);
-          })
-          .catch((err) => {
-            api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-          })
-      })
-      .catch((err) => {
-        api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-      })
-      .finally(() => { setIsLoading(false); setIsClassEditModalOpen(false) })
+    await APIpost(
+      "edit/2",
+      { targetPosition: p, insertNumber: c, id: d.id, token: localStorage.getItem("token") },
+      () => api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' }),
+      async () => {
+        const res = await APIget(
+          `get/match/${page}`,
+          () => api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' }),
+          () => {}
+        )
+        sD(res)
+        setIsLoading(false)
+        setIsClassEditModalOpen(false)
+      }
+    )
   }
 
   const onUpdate = (game: gameType, p: number, isReset: boolean) => {
@@ -64,7 +65,7 @@ const Edit: React.FC = () => {
       { d: game, id: d.id, p: p, token: localStorage.getItem("token") }
     )
       .then(() => {
-        axios.get(`http://localhost:3001/match/${page}`)
+        axios.get(`http://localhost:3001/get/match/${page}`)
           .then((res) => {
             sD(res.data);
           })
@@ -82,7 +83,7 @@ const Edit: React.FC = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const res = await axios.get(`http://localhost:3001/match/${page}`);
+        const res = await axios.get(`http://localhost:3001/get/match/${page}`);
         sD(res.data);
       } catch (err) {
         api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
@@ -98,7 +99,7 @@ const Edit: React.FC = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const res = await axios.get(`http://localhost:3001/get`);
+        const res = await axios.get(`http://localhost:3001/get/1`);
         setSidebarData(res.data)
       } catch (err) {
         api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
@@ -113,28 +114,28 @@ const Edit: React.FC = () => {
 
   return (
     <>
-    {d ? <>
-          <PointEditModal
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-            isLoading={isLoading}
-            onUpdate={onUpdate}
-            editPoint={editPoint}
-            // @ts-ignore
-            game={editGame}
-            setGame={setEditGame}
-          />
-          <ClassEditModal
-            isModalOpen={isClassEditModalOpen}
-            setIsModalOpen={setIsClassEditModalOpen}
-            isLoading={isLoading}
-            onUpdate={onUpdate2}
-            editPoint={editClassPosition}
-            gread={d.gread}
-            defaultClass={editClass}
-          /></>
-          :
-          null}
+      {d ? <>
+        <PointEditModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          isLoading={isLoading}
+          onUpdate={onUpdate}
+          editPoint={editPoint}
+          // @ts-ignore
+          game={editGame}
+          setGame={setEditGame}
+        />
+        <ClassEditModal
+          isModalOpen={isClassEditModalOpen}
+          setIsModalOpen={setIsClassEditModalOpen}
+          isLoading={isLoading}
+          onUpdate={onUpdate2}
+          editPoint={editClassPosition}
+          gread={d.gread}
+          defaultClass={editClass}
+        /></>
+        :
+        null}
       <ThemeCustomization>
         <Backdrop
           sx={{ color: '#fff', zIndex: 9999 }}
