@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Main from '@/components/top/Main';
-import axios from 'axios';
 import { Card } from '@mui/material';
+import { APIget } from '@/util/api'
 
 export interface TournamentCellData {
   text?: string;
@@ -25,19 +25,15 @@ const App = () => {
   const [data, setData] = useState<any>()
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:3001/get/2`)
-
-      //@ts-ignore
-      const groupedData1 = res.data.data1.reduce((groups, item) => {
-        const { order } = item;
-        if (!groups[order]) {
-          groups[order] = [];
-        }
-        groups[order].push(item);
-        return groups;
-      }, []);
-
-      setData({data1: groupedData1})
+      const res = await APIget("/get/2", () => {}, () => {})
+      // @ts-ignore
+      const groupedData1 = res.data1.reduce((groups, item) => {
+        const { order } = item
+        if (!groups[order]) { groups[order] = [] }
+        groups[order].push(item)
+        return groups
+      }, [])
+      setData({ data1: groupedData1 })
     }
     fetchData()
   }, [])

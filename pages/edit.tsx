@@ -9,7 +9,7 @@ import ThemeCustomization from "@/components/theme";
 import MainLayout from "@/components/layout";
 import { CircularProgress, Backdrop } from '@mui/material';
 import { gameType, dataType } from '@/util/type';
-import { APIget, APIpost } from '@/util/api';
+import { APIget, APIpost } from '@/util/api'
 
 const Edit: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -56,60 +56,54 @@ const Edit: React.FC = () => {
     )
   }
 
-  const onUpdate = (game: gameType, p: number, isReset: boolean) => {
-    // validation実装せなあかんなぁ....
-
+  // validation実装せなあかんなぁ....
+  const onUpdate = async (game: gameType, p: number, isReset: boolean) => {
     setIsLoading(true)
 
-    axios.post(`http://localhost:3001/edit/1`,
-      { d: game, id: d.id, p: p, token: localStorage.getItem("token") }
+    await APIpost(
+      "edit/1",
+      { d: game, id: d.id, p: p, token: localStorage.getItem("token") },
+      () => api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' }),
+      async () => {
+        const res = await APIget(
+          `get/match/${page}`,
+          () => api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' }),
+          () => {}
+        )
+        sD(res)
+        setIsLoading(false)
+        setIsModalOpen(false)
+      }
     )
-      .then(() => {
-        axios.get(`http://localhost:3001/get/match/${page}`)
-          .then((res) => {
-            sD(res.data);
-          })
-          .catch((err) => {
-            api.error({ message: 'Faild to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-          })
-      })
-      .catch((err) => {
-        api.error({ message: 'Faild to update', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-      })
-      .finally(() => { setIsLoading(false); setIsModalOpen(false) })
   }
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        setIsLoading(true)
-        const res = await axios.get(`http://localhost:3001/get/match/${page}`);
-        sD(res.data);
-      } catch (err) {
-        api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-      } finally {
-        setIsLoading(false)
-      }
-    };
+      setIsLoading(true)
+      const res = await APIget(
+        `get/match/${page}`,
+        () => api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' }),
+        () => setIsLoading(false)
+      )
+      sD(res)
+    }
 
-    if (page) { fetchData(); }
+    if (page) { fetchData() }
   }, [page]);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        setIsLoading(true)
-        const res = await axios.get(`http://localhost:3001/get/1`);
-        setSidebarData(res.data)
-      } catch (err) {
-        api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' });
-      } finally {
-        setIsLoading(false)
-      }
+      setIsLoading(true)
+      const res = await APIget(
+        "/get/1",
+        () => api.error({ message: 'Failed to get new data', description: 'だめですごめんなさい', duration: 10, placement: "bottomRight", className: 'custom-notification' }),
+        () => setIsLoading(false)
+      )
+      setSidebarData(res)
     }
 
     fetchData()
-  }, []);
+  }, [])
 
 
   return (
