@@ -1,5 +1,4 @@
 import "@/styles/home.css"
-import "@/styles/scroll-bar.css"
 import type { AppProps } from "next/app"
 import Script from "next/script"
 import * as gtag from "../lib/gtag"
