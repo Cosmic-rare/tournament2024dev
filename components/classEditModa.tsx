@@ -1,7 +1,7 @@
-import { Modal, Radio, Space, Button } from 'antd';
-import React, { useState, useEffect } from 'react';
-import type { RadioChangeEvent } from 'antd';
-import { CircularProgress, Backdrop } from '@mui/material';
+import { Modal, Radio, Space, Button } from "antd"
+import React, { useState, useEffect } from "react"
+import type { RadioChangeEvent } from "antd"
+import { CircularProgress, Backdrop } from "@mui/material"
 
 interface YourComponentProps {
   isModalOpen: boolean
@@ -14,16 +14,16 @@ interface YourComponentProps {
 }
 
 const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, gread, defaultClass }) => {
-  const [value, setValue] = useState(defaultClass);
+  const [value, setValue] = useState(defaultClass)
 
   useEffect(() => {
     setValue(defaultClass)
   }, [defaultClass])
 
   const onChange = (e: RadioChangeEvent) => {
-    console.log('radio checked', e.target.value);
-    setValue(e.target.value);
-  };
+    console.log("radio checked", e.target.value)
+    setValue(e.target.value)
+  }
 
   return (
     <Modal
@@ -52,7 +52,7 @@ const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
     >
       <div style={{ position: "relative" }}>
         <Backdrop
-          sx={{ color: '#fff', zIndex: 9999 }}
+          sx={{ color: "#fff", zIndex: 9999 }}
           open={isLoading}
         >
           <CircularProgress color="inherit" />
@@ -72,7 +72,7 @@ const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
         </div>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default ClassEditModal;
+export default ClassEditModal

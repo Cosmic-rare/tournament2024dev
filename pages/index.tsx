@@ -16,11 +16,10 @@ import ViewMain from "@/components/top/Main"
 
 // ----- Main.tsx -----
 
-const Main = ({ data }: any) => {
+const Main = ({ data, eAPI }: any) => {
   const [isModalOpen1, setIsModalOpen1] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isClassEditModalOpen, setIsClassEditModalOpen] = useState(false)
-  const [api, contextHolder] = notification.useNotification()
   const [editPoint, setEditPoint] = useState(0)
   const [editClassPosition, setEditClassPosition] = useState(0)
   const [editClass, setEditClass] = useState(0)
@@ -54,11 +53,11 @@ const Main = ({ data }: any) => {
     await APIpost(
       "edit/2",
       { targetPosition: p, insertNumber: c, id: d.id, token: localStorage.getItem("token") },
-      () => api.error({ message: "Faild to update", description: "だめですごめんなさい", duration: 10, placement: "bottomRight", className: "custom-notification" }),
+      () => eAPI("Faild to update"),
       async () => {
         const res = await APIget(
           `get/match/${data.id}`,
-          () => api.error({ message: "Faild to get new data", description: "だめですごめんなさい", duration: 10, placement: "bottomRight", className: "custom-notification" }),
+          () => eAPI("Faild to get new data"),
           () => { }
         )
         sD(res)
@@ -76,11 +75,11 @@ const Main = ({ data }: any) => {
     await APIpost(
       "edit/1",
       { d: game, id: d.id, p: p, token: localStorage.getItem("token") },
-      () => api.error({ message: "Faild to update", description: "だめですごめんなさい", duration: 10, placement: "bottomRight", className: "custom-notification" }),
+      () => eAPI("Faild to update"),
       async () => {
         const res = await APIget(
           `get/match/${data.id}`,
-          () => api.error({ message: "Faild to get new data", description: "だめですごめんなさい", duration: 10, placement: "bottomRight", className: "custom-notification" }),
+          () => eAPI("Faild to get new data"),
           () => { }
         )
         sD(res)
@@ -115,7 +114,6 @@ const Main = ({ data }: any) => {
           />
         </> : null
       }
-
       <div style={{ width: "100%", maxWidth: "50%", paddingLeft: 4, paddingRight: 4 }}>
         <Button variant="contained" onClick={showModal} sx={{ width: "100%", height: 54, borderRadius: "50rem" }} style={{ textTransform: "none", backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#8BC34A" }}>
           {d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}{d.title}
@@ -267,9 +265,15 @@ const App = () => {
     fetchData()
   }, [])
 
+  const [api, contextHolder] = notification.useNotification()
+  const e = (message: string, description = "だめですごめんなさい") => {
+    api.error({ message: message, description: description, duration: 6, placement: "bottomRight", className: "custom-notification" })
+  }
+
   if (data) {
     return (
       <div>
+        {contextHolder}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h2>トーナメント表</h2>
         </div>
@@ -302,7 +306,7 @@ const App = () => {
             {data.data1.map((group: any, index: any) => (
               <div key={index} style={{ display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4 }}>
                 {group.map((val: any, i: any) => {
-                  return login ? <Main data={val} key={i} /> : <ViewMain data={val} key={i} />
+                  return login ? <Main data={val} key={i} eAPI={e} /> : <ViewMain data={val} key={i} />
                 })}
               </div>
             ))}

@@ -1,32 +1,31 @@
-import Tournament from '@/components/top/Tournament';
-import draw from '@/util/draw';
-import data1 from '../data1.json';
-import _ from 'lodash'
-import { Modal } from 'antd';
-import React, { useState } from 'react';
-import { Button, FormControlLabel, Checkbox } from '@mui/material';
+import Tournament from "@/components/top/Tournament"
+import draw from "@/util/draw"
+import data1 from "../data1.json"
+import _ from "lodash"
+import { Modal } from "antd"
+import React, { useState } from "react"
+import { Button } from "@mui/material"
 
 interface YourComponentProps {
-  data: any;
+  data: any
 }
 
 const Main: React.FC<YourComponentProps> = ({ data }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [displayPoint, setDisplayPoint] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const showModal = () => {
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   const template = _.cloneDeep(data1)
 
   return (
     <div style={{width: "100%", maxWidth: "50%", paddingLeft: 4, paddingRight: 4}}>
-      <Button variant="contained" onClick={showModal} sx={{width: "100%", height: 54, borderRadius: "50rem"}} style={{textTransform: 'none', backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#8BC34A"}}>
+      <Button variant="contained" onClick={showModal} sx={{width: "100%", height: 54, borderRadius: "50rem"}} style={{textTransform: "none", backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#8BC34A"}}>
         {data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}{data.title}
       </Button>
       <Modal 
@@ -36,20 +35,14 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
         width={30 * 15 + 24 * 2} 
         footer={[]}
       >
-        <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: "column" }}>
-          <FormControlLabel
-            control={<Checkbox checked={displayPoint} onChange={() => setDisplayPoint((p: boolean) => !p)} />}
-            label="点数表示"
-          />
-        </div>
-        <div style={{ height: `320px`, overflowX: 'hidden', position: "relative" }}>
-          <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'hidden', position: "relative" }}>
-            <Tournament cells={draw(data, template)} displayPoint={displayPoint} />
+        <div style={{ height: `320px`, overflowX: "hidden", position: "relative" }}>
+          <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: "hidden", position: "relative" }}>
+            <Tournament cells={draw(data, template)} />
           </div>
         </div>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
 export default Main

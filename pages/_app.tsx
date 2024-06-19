@@ -1,23 +1,23 @@
-import '@/styles/home.css'
+import "@/styles/home.css"
 import "@/styles/scroll-bar.css"
-import type { AppProps } from 'next/app'
-import Script from "next/script";
-import * as gtag from "../lib/gtag";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import type { AppProps } from "next/app"
+import Script from "next/script"
+import * as gtag from "../lib/gtag"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
+  const router = useRouter()
   useEffect(() => {
     const handleRouterChange = (url: any) => {
-      gtag.pageview(url);
-    };
-    router.events.on("routeChangeComplete", handleRouterChange);
+      gtag.pageview(url)
+    }
+    router.events.on("routeChangeComplete", handleRouterChange)
     return () => {
-      router.events.off("routeChangeComplete", handleRouterChange);
-    };
-  }, [router.events]);
-  
+      router.events.off("routeChangeComplete", handleRouterChange)
+    }
+  }, [router.events])
+
   return (
     <>
       <Script
@@ -29,11 +29,11 @@ export default function App({ Component, pageProps }: AppProps) {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+            window.dataLayer = window.dataLayer || []
+            function gtag(){dataLayer.push(arguments)}
+            gtag("js", new Date())
 
-            gtag('config', '${gtag.GA_MEASUREMENT_ID}');
+            gtag("config", "${gtag.GA_MEASUREMENT_ID}")
           `,
         }}
       />

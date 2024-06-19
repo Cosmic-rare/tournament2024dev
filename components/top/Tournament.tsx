@@ -1,7 +1,7 @@
-import { TournamentCellData } from "@/pages";
+import { TournamentCellData } from "@/pages"
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, displayPoint: boolean }> = ({ cells, displayPoint }) => {
-  const colors = ["#adb5bd", "#dc3545"];
+const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ cells }) => {
+  const colors = ["#adb5bd", "#dc3545"]
   const width = 30
   const height = 50
 
@@ -9,36 +9,36 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, displayP
     <>
       {Object.entries(cells).map(([cell, cellData]) => {
         const cellStyle: React.CSSProperties = {
-          position: 'absolute',
-          top: `${(5 - parseFloat(cell.split('_')[1])) * height}px`,
-          left: `${parseFloat(cell.split('_')[0]) * width}px`,
+          position: "absolute",
+          top: `${(5 - parseFloat(cell.split("_")[1])) * height}px`,
+          left: `${parseFloat(cell.split("_")[0]) * width}px`,
           height: `${height}px`,
           width: `${width}px`,
-          paddingRight: cellData.align_left ? '10px' : '0',
-          borderTop: cellData.border_top ? `3px solid ${colors[cellData.border_top - 1]}` : 'none',
-          borderLeft: cellData.border_left ? `3px solid ${colors[cellData.border_left - 1]}` : 'none',
+          paddingRight: cellData.align_left ? "10px" : "0",
+          borderTop: cellData.border_top ? `3px solid ${colors[cellData.border_top - 1]}` : "none",
+          borderLeft: cellData.border_left ? `3px solid ${colors[cellData.border_left - 1]}` : "none",
           verticalAlign: "bottom",
           display: "flex",
           alignItems: `${cell.split("_")[1] === "0" || cellData.edit !== undefined ? "" : "flex-end"}`,
-        };
+        }
 
         return (
           <div key={cell} style={cellStyle}>
-            <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'center', color: cellData.color ? colors[cellData.color - 1] : 'inherit', verticalAlign: "bottom" }}>
-              {(cellData.point || cellData.point === 0 ) && displayPoint  ? 
-                cellData.point2 || cellData.point2 === 0 ? 
-                  <span style={{color: colors[1]}}>{cellData.point}<br />({cellData.point2})</span>
+            <div className={cellData.class} style={{ fontSize: "0.8em", width: "100%", textAlign: cellData.align_left ? "left" : "center", color: cellData.color ? colors[cellData.color - 1] : "inherit", verticalAlign: "bottom" }}>
+              {(cellData.point || cellData.point === 0) ?
+                cellData.point2 || cellData.point2 === 0 ?
+                  <span style={{ color: colors[1] }}>{cellData.point}<br />({cellData.point2})</span>
                   :
-                  <span style={{color: colors[1]}}>{cellData.point}<br /><span style={{ visibility: "hidden" }}>{"A"}</span></span>
+                  <span style={{ color: colors[1] }}>{cellData.point}<br /><span style={{ visibility: "hidden" }}>{"A"}</span></span>
                 :
                 cellData.text
               }
             </div>
           </div>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}
 
 export default Tournament
