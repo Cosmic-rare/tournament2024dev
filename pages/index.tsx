@@ -125,7 +125,7 @@ const Main = ({ data, eAPI }: any) => {
           width={30 * 15 + 24 * 2}
           footer={[]}
         >
-          <div style={{ height: `320px`, overflowX: "hidden", position: "relative" }}>
+          <div style={{ height: `320px`, overflowX: "scroll", position: "relative" }}>
             <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: "hidden", position: "relative" }}>
               <EditTournament data={d} onModalOpen={handleOnOpenModal} onClassEditModalOpen={onClassEditModalOpen} />
             </div>
