@@ -288,8 +288,12 @@ const App = () => {
             {login ?
 
               <button onClick={async () => {
-                const r = await axios.get("http://localhost:3001/token")
-                localStorage.setItem("token", r.data.token)
+                const r = await APIget(
+                  "token",
+                  () => {},
+                  () => {}
+                )
+                localStorage.setItem("token", r.token)
               }}>issue token</button>
 
               : null
