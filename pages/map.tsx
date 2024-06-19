@@ -3,12 +3,13 @@ import {
   TransformComponent,
   useControls,
 } from "react-zoom-pan-pinch"
+import dynamic from 'next/dynamic'
 
 const Controls = () => {
   const { zoomIn, zoomOut, resetTransform } = useControls()
 
   return (
-    <div className="tools">
+    <div className="tools" style={{ height: 24 }}>
       <button onClick={() => zoomIn()}>+</button>
       <button onClick={() => zoomOut()}>-</button>
       <button onClick={() => resetTransform()}>x</button>
@@ -18,11 +19,16 @@ const Controls = () => {
 
 const Example = () => {
   return (
-    <TransformWrapper initialScale={1} minScale={0.5} maxScale={3}>
+    <TransformWrapper initialScale={1} minScale={0.75} maxScale={3}>
       {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
         <div style={{ height: "100%", overflowY: "hidden" }}>
           <Controls />
-          <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }} >
+          <TransformComponent
+            wrapperStyle={{
+              width: "100%",
+              height: parseInt(getComputedStyle(document.body).getPropertyValue("--100vw")) <= 700 ? "calc(var(--100vh) - 88px)" : "100%"
+            }}
+          >
             <div style={{ width: 1000, margin: 24 }}>
 
               <dl>
@@ -95,4 +101,6 @@ const Example = () => {
   )
 }
 
-export default Example
+export default dynamic(() => Promise.resolve(Example), {
+  ssr: false
+})
