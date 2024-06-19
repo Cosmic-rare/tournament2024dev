@@ -12,6 +12,8 @@ import {
 } from "@mui/material"
 import Link from "next/link"
 import ArchiveIcon from "@mui/icons-material/Archive"
+import MapIcon from '@mui/icons-material/Map'
+import ScoreboardIcon from '@mui/icons-material/Scoreboard'
 
 const resize = () => {
   const height = window.innerHeight
@@ -33,8 +35,8 @@ const BottomNav = () => {
         style={{ backgroundColor: "#2196f3" }}
         sx={{ height: 56 }}
       >
-        <BottomNavigationAction label="" icon={<Link href={"/"}><ArchiveIcon /></Link>} />
-        <BottomNavigationAction label="" icon={<Link href={"/"}><ArchiveIcon /></Link>} />
+        <BottomNavigationAction label="" icon={<Link href={"/"}><ScoreboardIcon /></Link>} />
+        <BottomNavigationAction label="" icon={<Link href={"/map"}><MapIcon /></Link>} />
         <BottomNavigationAction label="" icon={<Link href={"/"}><ArchiveIcon /></Link>} />
         <BottomNavigationAction label="" icon={<Link href={"/"}><ArchiveIcon /></Link>} />
       </BottomNavigation>
@@ -117,14 +119,14 @@ export default function App({ Component, pageProps }: AppProps) {
           }}>
             <Link href={"/"}>
               <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                <ArchiveIcon style={{ width: 30, height: 30, margin: 10 }} />
+                <ScoreboardIcon style={{ width: 30, height: 30, margin: 10 }} />
                 <div style={{ marginLeft: 10 }}>Tournament</div>
               </div>
             </Link>
-            <Link href={"/"}>
+            <Link href={"/map"}>
               <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                <ArchiveIcon style={{ width: 30, height: 30, margin: 10 }} />
-                <div style={{ marginLeft: 10 }}>Tournament</div>
+                <MapIcon style={{ width: 30, height: 30, margin: 10 }} />
+                <div style={{ marginLeft: 10 }}>Map</div>
               </div>
             </Link>
             <Link href={"/"}>
