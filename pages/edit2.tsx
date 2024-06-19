@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Card } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { Card } from '@mui/material'
 import { APIget } from '@/util/api'
-import draw from '@/util/draw';
-import data1 from '@/components/data1.json';
+import draw from '@/util/draw'
 import _ from 'lodash'
-import { Modal } from 'antd';
-import { Button, FormControlLabel, Checkbox } from '@mui/material';
+import { Modal } from 'antd'
+import { Button, FormControlLabel, Checkbox } from '@mui/material'
+import Edit from '@/components/edit.svg'
+import cellTemplate from '@/components/data1.json'
 
 // ----- Main.tsx -----
 
-interface YourComponentProps {
-  data: any;
-}
-
-const Main: React.FC<YourComponentProps> = ({ data }) => {
+const Main = ({ data }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [displayPoint, setDisplayPoint] = useState(true)
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -25,7 +21,6 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
     setIsModalOpen(false);
   };
 
-  const template = _.cloneDeep(data1)
 
   return (
     <div style={{width: "100%", maxWidth: "50%", paddingLeft: 4, paddingRight: 4}}>
@@ -39,15 +34,9 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
         width={30 * 15 + 24 * 2} 
         footer={[]}
       >
-        <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: "column" }}>
-          <FormControlLabel
-            control={<Checkbox checked={displayPoint} onChange={() => setDisplayPoint((p: boolean) => !p)} />}
-            label="点数表示"
-          />
-        </div>
         <div style={{ height: `320px`, overflowX: 'hidden', position: "relative" }}>
           <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: 'hidden', position: "relative" }}>
-            <Tournament cells={draw(data, template)} displayPoint={displayPoint} />
+            <EditTournament data={data} onModalOpen={() => {}} onClassEditModalOpen={() => {}} />
           </div>
         </div>
       </Modal>
@@ -57,12 +46,24 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
 
 // --------------------
 
-// ----- Tournament.tsx -----
+// ----- edit-tournament ---
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, displayPoint: boolean }> = ({ cells, displayPoint }) => {
+const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditModalOpen: Function }> = ({ data, onModalOpen, onClassEditModalOpen }) => {
   const colors = ["#adb5bd", "#dc3545"];
   const width = 30
   const height = 50
+
+  const template = _.cloneDeep(cellTemplate)
+
+  const cells: Array<TournamentCellData> = draw(data, template)
+
+  const onEdit = (p: number) => {
+    onModalOpen(p)
+  }
+
+  const onEdit2 = (p: number, d: number) => {
+    onClassEditModalOpen(p, d)
+  }
 
   return (
     <>
@@ -84,7 +85,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, displayP
         return (
           <div key={cell} style={cellStyle}>
             <div className={cellData.class} style={{ fontSize: '0.8em', width: '100%', textAlign: cellData.align_left ? 'left' : 'center', color: cellData.color ? colors[cellData.color - 1] : 'inherit', verticalAlign: "bottom" }}>
-              {(cellData.point || cellData.point === 0 ) && displayPoint  ? 
+              {cellData.point || cellData.point === 0 ? 
                 cellData.point2 || cellData.point2 === 0 ? 
                   <span style={{color: colors[1]}}>{cellData.point}<br />({cellData.point2})</span>
                   :
@@ -92,6 +93,40 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, displayP
                 :
                 cellData.text
               }
+
+              {cellData.edit !== undefined ? (
+                <div
+                  onClick={() => onEdit(cellData.edit!)}
+                  style={{
+                    marginTop: 10,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Edit width={20} height={20} stroke={'#bbb'} strokeWidth={2.5} />
+                  </div>
+                </div>
+              ) : null}
+
+              {cellData.edit2 !== undefined ? (
+                <div>
+                  <div
+                    onClick={() => onEdit2(cellData.edit2!, cellData.edit2_data!)}
+                    style={{
+                      marginTop: 10,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <Edit width={20} height={20} stroke={'#bbb'} strokeWidth={2.5} />
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         );
@@ -100,7 +135,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, displayP
   );
 };
 
-// --------------------------
+// -------------------------
 
 export interface TournamentCellData {
   text?: string;
