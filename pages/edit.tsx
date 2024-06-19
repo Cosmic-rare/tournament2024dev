@@ -88,7 +88,7 @@ const Edit: React.FC = () => {
       sD(res)
     }
 
-    if (page) { fetchData() }
+    if (page) { fetchData(); console.log(page) }
   }, [page]);
 
   useEffect(() => {
