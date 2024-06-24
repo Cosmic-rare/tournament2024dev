@@ -13,6 +13,7 @@ import Link from "next/link"
 import ArchiveIcon from "@mui/icons-material/Archive"
 import MapIcon from '@mui/icons-material/Map'
 import ScoreboardIcon from '@mui/icons-material/Scoreboard'
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 
 const resize = () => {
   const height = window.innerHeight
@@ -36,7 +37,7 @@ const BottomNav = () => {
       >
         <BottomNavigationAction label="" icon={<Link href={"/"}><ScoreboardIcon /></Link>} />
         <BottomNavigationAction label="" icon={<Link href={"/map"}><MapIcon /></Link>} />
-        <BottomNavigationAction label="" icon={<Link href={"/"}><ArchiveIcon /></Link>} />
+        <BottomNavigationAction label="" icon={<Link href={"/user"}><AssignmentIndIcon /></Link>} />
         <BottomNavigationAction label="" icon={<Link href={"/"}><ArchiveIcon /></Link>} />
       </BottomNavigation>
     </Paper>
@@ -128,10 +129,10 @@ export default function App({ Component, pageProps }: AppProps) {
                 <div style={{ marginLeft: 10 }}>Map</div>
               </div>
             </Link>
-            <Link href={"/"}>
+            <Link href={"/user"}>
               <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                <ArchiveIcon style={{ width: 30, height: 30, margin: 10 }} />
-                <div style={{ marginLeft: 10 }}>Tournament</div>
+                <AssignmentIndIcon style={{ width: 30, height: 30, margin: 10 }} />
+                <div style={{ marginLeft: 10 }}>User</div>
               </div>
             </Link>
             <Link href={"/"}>

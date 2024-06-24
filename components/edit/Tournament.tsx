@@ -3,9 +3,10 @@ import _ from "lodash"
 import Edit from "@/components/edit.svg"
 import cellTemplate from "@/components/data1.json"
 import { TournamentCellData } from "@/pages"
+import { jwtDecode } from "jwt-decode"
 
 
-const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditModalOpen: Function }> = ({ data, onModalOpen, onClassEditModalOpen }) => {
+const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditModalOpen: Function, token: string }> = ({ data, onModalOpen, onClassEditModalOpen, token }) => {
   const colors = ["#adb5bd", "#dc3545"]
   const width = 30
   const height = 50
@@ -21,6 +22,12 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
   const onEdit2 = (p: number, d: number) => {
     onClassEditModalOpen(p, d)
   }
+
+  let roleType: string
+  try {
+    // @ts-ignore
+    roleType = jwtDecode(token).roleType
+  } catch (e) { console.log(e) }
 
   return (
     <>
@@ -51,7 +58,7 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
                 cellData.text
               }
 
-              {cellData.edit !== undefined ? (
+              {cellData.edit !== undefined && ["ADMIN", "USER"].includes(roleType) ? (
                 <div
                   onClick={() => onEdit(cellData.edit!)}
                   style={{
@@ -67,7 +74,7 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
                 </div>
               ) : null}
 
-              {cellData.edit2 !== undefined ? (
+              {cellData.edit2 !== undefined && "ADMIN" == roleType ? (
                 <div>
                   <div
                     onClick={() => onEdit2(cellData.edit2!, cellData.edit2_data!)}

@@ -13,6 +13,7 @@ import ClassEditModal from "@/components/edit/classEditModa"
 import { gameType } from "@/util/type"
 import { APIget, APIpost } from "@/util/api"
 import ViewMain from "@/components/top/Main"
+import { useTokenStore } from "@/util/store"
 import EditTournament from "@/components/edit/Tournament"
 
 const Main = ({ data, eAPI }: any) => {
@@ -25,6 +26,8 @@ const Main = ({ data, eAPI }: any) => {
   const [d, sD] = useState<any>(data)
   const [isLoading, setIsLoading] = useState(false)
   const [editGame, setEditGame] = useState<gameType | {}>({})
+  const token = useTokenStore((s) => s.token)
+  const updateToken = useTokenStore((s) => s.setToken)
 
   const showModal = () => {
     setIsModalOpen1(true)
@@ -51,7 +54,7 @@ const Main = ({ data, eAPI }: any) => {
 
     await APIpost(
       "edit/2",
-      { targetPosition: p, insertNumber: c, id: d.id, token: localStorage.getItem("token") },
+      { targetPosition: p, insertNumber: c, id: d.id, token: token },
       () => eAPI("Faild to update"),
       async () => {
         const res = await APIget(
@@ -62,7 +65,8 @@ const Main = ({ data, eAPI }: any) => {
         sD(res)
         setIsLoading(false)
         setIsClassEditModalOpen(false)
-      }
+      },
+      () => { updateToken("") }
     )
   }
 
@@ -73,7 +77,7 @@ const Main = ({ data, eAPI }: any) => {
 
     await APIpost(
       "edit/1",
-      { d: game, id: d.id, p: p, token: localStorage.getItem("token") },
+      { d: game, id: d.id, p: p, token: token },
       () => eAPI("Faild to update"),
       async () => {
         const res = await APIget(
@@ -84,7 +88,8 @@ const Main = ({ data, eAPI }: any) => {
         sD(res)
         setIsLoading(false)
         setIsModalOpen(false)
-      }
+      },
+      () => { updateToken("") }
     )
   }
 
@@ -126,7 +131,7 @@ const Main = ({ data, eAPI }: any) => {
         >
           <div style={{ height: `320px`, overflowX: "scroll", position: "relative" }}>
             <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: "hidden", position: "relative" }}>
-              <EditTournament data={d} onModalOpen={handleOnOpenModal} onClassEditModalOpen={onClassEditModalOpen} />
+              <EditTournament data={d} onModalOpen={handleOnOpenModal} onClassEditModalOpen={onClassEditModalOpen} token={token} />
             </div>
           </div>
         </Modal>

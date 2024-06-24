@@ -5,7 +5,9 @@ import { notification } from "antd"
 import { APIget } from "@/util/api"
 import ViewMain from "@/components/top/Main"
 import Main from "@/components/edit/Main"
-
+import { jwtDecode } from "jwt-decode"
+import dynamic from 'next/dynamic'
+import { useTokenStore } from "@/util/store"
 
 export interface TournamentCellData {
   text?: string
@@ -26,8 +28,9 @@ const width = {
 }
 
 const App = () => {
-  const [login, setLogin] = useState(false)
   const [data, setData] = useState<any>()
+  const token = useTokenStore((s) => s.token)
+  const updateToken = useTokenStore((s) => s.setToken)
   useEffect(() => {
     const fetchData = async () => {
       const res = await APIget("/get/2", () => { }, () => { })
@@ -57,29 +60,6 @@ const App = () => {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
-
-          <Card
-            sx={{ width: width }}
-            style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
-          >
-            <input type="checkbox" checked={login} onClick={() => setLogin(!login)} />
-            {login ?
-
-              <button onClick={async () => {
-                const r = await APIget(
-                  "token",
-                  () => {},
-                  () => {}
-                )
-                localStorage.setItem("token", r.token)
-              }}>issue token</button>
-
-              : null
-            }
-          </Card>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
           <Card
             sx={{ width: width }}
             style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
@@ -88,7 +68,16 @@ const App = () => {
             {data.data1.map((group: any, index: any) => (
               <div key={index} style={{ display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4 }}>
                 {group.map((val: any, i: any) => {
-                  return login ? <Main data={val} key={i} eAPI={e} /> : <ViewMain data={val} key={i} />
+                  return true ? 
+                  <Main 
+                    data={val} 
+                    key={i} 
+                    eAPI={e} 
+                    // @ts-ignore
+                    token={token}
+                  />
+                  :
+                  <ViewMain data={val} key={i} />
                 })}
               </div>
             ))}
@@ -101,4 +90,6 @@ const App = () => {
   }
 }
 
-export default App
+export default dynamic(() => Promise.resolve(App), {
+  ssr: false
+})
