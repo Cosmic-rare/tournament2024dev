@@ -49,11 +49,9 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
           <CircularProgress color="inherit" />
         </Backdrop>
         <ModalContent
-          l_point={game.l_p1}
           isLoading={isLoading}
-          setL_point={(d: number) => setGame((p: gameType) => { return { ...p, l_p1: d } })}
-          h_point={game.h_p1}
-          setH_point={(d: number) => setGame((p: gameType) => { return { ...p, h_p1: d } })}
+          setGame={setGame}
+          game={game}
         />
         <div style={{ height: 10 }} />
       </div>

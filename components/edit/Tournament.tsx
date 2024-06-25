@@ -57,7 +57,8 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
                 cellData.text
               }
 
-              {cellData.edit !== undefined && (roleType == "ADMIN" || (roleType == "USER" && !(data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt)))
+              { // ADMIN->OK, USER->!(started & ended)ならOK
+              cellData.edit !== undefined && (roleType == "ADMIN" || (roleType == "USER" && !(data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt)))
                 ? (
                   <div
                     onClick={() => onEdit(cellData.edit!)}
