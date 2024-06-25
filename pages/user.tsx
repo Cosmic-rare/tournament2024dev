@@ -3,7 +3,7 @@ import { Card } from "@mui/material"
 import _ from "lodash"
 import { APIpost } from "@/util/api"
 import { jwtDecode } from "jwt-decode"
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic"
 import { useState } from "react"
 import { useTokenStore } from "@/util/store"
 
@@ -11,7 +11,7 @@ const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
 }
 
-const GenToken = ({ token }: any) => {
+const GenToken = ({ token, updateToken }: any) => {
   try {
     return (
       <>
@@ -26,7 +26,8 @@ const GenToken = ({ token }: any) => {
                   "auth/genToken",
                   { token: token },
                   () => { },
-                  () => { }
+                  () => { },
+                  () => updateToken("")
                 )
               }}>regenerate role-token</button>
             </Card>
@@ -54,7 +55,7 @@ const App = () => {
     <div>
       {contextHolder}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
-        <GenToken token={token} />
+        <GenToken token={token} updateToken={updateToken} />
       </div>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>

@@ -11,9 +11,9 @@ import {
 } from "@mui/material"
 import Link from "next/link"
 import ArchiveIcon from "@mui/icons-material/Archive"
-import MapIcon from '@mui/icons-material/Map'
-import ScoreboardIcon from '@mui/icons-material/Scoreboard'
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
+import MapIcon from "@mui/icons-material/Map"
+import ScoreboardIcon from "@mui/icons-material/Scoreboard"
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
 
 const resize = () => {
   const height = window.innerHeight

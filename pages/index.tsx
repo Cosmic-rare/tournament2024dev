@@ -5,8 +5,7 @@ import { notification } from "antd"
 import { APIget } from "@/util/api"
 import ViewMain from "@/components/top/Main"
 import Main from "@/components/edit/Main"
-import { jwtDecode } from "jwt-decode"
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic"
 import { useTokenStore } from "@/util/store"
 
 export interface TournamentCellData {

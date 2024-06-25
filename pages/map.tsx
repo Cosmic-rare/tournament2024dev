@@ -3,7 +3,7 @@ import {
   TransformComponent,
   useControls,
 } from "react-zoom-pan-pinch"
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic"
 
 const Controls = () => {
   const { zoomIn, zoomOut, resetTransform } = useControls()
