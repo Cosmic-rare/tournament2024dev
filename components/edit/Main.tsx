@@ -8,6 +8,8 @@ import { gameType } from "@/util/type"
 import { APIget, APIpost } from "@/util/api"
 import { useTokenStore } from "@/util/store"
 import EditTournament from "@/components/edit/Tournament"
+import { jwtDecode } from "jwt-decode"
+import { useRouter } from "next/router"
 
 const Main = ({ data, eAPI }: any) => {
   const [isModalOpen1, setIsModalOpen1] = useState(false)
@@ -21,6 +23,7 @@ const Main = ({ data, eAPI }: any) => {
   const [editGame, setEditGame] = useState<gameType | {}>({})
   const token = useTokenStore((s) => s.token)
   const updateToken = useTokenStore((s) => s.setToken)
+  const router = useRouter()
 
   const showModal = () => {
     setIsModalOpen1(true)
@@ -31,9 +34,21 @@ const Main = ({ data, eAPI }: any) => {
   }
 
   const handleOnOpenModal = (p: number) => {
-    setEditPoint(p)
-    setEditGame(d[`p_${p}`])
-    setIsModalOpen(true)
+    try {
+      // @ts-ignore
+      switch (jwtDecode(token).roleType) {
+        case "ADMIN":
+          setEditPoint(p)
+          setEditGame(d[`p_${p}`])
+          setIsModalOpen(true)
+          break
+        case "USER":
+          router.push(`/record/${d.id}/${p}`)
+          break
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const onClassEditModalOpen = (p: number, d: number) => {
@@ -64,7 +79,6 @@ const Main = ({ data, eAPI }: any) => {
   }
 
   // validation実装せなあかんなぁ....
-  // 全体のstateもアップデートしたい
   const onUpdate = async (game: gameType, p: number, isReset: boolean) => {
     setIsLoading(true)
 
