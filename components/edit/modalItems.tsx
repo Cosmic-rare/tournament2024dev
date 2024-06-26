@@ -5,13 +5,13 @@ import dayjs from "dayjs"
 
 const PointInput = ({ setGame, game, pos }: any) => {
   return (
-    <Row gutter={16} justify="center">
-      <Col span={2}>
-        <div style={{ textAlign: "center" }}>
+    <Row justify="center" gutter={12} wrap={false}>
+      <Col span={3}>
+        <div style={{ textAlign: "left" }}>
           <span style={{ marginTop: "25px", display: "inline-block" }}>{pos}</span>
         </div>
       </Col>
-      <Col span={5}>
+      <Col span={3.5}>
         <div style={{ textAlign: "center" }}>
           <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
         </div>
@@ -22,7 +22,8 @@ const PointInput = ({ setGame, game, pos }: any) => {
               setGame((p: gameType) => { return { ...p, [`l_p${pos}`]: parseInt(e.target.value, 10) } })
             }}
             type="number"
-            style={{ width: "80%", textAlign: "center" }}
+            style={{ width: "60%", textAlign: "center" }}
+            // style={{ textAlign: "center" }}
           />
         </div>
       </Col>
@@ -31,7 +32,7 @@ const PointInput = ({ setGame, game, pos }: any) => {
           <span style={{ marginTop: "25px", display: "inline-block" }}>-</span>
         </div>
       </Col>
-      <Col span={5}>
+      <Col span={3.5}>
         <div style={{ textAlign: "center" }}>
           <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
         </div>
@@ -42,7 +43,8 @@ const PointInput = ({ setGame, game, pos }: any) => {
               setGame((p: gameType) => { return { ...p, [`h_p${pos}`]: parseInt(e.target.value, 10) } })
             }}
             type="number"
-            style={{ width: "80%", textAlign: "center" }}
+            style={{ width: "60%", textAlign: "center" }}
+            // style={{ textAlign: "center" }}
           />
         </div>
       </Col>
@@ -69,13 +71,13 @@ const DateInput = ({ setGame, game, column, title }: any) => {
   }
 
   return (
-    <Row gutter={16} justify="center">
-      <Col span={3}>
-        <div style={{ textAlign: "center" }}>
+    <Row  justify="center">
+      <Col flex={3}>
+        <div style={{ textAlign: "left" }}>
           <span style={{ marginTop: "25px", display: "inline-block" }}>{title}</span>
         </div>
       </Col>
-      <Col span={4} style={{ paddingRight: 0 }}>
+      <Col flex={4.5}>
         <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
         <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
           <TimePicker
@@ -86,7 +88,7 @@ const DateInput = ({ setGame, game, column, title }: any) => {
           />
         </div>
       </Col>
-      <Col span={8}>
+      <Col flex={4.5}>
         <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
         <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
           <Radio.Group onChange={onChangeDate} value={new Date(game[column]).getDate() - 1} defaultValue={16}>
@@ -113,14 +115,18 @@ export const ModalContent = ({ setGame, game, event }: any) => {
       <PointInput pos={2} setGame={setGame} game={game} />
       <PointInput pos={3} setGame={setGame} game={game} />
 
+      <DateInput setGame={setGame} game={game} column="scheduledAt" title="予定" />
+      <DateInput setGame={setGame} game={game} column="startedAt" title="開始" />
+      <DateInput setGame={setGame} game={game} column="endedAt" title="終了" />
+
       {event == "dodgeball" ?
-        <Row gutter={16} justify="center">
-          <Col span={3}>
-            <div style={{ textAlign: "center" }}>
+        <Row justify="center">
+          <Col flex={3}>
+            <div style={{ textAlign: "left" }}>
               <span style={{ marginTop: "25px", display: "inline-block" }}>先当り</span>
             </div>
           </Col>
-          <Col span={12}>
+          <Col flex={9}>
             <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
             <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
               <Radio.Group onChange={onChange} value={game.fHitted}>
@@ -134,13 +140,13 @@ export const ModalContent = ({ setGame, game, event }: any) => {
         : null
       }
 
-      <Row gutter={16} justify="center">
-        <Col span={3}>
-          <div style={{ textAlign: "center" }}>
+      <Row justify="center">
+        <Col flex={3}>
+          <div style={{ textAlign: "left" }}>
             <span style={{ marginTop: "25px", display: "inline-block" }}>適用済</span>
           </div>
         </Col>
-        <Col span={12}>
+        <Col flex={9}>
           <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
           <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
             <Radio.Group onChange={(e: RadioChangeEvent) => setGame((p: gameType) => { return { ...p, applied: e.target.value } })} value={game.applied}>
@@ -150,10 +156,6 @@ export const ModalContent = ({ setGame, game, event }: any) => {
           </div>
         </Col>
       </Row>
-
-      <DateInput setGame={setGame} game={game} column="scheduledAt" title="予定" />
-      <DateInput setGame={setGame} game={game} column="startedAt" title="開始" />
-      <DateInput setGame={setGame} game={game} column="endedAt" title="終了" />
     </>
   )
 }

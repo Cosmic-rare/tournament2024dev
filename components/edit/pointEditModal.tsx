@@ -42,7 +42,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
         </Button>
       ]}
     >
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", maxWidth: 330, margin: "auto" }}>
         <Backdrop
           sx={{ color: "#fff", zIndex: 9999 }}
           open={isLoading}
