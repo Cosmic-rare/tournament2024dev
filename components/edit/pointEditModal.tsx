@@ -12,9 +12,10 @@ interface YourComponentProps {
   editPoint: number
   game: gameType
   setGame: Function
+  event: string
 }
 
-const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, game, setGame }) => {
+const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, game, setGame, event }) => {
   return (
     <Modal
       open={isModalOpen}
@@ -52,6 +53,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
           isLoading={isLoading}
           setGame={setGame}
           game={game}
+          event={event}
         />
         <div style={{ height: 10 }} />
       </div>

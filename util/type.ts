@@ -17,4 +17,5 @@ export interface gameType {
   endedAt?: number
   recorderId?: string
   applied: boolean
+  scheduledAt?: number
 }

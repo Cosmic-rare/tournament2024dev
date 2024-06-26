@@ -21,6 +21,22 @@ body {
   font-family: "Helvetica Neue", "Arial", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", "Meiryo", sans-serif
 }
 
+.ant-picker-dropdown {
+  z-index: 9999;
+}
+
+.ant-picker-now {
+  display: none !important;
+}
+
+.ant-picker-clear {
+  display: none !important;
+}
+
+.ant-picker-suffix {
+  display: none !important;
+}
+
 .point {
   color: red
 }
