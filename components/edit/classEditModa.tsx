@@ -29,6 +29,7 @@ const ClassEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
     <Modal
       open={isModalOpen}
       closable={false}
+      style={{ maxWidth: 250 }}
       onCancel={() => setIsModalOpen(false)}
       zIndex={9997}
       footer={[
