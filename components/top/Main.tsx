@@ -5,6 +5,7 @@ import _ from "lodash"
 import { Modal } from "antd"
 import React, { useState } from "react"
 import { Button } from "@mui/material"
+import PointModal from "./pointModal"
 
 interface YourComponentProps {
   data: any
@@ -12,6 +13,8 @@ interface YourComponentProps {
 
 const Main: React.FC<YourComponentProps> = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isPointModalOpen, setIsPointModalOpen] = useState(false)
+  const [pointPos, setPointPos] = useState<null | number>(null)
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -25,6 +28,11 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
 
   return (
     <div style={{width: "100%", maxWidth: "50%", paddingLeft: 4, paddingRight: 4}}>
+      <PointModal 
+        isModalOpen={isPointModalOpen}
+        setIsModalOpen={setIsPointModalOpen} 
+        data={data[`p_${pointPos}`]}
+      />
       <Button variant="contained" onClick={showModal} sx={{width: "100%", height: 54, borderRadius: "50rem"}} style={{textTransform: "none", backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#8BC34A"}}>
         {data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}{data.title}
       </Button>
@@ -37,7 +45,10 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
       >
         <div style={{ height: `320px`, overflowX: "scroll", position: "relative" }}>
           <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: "hidden", position: "relative" }}>
-            <Tournament cells={draw(data, template)} />
+            <Tournament
+              cells={draw(data, template)}
+              openModal={(p: number) => { setIsPointModalOpen(true); setPointPos(p) }}
+            />
           </div>
         </div>
       </Modal>

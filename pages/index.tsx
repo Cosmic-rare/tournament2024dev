@@ -67,7 +67,7 @@ const App = () => {
             {data.data1.map((group: any, index: any) => (
               <div key={index} style={{ display: "flex", justifyContent: "center", paddingTop: 4, paddingBottom: 4 }}>
                 {group.map((val: any, i: any) => {
-                  return true ? 
+                  return token ? 
                   <Main 
                     data={val} 
                     key={i} 

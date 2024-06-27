@@ -9,7 +9,7 @@ const draw = (r: any, c: any) => {
   c["13.5_0"] = { "text": `${r.gread}-${r.c_7}`, "edit2": 7, "edit2_data": r.c_7 }
 
   // 普通にトーナメントの赤線を引く
-  if (r.p_1.l_p1 === -1 && r.p_1.h_p1 === -1) {
+  if (r.p_1.l_p1 === null && r.p_1.h_p1 === null) {
   } else if(r.p_1.l_p1 > r.p_1.h_p1) {
     c["1_1"] = { "border_left": 2, "border_top": 2 }
   } else {
@@ -17,7 +17,7 @@ const draw = (r: any, c: any) => {
     c["3_1"] = { "border_left": 2 }
   }
 
-  if (r.p_2.l_p1 === -1 && r.p_2.h_p1 === -1) {
+  if (r.p_2.l_p1 === null && r.p_2.h_p1 === null) {
   } else if(r.p_2.l_p1 > r.p_2.h_p1) {
     c["5_1"] = { "border_left": 2, "border_top": 2 }
   } else {
@@ -25,7 +25,7 @@ const draw = (r: any, c: any) => {
     c["7_1"] = { "border_left": 2 }
   }
 
-  if (r.p_3.l_p1 === -1 && r.p_3.h_p1 === -1) {
+  if (r.p_3.l_p1 === null && r.p_3.h_p1 === null) {
   } else if(r.p_3.l_p1 > r.p_3.h_p1) {
     c["9_1"] = { "border_left": 2, "border_top": 2 }
   } else {
@@ -33,7 +33,7 @@ const draw = (r: any, c: any) => {
     c["11_1"] = { "border_left": 2 }
   }
 
-  if (r.p_4.l_p1 === -1 && r.p_4.h_p1 === -1) {
+  if (r.p_4.l_p1 === null && r.p_4.h_p1 === null) {
   } else if(r.p_4.l_p1 > r.p_4.h_p1) {
     c["2_2"] = { "border_left": 2, "border_top": 2 }
     c["3_2"] = { "border_top": 2 }
@@ -43,7 +43,7 @@ const draw = (r: any, c: any) => {
     c["6_2"] = { "border_left": 2 }
   }
 
-  if (r.p_5.l_p1 === -1 && r.p_5.h_p1 === -1) {
+  if (r.p_5.l_p1 === null && r.p_5.h_p1 === null) {
   } else if(r.p_5.l_p1 > r.p_5.h_p1) {
     c["10_2"] = { "border_left": 2, "border_top": 2 }
     c["11_2"] = { "border_top": 2 }
@@ -54,7 +54,7 @@ const draw = (r: any, c: any) => {
     c["14_2"] = { "border_left": 2 }
   }
 
-  if (r.p_6.l_p1 === -1 && r.p_6.h_p1 === -1) {
+  if (r.p_6.l_p1 === null && r.p_6.h_p1 === null) {
   } else if(r.p_6.l_p1 > r.p_6.h_p1) {
     c["4_3"] = { "border_left": 2, "border_top": 2 }
     c["5_3"] = { "border_top": 2 }
@@ -68,32 +68,32 @@ const draw = (r: any, c: any) => {
     c["12_3"] = { "border_left": 2 }
   }
 
-  if(r.p_6.l_p1 !== -1 && r.p_6.h_p1 !== -1) {
+  if(r.p_6.l_p1 !== null && r.p_6.h_p1 !== null) {
     c["8_4"] = { "border_left": 2 }
   }
 
-  // リセット(-1)じゃないときに点数を表示する仕組み
-  if (r.p_1.l_p1 !== -1 && r.p_1.h_p1 !== -1) {
+  // リセット(null)じゃないときに点数を表示する仕組み
+  if (r.p_1.l_p1 !== null && r.p_1.h_p1 !== null) {
     c["0_1"] = { ...c["0_1"], "point": r.p_1.l_p1 }
     c["3_1"] = { ...c["3_1"], "point": r.p_1.h_p1 }
   }
-  if (r.p_2.l_p1 !== -1 && r.p_2.h_p1 !== -1) {
+  if (r.p_2.l_p1 !== null && r.p_2.h_p1 !== null) {
     c["4_1"] = { ...c["4_1"], "point": r.p_2.l_p1 }
     c["7_1"] = { ...c["7_1"], "point": r.p_2.h_p1 }
   }
-  if (r.p_3.l_p1 !== -1 && r.p_3.h_p1 !== -1) {
+  if (r.p_3.l_p1 !== null && r.p_3.h_p1 !== null) {
     c["8_1"] = { ...c["8_1"], "point": r.p_3.l_p1 }
     c["11_1"] = { ...c["11_1"], "point": r.p_3.h_p1 }
   }
-  if (r.p_4.l_p1 !== -1 && r.p_4.h_p1 !== -1) {
+  if (r.p_4.l_p1 !== null && r.p_4.h_p1 !== null) {
     c["1_2"] = { ...c["1_2"], "point": r.p_4.l_p1 }
     c["6_2"] = { ...c["6_2"], "point": r.p_4.h_p1 }
   }
-  if (r.p_5.l_p1 !== -1 && r.p_5.h_p1 !== -1) {
+  if (r.p_5.l_p1 !== null && r.p_5.h_p1 !== null) {
     c["9_2"] = { ...c["9_2"], "point": r.p_5.l_p1 }
     c["14_2"] = { ...c["14_2"], "point": r.p_5.h_p1 }
   }
-  if (r.p_6.l_p1 !== -1 && r.p_6.h_p1 !== -1) {
+  if (r.p_6.l_p1 !== null && r.p_6.h_p1 !== null) {
     c["3_3"] = { ...c["3_3"], "point": r.p_6.l_p1 }
     c["12_3"] = { ...c["12_3"], "point": r.p_6.h_p1 }
   }
@@ -107,7 +107,7 @@ const draw = (r: any, c: any) => {
   c["7.5_3"] = { "edit": 6 }
 
   // 優勝クラスの描画
-  if (r.p_6.l_p1 === -1 && r.p_6.h_p1 === -1) {
+  if (r.p_6.l_p1 === null && r.p_6.h_p1 === null) {
   } else if (r.p_6.l_p1 > r.p_6.h_p1) {
     if (r.p_4.l_p1 > r.p_4.h_p1) {
       if (r.p_1.l_p1 > r.p_1.h_p1) {

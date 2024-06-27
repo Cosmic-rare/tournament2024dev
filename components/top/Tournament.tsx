@@ -1,6 +1,7 @@
 import { TournamentCellData } from "@/pages"
+import InfoIcon from "@mui/icons-material/Info"
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ cells }) => {
+const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, openModal: Function }> = ({ cells, openModal }) => {
   const colors = ["#adb5bd", "#dc3545"]
   const width = 30
   const height = 50
@@ -25,14 +26,24 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData> }> = ({ c
         return (
           <div key={cell} style={cellStyle}>
             <div className={cellData.class} style={{ fontSize: "0.8em", width: "100%", textAlign: cellData.align_left ? "left" : "center", color: cellData.color ? colors[cellData.color - 1] : "inherit", verticalAlign: "bottom" }}>
-              {(cellData.point || cellData.point === 0) ?
-                cellData.point2 || cellData.point2 === 0 ?
-                  <span style={{ color: colors[1] }}>{cellData.point}<br />({cellData.point2})</span>
-                  :
-                  <span style={{ color: colors[1] }}>{cellData.point}<br /><span style={{ visibility: "hidden" }}>{"A"}</span></span>
-                :
-                cellData.text
-              }
+              {cellData.text}
+
+              {cellData.edit !== undefined
+              ? (
+                <div
+                  onClick={() => openModal(cellData.edit!)}
+                  style={{
+                    marginTop: 10,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <InfoIcon width={20} height={20} style={{ color: "#777" }}/>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         )
