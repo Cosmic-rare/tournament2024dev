@@ -3,7 +3,6 @@ import { Card } from "@mui/material"
 import _ from "lodash"
 import { APIpost } from "@/util/api"
 import { jwtDecode } from "jwt-decode"
-import dynamic from "next/dynamic"
 import { useState } from "react"
 import { useTokenStore } from "@/util/store"
 
@@ -80,6 +79,4 @@ const App = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(App), {
-  ssr: false
-})
+export default App

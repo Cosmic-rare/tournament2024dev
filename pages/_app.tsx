@@ -14,6 +14,7 @@ import ArchiveIcon from "@mui/icons-material/Archive"
 import MapIcon from "@mui/icons-material/Map"
 import ScoreboardIcon from "@mui/icons-material/Scoreboard"
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
+import dynamic from "next/dynamic"
 
 const resize = () => {
   const height = window.innerHeight
@@ -68,7 +69,11 @@ const AnScript = () => {
   )
 }
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
+  if (!localStorage.getItem("id")) {
+    localStorage.setItem("id", crypto.randomUUID())
+  }
+
   const router = useRouter()
   useEffect(() => {
     const handleRouterChange = (url: any) => {
@@ -151,3 +156,7 @@ export default function App({ Component, pageProps }: AppProps) {
     )
   }
 }
+
+export default dynamic(() => Promise.resolve(App), {
+  ssr: false
+})

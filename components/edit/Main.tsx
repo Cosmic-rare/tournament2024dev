@@ -88,41 +88,22 @@ const Main = ({ data, eAPI }: any) => {
 
     setIsLoading(true)
 
-    if (roleType == "ADMIN") {
-      await APIpost(
-        "edit/3",
-        { d: game, id: d.id, p: p, token: token },
-        () => eAPI("Faild to update"),
-        async () => {
-          const res = await APIget(
-            `get/match/${data.id}`,
-            () => eAPI("Faild to get new data"),
-            () => { }
-          )
-          sD(res)
-          setIsLoading(false)
-          setIsModalOpen(false)
-        },
-        () => { updateToken("") }
-      )
-    } else {
-      await APIpost(
-        "edit/1",
-        { d: game, id: d.id, p: p, token: token },
-        () => eAPI("Faild to update"),
-        async () => {
-          const res = await APIget(
-            `get/match/${data.id}`,
-            () => eAPI("Faild to get new data"),
-            () => { }
-          )
-          sD(res)
-          setIsLoading(false)
-          setIsModalOpen(false)
-        },
-        () => { updateToken("") }
-      )
-    }
+    await APIpost(
+      "edit/3",
+      { d: game, id: d.id, p: p, token: token },
+      () => eAPI("Faild to update"),
+      async () => {
+        const res = await APIget(
+          `get/match/${data.id}`,
+          () => eAPI("Faild to get new data"),
+          () => { }
+        )
+        sD(res)
+        setIsLoading(false)
+        setIsModalOpen(false)
+      },
+      () => { updateToken("") }
+    )
   }
 
   return (
