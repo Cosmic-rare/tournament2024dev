@@ -1,7 +1,7 @@
 import { TournamentCellData } from "@/pages"
 import InfoIcon from "@mui/icons-material/Info"
 
-const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, openModal: Function }> = ({ cells, openModal }) => {
+const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, openModal: Function, data: any }> = ({ cells, openModal, data }) => {
   const colors = ["#adb5bd", "#dc3545"]
   const width = 30
   const height = 50
@@ -28,7 +28,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, openModa
             <div className={cellData.class} style={{ fontSize: "0.8em", width: "100%", textAlign: cellData.align_left ? "left" : "center", color: cellData.color ? colors[cellData.color - 1] : "inherit", verticalAlign: "bottom" }}>
               {cellData.text}
 
-              {cellData.edit !== undefined
+              {cellData.edit !== undefined && (data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt)
               ? (
                 <div
                   onClick={() => openModal(cellData.edit!)}
