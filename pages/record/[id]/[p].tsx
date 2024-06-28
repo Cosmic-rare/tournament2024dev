@@ -3,11 +3,14 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useTokenStore } from "@/util/store"
 import { notification } from "antd"
+import { ModalContent } from "@/components/record/inputs"
+import { CircularProgress, Backdrop } from "@mui/material"
 
 const Post = () => {
   const router = useRouter()
   const { id, p } = router.query
   const [d, sD] = useState<null | any>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const token = useTokenStore((s) => s.token)
   const updateToken = useTokenStore((s) => s.setToken)
   const [api, contextHolder] = notification.useNotification()
@@ -47,15 +50,16 @@ const Post = () => {
       )
     }
     if (d[`p_${p}`].startedAt != null && d[`p_${p}`].endedAt == null) {
+      setIsLoading(true)
       await APIpost(
         `/match/${id}/${p}/end`,
-        { token: token, recorderId: localStorage.getItem("id") },
+        { token: token, recorderId: localStorage.getItem("id"), game: d[`p_${p}`] },
         () => { eAPI("Faild to stop game") },
         async () => {
           const r = await APIget(
             `/match/${id}`,
             () => { eAPI("Faild to fetch game") },
-            () => { }
+            () => { setIsLoading(false) }
           )
           sD(r)
         },
@@ -67,13 +71,25 @@ const Post = () => {
   if (d) {
     return (
       <div>
+        <div style={{ position: "relative", maxWidth: 330, margin: "auto" }}>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: 9999 }}
+            open={isLoading}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+          <div style={{ height: 10 }} />
+        </div>
         {contextHolder}
+
         <p>id: {id}, p: {p}</p>
         <button onClick={handleStartEnd} disabled={d[`p_${p}`].startedAt != null && d[`p_${p}`].endedAt != null}>
-          {d[`p_${p}`].startedAt == null ? "start" : d[`p_${p}`].endedAt == null ? "end" : "-"}
+          {d[`p_${p}`].startedAt == null ? "start" : d[`p_${p}`].endedAt == null ? "submit & end" : "-"}
         </button>
         <hr />
         <code>{JSON.stringify(d[`p_${p}`])}</code>
+        <hr />
+        <ModalContent setGame={sD} p={p} game={d} />
       </div>
     )
   } else {
