@@ -8,11 +8,11 @@ const Post = () => {
   const router = useRouter()
   const { id, p } = router.query
   const [d, sD] = useState<null | any>(null)
+  const token = useTokenStore((s) => s.token)
   const updateToken = useTokenStore((s) => s.setToken)
   const [api, contextHolder] = notification.useNotification()
 
   const eAPI = (message: string, description = "だめですごめんなさい") => {
-    console.log("error!!!!!!")
     api.error({ message: message, description: description, duration: 6, placement: "bottomRight", className: "custom-notification" })
   }
 
@@ -33,7 +33,7 @@ const Post = () => {
     if (d[`p_${p}`].startedAt == null && d[`p_${p}`].endedAt == null) {
       await APIpost(
         `/match/${id}/${p}/start`,
-        {},
+        { token: token, recorderId: localStorage.getItem("id") },
         () => { eAPI("Faild to start game") },
         async () => {
           const r = await APIget(
@@ -49,7 +49,7 @@ const Post = () => {
     if (d[`p_${p}`].startedAt != null && d[`p_${p}`].endedAt == null) {
       await APIpost(
         `/match/${id}/${p}/end`,
-        {},
+        { token: token, recorderId: localStorage.getItem("id") },
         () => { eAPI("Faild to stop game") },
         async () => {
           const r = await APIget(
