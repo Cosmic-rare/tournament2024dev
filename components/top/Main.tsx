@@ -32,6 +32,7 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
         isModalOpen={isPointModalOpen}
         setIsModalOpen={setIsPointModalOpen} 
         data={data[`p_${pointPos}`]}
+        event={data.event}
       />
       <Button variant="contained" onClick={showModal} sx={{width: "100%", height: 54, borderRadius: "50rem"}} style={{textTransform: "none", backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#8BC34A"}}>
         {data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}{data.title}
