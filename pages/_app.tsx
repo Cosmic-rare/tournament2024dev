@@ -148,7 +148,7 @@ function App({ Component, pageProps }: AppProps) {
             </Link>
 
           </div>
-          <div style={{ height: "100%", width: "100%", overflowX: "hidden", padding: 10 }}>
+          <div style={{ height: "100%", width: "100%", overflowX: "scroll", padding: 10 }}>
             <Component {...pageProps} />
           </div>
         </div>
