@@ -10,12 +10,15 @@ import { useTokenStore } from "@/util/store"
 import EditTournament from "@/components/edit/Tournament"
 import { jwtDecode } from "jwt-decode"
 import { useRouter } from "next/router"
+import PointModal from "@/components/top/pointModal"
 
 const Main = ({ data, eAPI }: any) => {
   const [isModalOpen1, setIsModalOpen1] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isClassEditModalOpen, setIsClassEditModalOpen] = useState(false)
+  const [isPointModalOpen, setIsPointModalOpen] = useState(false)
   const [editPoint, setEditPoint] = useState(0)
+  const [pointPos, setPointPos] = useState<null | number>(null)
   const [editClassPosition, setEditClassPosition] = useState(0)
   const [editClass, setEditClass] = useState(0)
   const [d, sD] = useState<any>(data)
@@ -130,6 +133,12 @@ const Main = ({ data, eAPI }: any) => {
             gread={d.gread}
             defaultClass={editClass}
           />
+          <PointModal 
+        isModalOpen={isPointModalOpen}
+        setIsModalOpen={setIsPointModalOpen} 
+        data={data[`p_${pointPos}`]}
+        event={data.event}
+      />
         </> : null
       }
       <div style={{ width: "100%", maxWidth: "50%", paddingLeft: 4, paddingRight: 4 }}>
@@ -145,7 +154,7 @@ const Main = ({ data, eAPI }: any) => {
         >
           <div style={{ height: `320px`, overflowX: "scroll", position: "relative" }}>
             <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: "hidden", position: "relative" }}>
-              <EditTournament data={d} onModalOpen={handleOnOpenModal} onClassEditModalOpen={onClassEditModalOpen} token={token} />
+              <EditTournament data={d} onModalOpen={handleOnOpenModal} onClassEditModalOpen={onClassEditModalOpen} token={token} openModal={(p: number) => { setIsPointModalOpen(true); setPointPos(p) }} />
             </div>
           </div>
         </Modal>

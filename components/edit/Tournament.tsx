@@ -4,8 +4,9 @@ import Edit from "@/components/edit.svg"
 import cellTemplate from "@/components/data1.json"
 import { TournamentCellData } from "@/pages"
 import { jwtDecode } from "jwt-decode"
+import InfoIcon from "@mui/icons-material/Info"
 
-const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditModalOpen: Function, token: string }> = ({ data, onModalOpen, onClassEditModalOpen, token }) => {
+const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditModalOpen: Function, token: string, openModal: Function }> = ({ data, onModalOpen, onClassEditModalOpen, token, openModal }) => {
   const colors = ["#adb5bd", "#dc3545"]
   const width = 30
   const height = 50
@@ -51,22 +52,22 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
               {cellData.text}
 
               { // ADMIN->OK, USER->!(started & ended)ならOK
-              cellData.edit !== undefined && (roleType == "ADMIN" || (roleType == "USER" && !(data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt)))
-                ? (
-                  <div
-                    onClick={() => onEdit(cellData.edit!)}
-                    style={{
-                      marginTop: 10,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                      <Edit width={20} height={20} stroke={"#bbb"} strokeWidth={2.5} />
+                cellData.edit !== undefined && (roleType == "ADMIN" || (roleType == "USER" && !(data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt)))
+                  ? (
+                    <div
+                      onClick={() => onEdit(cellData.edit!)}
+                      style={{
+                        marginTop: 10,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Edit width={20} height={20} stroke={"#bbb"} strokeWidth={2.5} />
+                      </div>
                     </div>
-                  </div>
-                ) : null}
+                  ) : null}
 
               {cellData.edit2 !== undefined && "ADMIN" == roleType ? (
                 <div>
@@ -85,6 +86,23 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
                   </div>
                 </div>
               ) : null}
+
+              {cellData.edit !== undefined && (data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt)
+                ? (
+                  <div
+                    onClick={() => openModal(cellData.edit!)}
+                    style={{
+                      marginTop: 10,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                      <InfoIcon width={20} height={20} style={{ color: "#777" }} />
+                    </div>
+                  </div>
+                ) : null}
             </div>
           </div>
         )
