@@ -1,4 +1,4 @@
-import { TournamentCellData } from "@/pages"
+import { TournamentCellData } from "@/pages/tournament"
 import InfoIcon from "@mui/icons-material/Info"
 
 const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, openModal: Function, data: any }> = ({ cells, openModal, data }) => {

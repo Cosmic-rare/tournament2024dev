@@ -2,7 +2,7 @@ import draw from "@/util/draw"
 import _ from "lodash"
 import Edit from "@/components/edit.svg"
 import cellTemplate from "@/components/data1.json"
-import { TournamentCellData } from "@/pages"
+import { TournamentCellData } from "@/pages/tournament"
 import { jwtDecode } from "jwt-decode"
 import InfoIcon from "@mui/icons-material/Info"
 
