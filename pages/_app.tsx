@@ -24,6 +24,20 @@ const resize = () => {
   return { height: height, width: width }
 }
 
+type routeType = {
+  href: string
+  iconMobail: any
+  iconDesktop: any
+  title: string
+}
+
+const routes: routeType[] = [
+  { href: "/", iconMobail: <ScoreboardIcon />, title: "Tournament", iconDesktop: <ScoreboardIcon style={{ width: 30, height: 30, margin: 10 }} /> },
+  { href: "/map", iconMobail: <MapIcon />, title: "Map", iconDesktop: <MapIcon style={{ width: 30, height: 30, margin: 10 }} /> },
+  { href: "/user", iconMobail: <AssignmentIndIcon />, title: "User", iconDesktop: <AssignmentIndIcon style={{ width: 30, height: 30, margin: 10 }} /> },
+  { href: "/", iconMobail: <ArchiveIcon />, title: "Tournament", iconDesktop: <ArchiveIcon style={{ width: 30, height: 30, margin: 10 }} /> },
+]
+
 const BottomNav = () => {
   return (
     <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
@@ -36,10 +50,7 @@ const BottomNav = () => {
         style={{ backgroundColor: "#2196f3" }}
         sx={{ height: 56 }}
       >
-        <BottomNavigationAction label="" icon={<Link href={"/"}><ScoreboardIcon /></Link>} />
-        <BottomNavigationAction label="" icon={<Link href={"/map"}><MapIcon /></Link>} />
-        <BottomNavigationAction label="" icon={<Link href={"/user"}><AssignmentIndIcon /></Link>} />
-        <BottomNavigationAction label="" icon={<Link href={"/"}><ArchiveIcon /></Link>} />
+        {routes.map((v: routeType, i: number) => <BottomNavigationAction key={i} label="" icon={<Link href={v.href}>{v.iconMobail}</Link>} />)}
       </BottomNavigation>
     </Paper>
   )
@@ -122,30 +133,16 @@ function App({ Component, pageProps }: AppProps) {
             flexShrink: 0,
             paddingTop: 15 + 50
           }}>
-            <Link href={"/"}>
-              <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                <ScoreboardIcon style={{ width: 30, height: 30, margin: 10 }} />
-                <div style={{ marginLeft: 10 }}>Tournament</div>
-              </div>
-            </Link>
-            <Link href={"/map"}>
-              <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                <MapIcon style={{ width: 30, height: 30, margin: 10 }} />
-                <div style={{ marginLeft: 10 }}>Map</div>
-              </div>
-            </Link>
-            <Link href={"/user"}>
-              <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                <AssignmentIndIcon style={{ width: 30, height: 30, margin: 10 }} />
-                <div style={{ marginLeft: 10 }}>User</div>
-              </div>
-            </Link>
-            <Link href={"/"}>
-              <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                <ArchiveIcon style={{ width: 30, height: 30, margin: 10 }} />
-                <div style={{ marginLeft: 10 }}>Tournament</div>
-              </div>
-            </Link>
+            {routes.map((v: routeType, i: number) => {
+              return (
+                <Link href={v.href} key={i}>
+                  <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
+                  {v.iconDesktop}
+                    <div style={{ marginLeft: 10 }}>{v.title}</div>
+                  </div>
+                </Link>
+              )
+            })}
 
           </div>
           <div style={{ height: "100%", width: "100%", overflowX: "scroll", padding: 10 }}>
