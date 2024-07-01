@@ -12,9 +12,9 @@ import {
 import Link from "next/link"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import ScoreboardIcon from "@mui/icons-material/Scoreboard"
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
 import HomeIcon from "@mui/icons-material/Home"
 import dynamic from "next/dynamic"
+import DescriptionIcon from "@mui/icons-material/Description"
 import { blueGrey } from "@mui/material/colors"
 
 const resize = () => {
@@ -36,7 +36,7 @@ const routes: routeType[] = [
   { href: "/", iconMobail: <HomeIcon sx={{ color: blueGrey[50] }} />, title: "Home", iconDesktop: <HomeIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
   { href: "/tournament", iconMobail: <ScoreboardIcon sx={{ color: blueGrey[50] }} />, title: "Tournament", iconDesktop: <ScoreboardIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
   { href: "/schedule", iconMobail: <CalendarMonthIcon sx={{ color: blueGrey[50] }} />, title: "Schedule", iconDesktop: <CalendarMonthIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
-  { href: "/user", iconMobail: <AssignmentIndIcon sx={{ color: blueGrey[50] }} />, title: "User", iconDesktop: <AssignmentIndIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+  { href: "/documents", iconMobail: <DescriptionIcon sx={{ color: blueGrey[50] }} />, title: "Document", iconDesktop: <DescriptionIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
 ]
 
 const BottomNav = () => {
