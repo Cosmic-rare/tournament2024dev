@@ -10,11 +10,12 @@ import {
   Paper,
 } from "@mui/material"
 import Link from "next/link"
-import ArchiveIcon from "@mui/icons-material/Archive"
-import MapIcon from "@mui/icons-material/Map"
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import ScoreboardIcon from "@mui/icons-material/Scoreboard"
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
+import HomeIcon from "@mui/icons-material/Home"
 import dynamic from "next/dynamic"
+import { blueGrey } from "@mui/material/colors"
 
 const resize = () => {
   const height = window.innerHeight
@@ -32,25 +33,27 @@ type routeType = {
 }
 
 const routes: routeType[] = [
-  { href: "/", iconMobail: <ScoreboardIcon />, title: "Tournament", iconDesktop: <ScoreboardIcon style={{ width: 30, height: 30, margin: 10 }} /> },
-  { href: "/map", iconMobail: <MapIcon />, title: "Map", iconDesktop: <MapIcon style={{ width: 30, height: 30, margin: 10 }} /> },
-  { href: "/user", iconMobail: <AssignmentIndIcon />, title: "User", iconDesktop: <AssignmentIndIcon style={{ width: 30, height: 30, margin: 10 }} /> },
-  { href: "/", iconMobail: <ArchiveIcon />, title: "Tournament", iconDesktop: <ArchiveIcon style={{ width: 30, height: 30, margin: 10 }} /> },
+  { href: "/", iconMobail: <HomeIcon sx={{ color: blueGrey[50] }} />, title: "Home", iconDesktop: <HomeIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+  { href: "/tournament", iconMobail: <ScoreboardIcon sx={{ color: blueGrey[50] }} />, title: "Tournament", iconDesktop: <ScoreboardIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+  { href: "/schedule", iconMobail: <CalendarMonthIcon sx={{ color: blueGrey[50] }} />, title: "Schedule", iconDesktop: <CalendarMonthIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+  { href: "/user", iconMobail: <AssignmentIndIcon sx={{ color: blueGrey[50] }} />, title: "User", iconDesktop: <AssignmentIndIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
 ]
 
 const BottomNav = () => {
+  const router = useRouter()
+
   return (
     <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
       <BottomNavigation
         value={null}
         onChange={(_, newValue) => {
-          console.log(newValue)
+          router.push(routes[newValue].href)
         }}
         showLabels={true}
-        style={{ backgroundColor: "#2196f3" }}
-        sx={{ height: 56 }}
+        style={{ backgroundColor: "#080808" }}
+        sx={{ height: 60 }}
       >
-        {routes.map((v: routeType, i: number) => <BottomNavigationAction key={i} label="" icon={<Link href={v.href}>{v.iconMobail}</Link>} />)}
+        {routes.map((v: routeType, i: number) => <BottomNavigationAction key={i} label={v.title} icon={v.iconMobail} style={{ color: blueGrey[100] }} />)}
       </BottomNavigation>
     </Paper>
   )
@@ -135,10 +138,10 @@ function App({ Component, pageProps }: AppProps) {
           }}>
             {routes.map((v: routeType, i: number) => {
               return (
-                <Link href={v.href} key={i}>
+                <Link href={v.href} key={i} style={{ textDecoration: "none" }}>
                   <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                  {v.iconDesktop}
-                    <div style={{ marginLeft: 10 }}>{v.title}</div>
+                    {v.iconDesktop}
+                    <div style={{ marginLeft: 10, color: blueGrey[900] }}>{v.title}</div>
                   </div>
                 </Link>
               )
