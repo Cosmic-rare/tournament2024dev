@@ -87,7 +87,7 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
                 </div>
               ) : null}
 
-              {cellData.edit !== undefined && (data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt)
+              {cellData.edit !== undefined && (data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt) && (roleType != "ADMIN")
                 ? (
                   <div
                     onClick={() => openModal(cellData.edit!)}
