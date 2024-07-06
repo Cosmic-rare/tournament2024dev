@@ -17,7 +17,7 @@ const PointInput = ({ setGame, game, pos, p }: any) => {
           <Input
             value={game[`p_${p}`][`l_p${pos}`]}
             onChange={(e) => {
-              setGame((pre: any) => { 
+              setGame((pre: any) => {
                 let nPre = { ...pre }
                 nPre[`p_${p}`][`l_p${pos}`] = parseInt(e.target.value, 10)
                 return nPre
@@ -41,7 +41,7 @@ const PointInput = ({ setGame, game, pos, p }: any) => {
           <Input
             value={game[`p_${p}`][`h_p${pos}`]}
             onChange={(e) => {
-              setGame((pre: any) => { 
+              setGame((pre: any) => {
                 let nPre = { ...pre }
                 nPre[`p_${p}`][`h_p${pos}`] = parseInt(e.target.value, 10)
                 return nPre
@@ -58,7 +58,7 @@ const PointInput = ({ setGame, game, pos, p }: any) => {
 
 export const ModalContent = ({ setGame, game, p }: any) => {
   const onChange = (e: RadioChangeEvent) => {
-    setGame((pre: any) => { 
+    setGame((pre: any) => {
       let nPre = { ...pre }
       nPre[`p_${p}`].fHitted = e.target.value
       return nPre
@@ -68,8 +68,13 @@ export const ModalContent = ({ setGame, game, p }: any) => {
   return (
     <>
       <PointInput pos={1} setGame={setGame} game={game} p={p} />
-      <PointInput pos={2} setGame={setGame} game={game} p={p} />
-      <PointInput pos={3} setGame={setGame} game={game} p={p} />
+      {
+        !["soccer", "dodgeball", "esport"].includes(game.event) ?
+          <>
+            <PointInput pos={2} setGame={setGame} game={game} p={p} />
+            <PointInput pos={3} setGame={setGame} game={game} p={p} />
+          </> : null
+      }
 
       {game.event == "dodgeball" ?
         <Row justify="center">
@@ -92,7 +97,7 @@ export const ModalContent = ({ setGame, game, p }: any) => {
         : null
       }
 
-<code>{JSON.stringify(game[`p_${p}`])}</code>
+      <code>{JSON.stringify(game[`p_${p}`])}</code>
     </>
   )
 }

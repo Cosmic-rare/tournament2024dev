@@ -23,7 +23,7 @@ const PointInput = ({ setGame, game, pos }: any) => {
             }}
             type="number"
             style={{ width: "60%", textAlign: "center" }}
-            // style={{ textAlign: "center" }}
+          // style={{ textAlign: "center" }}
           />
         </div>
       </Col>
@@ -44,7 +44,7 @@ const PointInput = ({ setGame, game, pos }: any) => {
             }}
             type="number"
             style={{ width: "60%", textAlign: "center" }}
-            // style={{ textAlign: "center" }}
+          // style={{ textAlign: "center" }}
           />
         </div>
       </Col>
@@ -71,7 +71,7 @@ const DateInput = ({ setGame, game, column, title }: any) => {
   }
 
   return (
-    <Row  justify="center">
+    <Row justify="center">
       <Col flex={3}>
         <div style={{ textAlign: "left" }}>
           <span style={{ marginTop: "25px", display: "inline-block" }}>{title}</span>
@@ -112,8 +112,13 @@ export const ModalContent = ({ setGame, game, event }: any) => {
   return (
     <>
       <PointInput pos={1} setGame={setGame} game={game} />
-      <PointInput pos={2} setGame={setGame} game={game} />
-      <PointInput pos={3} setGame={setGame} game={game} />
+      {
+        !["soccer", "dodgeball", "esport"].includes(event) ?
+          <>
+            <PointInput pos={2} setGame={setGame} game={game} />
+            <PointInput pos={3} setGame={setGame} game={game} />
+          </> : null
+      }
 
       <DateInput setGame={setGame} game={game} column="scheduledAt" title="予定" />
       <DateInput setGame={setGame} game={game} column="startedAt" title="開始" />

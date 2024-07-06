@@ -51,8 +51,14 @@ const PointModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen, data, event 
         {/* eventで分けながらdata表示 */}
         <h4>得点</h4>
         <Point l={data?.l_p1} h={data?.h_p1} t="1st" />
-        <Point l={data?.l_p2} h={data?.h_p2} t="2nd" />
-        <Point l={data?.l_p3} h={data?.h_p3} t="3rd" />
+        
+        {
+          !["soccer", "dodgeball", "esport"].includes(event) ?
+            <>
+              <Point l={data?.l_p2} h={data?.h_p2} t="2nd" />
+              <Point l={data?.l_p3} h={data?.h_p3} t="3rd" />
+            </> : null
+        }
 
         {event == "soccer" ? <PK pk={data?.pk} /> : null}
       </div>
