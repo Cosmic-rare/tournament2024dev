@@ -61,6 +61,7 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        // backgroundColor: data[`p_${cellData.edit!}`]?.applied ? "#e22" : "#fff",
                       }}
                     >
                       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

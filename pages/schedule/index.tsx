@@ -1,4 +1,4 @@
-import { Card } from "@mui/material"
+import { Card, Checkbox } from "@mui/material"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -17,8 +17,7 @@ const Schedule = () => {
   const [rows, setRows] = useState([])
   useEffect(() => {
     const fetchData = async () => {
-      const res = await APIget(`get/match/2/`, () => { }, () => { })
-      // @ts-ignor
+      const res = await APIget(`get/match/1/2/`, () => { }, () => { })
       setRows(res)
     }
     fetchData()
@@ -39,9 +38,10 @@ const Schedule = () => {
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="right">種目</TableCell>
-                  <TableCell align="right">opponent</TableCell>
-                  <TableCell align="right">game</TableCell>
+                  <TableCell align="center">済</TableCell>
+                  <TableCell align="center">種目</TableCell>
+                  <TableCell align="center">opponent</TableCell>
+                  <TableCell align="center">game</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -49,11 +49,20 @@ const Schedule = () => {
                   <TableRow
                     key={row.data.title}
                   >
+                    <TableCell align="center">
+                      <Checkbox disabled={false} checked={row.data[`p_${row.game}`].applied} />
+                    </TableCell>
                     <TableCell component="th" scope="row">
                       {row.data.title}
                     </TableCell>
-                    <TableCell align="right">{row.opponent.join(", ")}</TableCell>
-                    <TableCell align="right">{new Date(row.data[`p_${row.game}`].scheduledAt).toISOString()}</TableCell>
+                    <TableCell align="left">{row.opponent.join(", ")}</TableCell>
+                    <TableCell align="right">
+                      {
+                        row.data[`p_${row.game}`].scheduledAt ?
+                          new Date(row.data[`p_${row.game}`].scheduledAt).toLocaleString('en-us', { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false })
+                          : "-"
+                      }
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
