@@ -40,12 +40,13 @@ const Schedule = () => {
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <TableContainer component={Paper}>
-            <Table aria-label="simple table">
+            <Table sx={{ minWidth: 450 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">済</TableCell>
                   <TableCell align="center">種目</TableCell>
-                  <TableCell align="center">確定</TableCell>
+                  <TableCell align="center">確定(相)</TableCell>
+                  <TableCell align="center">確定(試)</TableCell>
                   <TableCell align="center">相手</TableCell>
                   <TableCell align="center">game</TableCell>
                 </TableRow>
@@ -62,7 +63,10 @@ const Schedule = () => {
                       {row.data.title}
                     </TableCell>
                     <TableCell align="center">
-                      <Checkbox disabled={false} checked={row.certainty} />
+                      <Checkbox disabled={false} checked={row.certaintyOpponent} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Checkbox disabled={false} checked={row.certaintyMatch} />
                     </TableCell>
                     <TableCell align="left">{row.opponent ? row.opponent.join(", ") : null}</TableCell>
                     <TableCell align="right">
