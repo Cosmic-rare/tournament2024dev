@@ -11,7 +11,7 @@ const PointInput = ({ setGame, game, pos }: any) => {
           <span style={{ marginTop: "25px", display: "inline-block" }}>{pos}</span>
         </div>
       </Col>
-      <Col span={3.5}>
+      <Col span={3.1}>
         <div style={{ textAlign: "center" }}>
           <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
         </div>
@@ -27,12 +27,12 @@ const PointInput = ({ setGame, game, pos }: any) => {
           />
         </div>
       </Col>
-      <Col span={2}>
+      <Col span={0.5}>
         <div style={{ textAlign: "center" }}>
           <span style={{ marginTop: "25px", display: "inline-block" }}>-</span>
         </div>
       </Col>
-      <Col span={3.5}>
+      <Col span={3.1}>
         <div style={{ textAlign: "center" }}>
           <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
         </div>
@@ -46,6 +46,12 @@ const PointInput = ({ setGame, game, pos }: any) => {
             style={{ width: "60%", textAlign: "center" }}
           // style={{ textAlign: "center" }}
           />
+        </div>
+      </Col>
+      <Col span={4}>
+        <div style={{ textAlign: "center" }}>
+        <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
+        <Button onClick={() => setGame((p: gameType) => { return { ...p, [`l_p${pos}`]: null, [`h_p${pos}`]: null } })}>Clear</Button>
         </div>
       </Col>
     </Row>

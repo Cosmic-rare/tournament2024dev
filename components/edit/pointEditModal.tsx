@@ -25,13 +25,6 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
       footer={[
         <Button key="cancel" disabled={isLoading} onClick={() => setIsModalOpen(false)}>Cancel</Button>,
         <Button
-          key="reset"
-          danger
-          disabled={isLoading}
-        >
-          Reset
-        </Button>,
-        <Button
           key="apply"
           type="primary"
           disabled={isLoading}
