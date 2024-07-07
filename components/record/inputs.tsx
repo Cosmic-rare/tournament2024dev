@@ -52,6 +52,25 @@ const PointInput = ({ setGame, game, pos, p }: any) => {
           />
         </div>
       </Col>
+      <Col span={4}>
+        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" }}>
+          <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
+        </div>
+          <Button
+            onClick={() => {
+              setGame((pre: any) => {
+                let nPre = { ...pre }
+                nPre[`p_${p}`][`l_p${pos}`] = null
+                nPre[`p_${p}`][`h_p${pos}`] = null
+                return nPre
+              })
+            }}
+          >
+            Clear
+          </Button>
+        </div>
+      </Col>
     </Row>
   )
 }
