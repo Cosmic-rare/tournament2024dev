@@ -13,7 +13,7 @@ const EditTournament: React.FC<{ data: any, onModalOpen: Function, onClassEditMo
 
   const template = _.cloneDeep(cellTemplate)
 
-  const cells: Array<TournamentCellData> = draw(data, template, data.event)
+  const cells: Array<TournamentCellData> = draw(data, template, data.event, false)
 
   const onEdit = (p: number) => {
     onModalOpen(p)

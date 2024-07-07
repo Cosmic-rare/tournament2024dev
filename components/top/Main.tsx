@@ -47,7 +47,7 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
         <div style={{ height: `320px`, overflowX: "scroll", position: "relative" }}>
           <div style={{ width: `${30 * 15}px`, height: `320px`, overflowY: "hidden", position: "relative" }}>
             <Tournament
-              cells={draw(data, template, data.event)}
+              cells={draw(data, template, data.event, true)}
               data={data}
               openModal={(p: number) => { setIsPointModalOpen(true); setPointPos(p) }}
             />

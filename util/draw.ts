@@ -1,6 +1,6 @@
 import { winL } from "./wl"
 
-const draw = (r: any, c: any, e: string) => {
+const draw = (r: any, c: any, e: string, a: boolean) => {
   // edit2とedit2のdefaultのためのやつ
   c["0.5_0"] = { "text": `${r.gread}-${r.c_1}`, "edit2": 1, "edit2_data": r.c_1 }
   c["2.5_0"] = { "text": `${r.gread}-${r.c_2}`, "edit2": 2, "edit2_data": r.c_2 }
@@ -11,36 +11,36 @@ const draw = (r: any, c: any, e: string) => {
   c["13.5_0"] = { "text": `${r.gread}-${r.c_7}`, "edit2": 7, "edit2_data": r.c_7 }
 
   // 普通にトーナメントの赤線を引く
-  if (winL(r.p_1, e) == null) {
+  if (winL(r.p_1, e, a, r.p_1.applied) == null) {
 
-  } else if (winL(r.p_1, e)) {
+  } else if (winL(r.p_1, e, a, r.p_1.applied)) {
     c["1_1"] = { "border_left": 2, "border_top": 2 }
   } else {
     c["2_1"] = { "border_top": 2 }
     c["3_1"] = { "border_left": 2 }
   }
 
-  if (winL(r.p_2, e) == null) {
+  if (winL(r.p_2, e, a, r.p_2.applied) == null) {
 
-  } else if (winL(r.p_2, e)) {
+  } else if (winL(r.p_2, e, a, r.p_2.applied)) {
     c["5_1"] = { "border_left": 2, "border_top": 2 }
   } else {
     c["6_1"] = { "border_top": 2 }
     c["7_1"] = { "border_left": 2 }
   }
 
-  if (winL(r.p_3, e) == null) {
+  if (winL(r.p_3, e, a, r.p_3.applied) == null) {
 
-  } else if (winL(r.p_3, e)) {
+  } else if (winL(r.p_3, e, a, r.p_3.applied)) {
     c["9_1"] = { "border_left": 2, "border_top": 2 }
   } else {
     c["10_1"] = { "border_top": 2 }
     c["11_1"] = { "border_left": 2 }
   }
 
-  if (winL(r.p_4, e) == null) {
+  if (winL(r.p_4, e, a, r.p_4.applied) == null) {
 
-  } else if (winL(r.p_4, e)) {
+  } else if (winL(r.p_4, e, a, r.p_4.applied)) {
     c["2_2"] = { "border_left": 2, "border_top": 2 }
     c["3_2"] = { "border_top": 2 }
   } else {
@@ -49,9 +49,9 @@ const draw = (r: any, c: any, e: string) => {
     c["6_2"] = { "border_left": 2 }
   }
 
-  if (winL(r.p_5, e) == null) {
+  if (winL(r.p_5, e, a, r.p_5.applied) == null) {
 
-  } else if (winL(r.p_5, e)) {
+  } else if (winL(r.p_5, e, a, r.p_5.applied)) {
     c["10_2"] = { "border_left": 2, "border_top": 2 }
     c["11_2"] = { "border_top": 2 }
   } else {
@@ -61,9 +61,9 @@ const draw = (r: any, c: any, e: string) => {
     c["14_2"] = { "border_left": 2 }
   }
 
-  if (winL(r.p_6, e) == null) {
+  if (winL(r.p_6, e, a, r.p_6.applied) == null) {
 
-  } else if (winL(r.p_6, e)) {
+  } else if (winL(r.p_6, e, a, r.p_6.applied)) {
     c["4_3"] = { "border_left": 2, "border_top": 2 }
     c["5_3"] = { "border_top": 2 }
     c["6_3"] = { "border_top": 2 }

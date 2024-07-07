@@ -1,7 +1,8 @@
 import { gameType } from "./type";
 
-export const wl = (d: gameType, e: string) => {
+export const wl = (d: gameType, e: string, a: boolean, da: boolean) => {
   if (["volleyball", "badminton"].includes(e)) {
+    if (a && !da) return null
     // p1~p3で判別 (1,2がnullなら未決着カウント)
     let r = 0 // +l -h
     if (!(d.l_p1 == null || d.h_p1 == null)) {
@@ -15,6 +16,7 @@ export const wl = (d: gameType, e: string) => {
     }
     return r > 0 ? "l" : "h"
   } else if ("dodgeball" == e) {
+    if (a && !da) return null
     // p1とfHittedで判別
     if (d.l_p1 == d.h_p1) {
       return d.fHitted
@@ -24,6 +26,7 @@ export const wl = (d: gameType, e: string) => {
       }
     }
   } else if ("esport" == e) {
+    if (a && !da) return null
     // p1と追加したフィールドで判別
     if (d.l_p1 == d.h_p1) {
       return d.eSport
@@ -33,6 +36,7 @@ export const wl = (d: gameType, e: string) => {
       }
     }
   } else if ("soccer" == e) {
+    if (a && !da) return null
     // p1と追加したフィールドで判別
     if (d.l_p1 == d.h_p1) {
       return d.soccer
@@ -44,7 +48,7 @@ export const wl = (d: gameType, e: string) => {
   }
 }
 
-export const winL = (d: gameType, e: string) => {
-  return wl(d, e) == null ? null : wl(d, e) == "l"
+export const winL = (d: gameType, e: string, a: boolean, da: boolean) => {
+  return wl(d, e, a, da) == null ? null : wl(d, e, a, da) == "l"
 }
 
