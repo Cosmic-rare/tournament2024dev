@@ -81,27 +81,27 @@ const draw = (r: any, c: any, e: string, a: boolean) => {
   }
 
   // リセット(null)じゃないときに点数を表示する仕組み
-  if (r.p_1.l_p1 !== null && r.p_1.h_p1 !== null) {
+  if (r.p_1.l_p1 !== null && r.p_1.h_p1 !== null && r.p_1.applied) {
     c["0_1"] = { ...c["0_1"], "point": r.p_1.l_p1 }
     c["3_1"] = { ...c["3_1"], "point": r.p_1.h_p1 }
   }
-  if (r.p_2.l_p1 !== null && r.p_2.h_p1 !== null) {
+  if (r.p_2.l_p1 !== null && r.p_2.h_p1 !== null && r.p_2.applied) {
     c["4_1"] = { ...c["4_1"], "point": r.p_2.l_p1 }
     c["7_1"] = { ...c["7_1"], "point": r.p_2.h_p1 }
   }
-  if (r.p_3.l_p1 !== null && r.p_3.h_p1 !== null) {
+  if (r.p_3.l_p1 !== null && r.p_3.h_p1 !== null && r.p_3.applied) {
     c["8_1"] = { ...c["8_1"], "point": r.p_3.l_p1 }
     c["11_1"] = { ...c["11_1"], "point": r.p_3.h_p1 }
   }
-  if (r.p_4.l_p1 !== null && r.p_4.h_p1 !== null) {
+  if (r.p_4.l_p1 !== null && r.p_4.h_p1 !== null && r.p_4.applied) {
     c["1_2"] = { ...c["1_2"], "point": r.p_4.l_p1 }
     c["6_2"] = { ...c["6_2"], "point": r.p_4.h_p1 }
   }
-  if (r.p_5.l_p1 !== null && r.p_5.h_p1 !== null) {
+  if (r.p_5.l_p1 !== null && r.p_5.h_p1 !== null && r.p_5.applied) {
     c["9_2"] = { ...c["9_2"], "point": r.p_5.l_p1 }
     c["14_2"] = { ...c["14_2"], "point": r.p_5.h_p1 }
   }
-  if (r.p_6.l_p1 !== null && r.p_6.h_p1 !== null) {
+  if (r.p_6.l_p1 !== null && r.p_6.h_p1 !== null && r.p_6.applied) {
     c["3_3"] = { ...c["3_3"], "point": r.p_6.l_p1 }
     c["12_3"] = { ...c["12_3"], "point": r.p_6.h_p1 }
   }

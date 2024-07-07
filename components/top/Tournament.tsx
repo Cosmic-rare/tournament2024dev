@@ -23,28 +23,29 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, openModa
           alignItems: `${cell.split("_")[1] === "0" || cellData.edit !== undefined ? "" : "flex-end"}`,
         }
 
-        // 種目によっては直接点を表示
         return (
           <div key={cell} style={cellStyle}>
             <div className={cellData.class} style={{ fontSize: "0.8em", width: "100%", textAlign: cellData.align_left ? "left" : "center", color: cellData.color ? colors[cellData.color - 1] : "inherit", verticalAlign: "bottom" }}>
               {cellData.text}
 
-              {cellData.edit !== undefined && (data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt)
-              ? (
-                <div
-                  onClick={() => openModal(cellData.edit!)}
-                  style={{
-                    marginTop: 10,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <InfoIcon width={20} height={20} style={{ color: "#777" }}/>
+              {["esport", "soccer", "dodgeball"].includes(data.event) ? <span style={{ color: colors[1] }}>{cellData.point}</span> : null}
+
+              {cellData.edit !== undefined && (data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt) && data[`p_${cellData.edit!}`].applied
+                ? (
+                  <div
+                    onClick={() => openModal(cellData.edit!)}
+                    style={{
+                      marginTop: 10,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                      <InfoIcon width={20} height={20} style={{ color: "#777" }} />
+                    </div>
                   </div>
-                </div>
-              ) : null}
+                ) : null}
             </div>
           </div>
         )
