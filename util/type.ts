@@ -12,7 +12,8 @@ export interface gameType {
   l_p3?: number
   h_p3?: number
   fHitted?: boolean
-  pk?: any
+  eSport?: string
+  soccer?: string
   startedAt?: number
   endedAt?: number
   recorderId?: string

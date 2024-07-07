@@ -1,4 +1,4 @@
-import { Modal, Radio, Space, Button } from "antd"
+import { Modal } from "antd"
 import { Grid } from "@mui/material"
 
 interface Props {
@@ -27,16 +27,6 @@ const Point = ({ l, h, t }: any) => {
   )
 }
 
-const PK = ({ pk }: any) => {
-  return (
-    <Grid container spacing={2} style={{ justifyContent: "center", textAlign: "center", fontSize: "1.1em" }}>
-      <Grid item xs={12}>
-        <div>{JSON.stringify(pk)}</div>
-      </Grid>
-    </Grid>
-  )
-}
-
 const PointModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen, data, event }) => {
   return (
     <Modal
@@ -59,8 +49,6 @@ const PointModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen, data, event 
               <Point l={data?.l_p3} h={data?.h_p3} t="3rd" />
             </> : null
         }
-
-        {event == "soccer" ? <PK pk={data?.pk} /> : null}
       </div>
     </Modal>
   )
