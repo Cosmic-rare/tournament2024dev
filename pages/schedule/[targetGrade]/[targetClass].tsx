@@ -1,4 +1,4 @@
-import { Card, Checkbox } from "@mui/material"
+import { Card, Checkbox, FormControlLabel } from "@mui/material"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -17,6 +17,8 @@ const width = {
 const Schedule = () => {
   const router = useRouter()
   const { targetGrade, targetClass } = router.query
+  const [displayApplied, setDisplayApplied] = useState(false)
+  const [displayConfirmed, setDisplayConfirmed] = useState(false)
 
   const [rows, setRows] = useState([])
   useEffect(() => {
@@ -39,6 +41,20 @@ const Schedule = () => {
           sx={{ width: width }}
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
+          <div>
+            <FormControlLabel control={<Checkbox checked={displayApplied} onClick={() => setDisplayApplied((p: any) => !p)} />} label="終わった試合も表示" />
+          </div>
+          <div>
+            <FormControlLabel control={<Checkbox checked={displayConfirmed} onClick={() => setDisplayConfirmed((p: any) => !p)} />} label="確定した試合のみ表示" />
+          </div>
+        </Card>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
+        <Card
+          sx={{ width: width }}
+          style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
+        >
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 450 }} aria-label="simple table">
               <TableHead>
@@ -53,30 +69,36 @@ const Schedule = () => {
               </TableHead>
               <TableBody>
                 {rows.map((row: any) => (
-                  <TableRow
-                    key={row.data.title}
-                  >
-                    <TableCell align="center">
-                      <Checkbox disabled={false} checked={row.data[`p_${row.game}`].applied} />
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {row.data.title}
-                    </TableCell>
-                    <TableCell align="center">
-                      <Checkbox disabled={false} checked={row.certaintyOpponent} />
-                    </TableCell>
-                    <TableCell align="center">
-                      <Checkbox disabled={false} checked={row.certaintyMatch} />
-                    </TableCell>
-                    <TableCell align="left">{row.opponent ? row.opponent.join(", ") : null}</TableCell>
-                    <TableCell align="right">
-                      {
-                        row.data[`p_${row.game}`].scheduledAt ?
-                          new Date(row.data[`p_${row.game}`].scheduledAt).toLocaleString('en-us', { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false })
-                          : "-"
-                      }
-                    </TableCell>
-                  </TableRow>
+                  <>
+                    {
+                      (!displayConfirmed || row.certaintyMatch == displayConfirmed) && (displayApplied || !row.data[`p_${row.game}`].applied) ?
+                        <TableRow
+                          key={row.data.title}
+                        >
+                          <TableCell align="center">
+                            <Checkbox disabled={false} checked={row.data[`p_${row.game}`].applied} />
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {row.data.title}
+                          </TableCell>
+                          <TableCell align="center">
+                            <Checkbox disabled={false} checked={row.certaintyOpponent} />
+                          </TableCell>
+                          <TableCell align="center">
+                            <Checkbox disabled={false} checked={row.certaintyMatch} />
+                          </TableCell>
+                          <TableCell align="left">{row.opponent ? row.opponent.join(", ") : null}</TableCell>
+                          <TableCell align="right">
+                            {
+                              row.data[`p_${row.game}`].scheduledAt ?
+                                new Date(row.data[`p_${row.game}`].scheduledAt).toLocaleString('en-us', { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false })
+                                : "-"
+                            }
+                          </TableCell>
+                        </TableRow>
+                        : null
+                    }
+                  </>
                 ))}
               </TableBody>
             </Table>
