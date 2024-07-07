@@ -23,6 +23,7 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, openModa
           alignItems: `${cell.split("_")[1] === "0" || cellData.edit !== undefined ? "" : "flex-end"}`,
         }
 
+        // 種目によっては直接点を表示
         return (
           <div key={cell} style={cellStyle}>
             <div className={cellData.class} style={{ fontSize: "0.8em", width: "100%", textAlign: cellData.align_left ? "left" : "center", color: cellData.color ? colors[cellData.color - 1] : "inherit", verticalAlign: "bottom" }}>

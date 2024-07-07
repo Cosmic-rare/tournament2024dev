@@ -130,6 +130,8 @@ export const ModalContent = ({ setGame, game, event }: any) => {
       <DateInput setGame={setGame} game={game} column="startedAt" title="開始" />
       <DateInput setGame={setGame} game={game} column="endedAt" title="終了" />
 
+      {/* esport, soccer用の入力 */}
+
       {event == "dodgeball" ?
         <Row justify="center">
           <Col flex={3}>

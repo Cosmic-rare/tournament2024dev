@@ -5,12 +5,12 @@ export interface dataType {
 }
 
 export interface gameType {
-  l_p1?: number
-  h_p1?: number
-  l_p2?: number
-  h_p2?: number
-  l_p3?: number
-  h_p3?: number
+  l_p1: number | null
+  h_p1: number | null
+  l_p2: number | null
+  h_p2: number | null
+  l_p3: number | null
+  h_p3: number | null
   fHitted?: boolean
   eSport?: string
   soccer?: string
