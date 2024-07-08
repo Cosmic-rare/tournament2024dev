@@ -30,7 +30,8 @@ const Tournament: React.FC<{ cells: Record<string, TournamentCellData>, openModa
 
               {["esport", "soccer", "dodgeball"].includes(data.event) ? <span style={{ color: colors[1] }}>{cellData.point}</span> : null}
 
-              {cellData.edit !== undefined && (data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt) && data[`p_${cellData.edit!}`].applied
+              {/* 始まってて終わっててapply済でそのまま点書いてない種目 */}
+              {cellData.edit !== undefined && (data[`p_${cellData.edit!}`].startedAt && data[`p_${cellData.edit!}`].endedAt) && data[`p_${cellData.edit!}`].applied && !["esport", "soccer", "dodgeball"].includes(data.event)
                 ? (
                   <div
                     onClick={() => openModal(cellData.edit!)}
