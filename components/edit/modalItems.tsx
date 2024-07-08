@@ -219,6 +219,25 @@ export const ModalContent = ({ setGame, game, event }: any) => {
           </div>
         </Col>
       </Row>
+
+      <Row justify="center">
+        <Col flex={3}>
+          <div style={{ textAlign: "left" }}>
+            <span style={{ marginTop: "25px", display: "inline-block" }}>記録者</span>
+          </div>
+        </Col>
+        <Col flex={9}>
+          <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
+          <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
+            <Input
+              style={{ marginRight: 8 }}
+              value={game.recorderId}
+              onChange={(e: any) => setGame((p: gameType) => { return { ...p, recorderId: e.target.value } })}
+            />
+            <Button onClick={() => setGame((p: gameType) => { return { ...p, recorderId: null } })}>{"Clear"}</Button>
+          </div>
+        </Col>
+      </Row>
     </>
   )
 }
