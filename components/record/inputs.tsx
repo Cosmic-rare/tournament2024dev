@@ -115,8 +115,6 @@ export const ModalContent = ({ setGame, game, p }: any) => {
         </Row>
         : null
       }
-
-      <code>{JSON.stringify(game[`p_${p}`])}</code>
     </>
   )
 }
