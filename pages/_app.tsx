@@ -141,7 +141,7 @@ function App({ Component, pageProps }: AppProps) {
       <>
         <AnScript />
         <div>
-          <div style={{ padding: 10, paddingBottom: 56 }}>
+          <div style={{ padding: 10, paddingBottom: 78 }}>
             <Component {...pageProps} />
           </div>
           <BottomNav />
