@@ -8,6 +8,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
+import getClass from "@/util/cl"
 
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
@@ -49,7 +50,8 @@ const Index = () => {
               <TableHead>
                 <TableRow>
                   <TableCell align="center">種目</TableCell>
-                  <TableCell align="center">pos</TableCell>
+                  <TableCell align="center">学年</TableCell>
+                  <TableCell align="center">クラス</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -61,7 +63,10 @@ const Index = () => {
                       {m.data.title}
                     </TableCell>
                     <TableCell align="center">
-                      {m.game}
+                      {m.data.gread}
+                    </TableCell>
+                    <TableCell align="center">
+                      {getClass(m.data, m.data.event)[m.game-1][0]} - {getClass(m.data, m.data.event)[m.game-1][1]}
                     </TableCell>
                   </TableRow>
                 ))}
