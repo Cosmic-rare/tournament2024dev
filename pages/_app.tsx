@@ -16,6 +16,9 @@ import HomeIcon from "@mui/icons-material/Home"
 import dynamic from "next/dynamic"
 import DescriptionIcon from "@mui/icons-material/Description"
 import { blueGrey } from "@mui/material/colors"
+import { AccountCircle, LibraryAdd } from "@mui/icons-material"
+import { useTokenStore } from "@/util/store"
+import { jwtDecode } from "jwt-decode"
 
 const resize = () => {
   const height = window.innerHeight
@@ -39,25 +42,16 @@ const routes: routeType[] = [
   { href: "/documents", iconMobail: <DescriptionIcon sx={{ color: blueGrey[50] }} />, title: "Document", iconDesktop: <DescriptionIcon style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
 ]
 
-const BottomNav = () => {
-  const router = useRouter()
+const adminRoutes: routeType[] = [
+  ...routes,
+  { href: "/user", iconMobail: <AccountCircle sx={{ color: blueGrey[50] }} />, title: "User", iconDesktop: <AccountCircle style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+  { href: "/apply", iconMobail: <LibraryAdd sx={{ color: blueGrey[50] }} />, title: "Apply", iconDesktop: <LibraryAdd style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+]
 
-  return (
-    <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
-      <BottomNavigation
-        value={null}
-        onChange={(_, newValue) => {
-          router.push(routes[newValue].href)
-        }}
-        showLabels={true}
-        style={{ backgroundColor: "#080808" }}
-        sx={{ height: 60 }}
-      >
-        {routes.map((v: routeType, i: number) => <BottomNavigationAction key={i} label={v.title} icon={v.iconMobail} style={{ color: blueGrey[100] }} />)}
-      </BottomNavigation>
-    </Paper>
-  )
-}
+const userRoutes: routeType[] = [
+  ...routes,
+  { href: "/user", iconMobail: <AccountCircle sx={{ color: blueGrey[50] }} />, title: "User", iconDesktop: <AccountCircle style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+]
 
 const AnScript = () => {
   return (
@@ -84,6 +78,29 @@ const AnScript = () => {
 }
 
 function App({ Component, pageProps }: AppProps) {
+
+  const BottomNav = () => {
+    const router = useRouter()
+  
+    return (
+      <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <BottomNavigation
+          value={null}
+          onChange={(_, newValue) => {
+            router.push((roleType == "ADMIN" ? userRoutes : roleType == "USER" ? userRoutes : routes)[newValue].href)
+          }}
+          showLabels={true}
+          style={{ backgroundColor: "#080808" }}
+          sx={{ height: 60 }}
+        >
+          {//@ts-ignore
+            (roleType == "ADMIN" ? userRoutes : roleType == "USER" ? userRoutes : routes).map((v: routeType, i: number) => <BottomNavigationAction key={i} label={v.title} icon={v.iconMobail} style={{ color: blueGrey[100] }} />)
+          }
+        </BottomNavigation>
+      </Paper>
+    )
+  }
+
   if (!localStorage.getItem("id")) {
     localStorage.setItem("id", crypto.randomUUID())
   }
@@ -108,6 +125,16 @@ function App({ Component, pageProps }: AppProps) {
     window.addEventListener("resize", handleResize)
     window.addEventListener("orientationchange", handleResize)
   }, [])
+
+  const token = useTokenStore((s) => s.token)
+
+  const [roleType, setRoleType] = useState("")
+  useEffect(() => {
+    try {
+      // @ts-ignore
+      setRoleType(jwtDecode(token).roleType)
+    } catch (e) { console.log(e) }
+  }, [token])
 
   if (innerSize.width <= 700) {
     return (
@@ -136,16 +163,17 @@ function App({ Component, pageProps }: AppProps) {
             flexShrink: 0,
             paddingTop: 15 + 50
           }}>
-            {routes.map((v: routeType, i: number) => {
-              return (
-                <Link href={v.href} key={i} style={{ textDecoration: "none" }}>
-                  <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
-                    {v.iconDesktop}
-                    <div style={{ marginLeft: 10, color: blueGrey[900] }}>{v.title}</div>
-                  </div>
-                </Link>
-              )
-            })}
+            {//@ts-ignore
+              (roleType == "ADMIN" ? adminRoutes : roleType == "USER" ? userRoutes : routes).map((v: routeType, i: number) => {
+                return (
+                  <Link href={v.href} key={i} style={{ textDecoration: "none" }}>
+                    <div style={{ width: 220, height: 50, display: "flex", alignItems: "center", padding: "auto" }}>
+                      {v.iconDesktop}
+                      <div style={{ marginLeft: 10, color: blueGrey[900] }}>{v.title}</div>
+                    </div>
+                  </Link>
+                )
+              })}
 
           </div>
           <div style={{ height: "100%", width: "100%", overflowX: "scroll", padding: 10 }}>
