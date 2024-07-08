@@ -5,6 +5,7 @@ import { useTokenStore } from "@/util/store"
 import { notification } from "antd"
 import { ModalContent } from "@/components/record/inputs"
 import { CircularProgress, Backdrop, Button } from "@mui/material"
+import getClass from "@/util/cl"
 
 const Post = () => {
   const router = useRouter()
@@ -82,7 +83,8 @@ const Post = () => {
         </div>
         {contextHolder}
 
-        <h2>{d.sex == "male" ? "男" : d.sex == "female" ? "女" : "混合"} {d.title}</h2>
+        {/* @ts-ignore */}
+        <h2>{d.sex == "male" ? "男" : d.sex == "female" ? "女" : "混合"} {d.title}, {getClass(d, d.event)[p - 1][0] ?? "未定"} - {getClass(d, d.event)[p - 1][1] ?? "未定"}</h2>
         <p>{new Date(d[`p_${p}`].scheduledAt).toLocaleString('en-us', { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false })}開始予定</p>
         <Button variant="contained" color="warning" onClick={handleStartEnd} disabled={d[`p_${p}`].startedAt != null && d[`p_${p}`].endedAt != null}>
           {d[`p_${p}`].startedAt == null ? "試合を開始" : d[`p_${p}`].endedAt == null ? "試合を終了し記録" : "-"}
