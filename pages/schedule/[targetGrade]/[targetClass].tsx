@@ -33,7 +33,7 @@ const Schedule = () => {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <h2>スケジュール</h2>
+        <h1>{targetGrade}-{targetClass}</h1>
       </div>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
