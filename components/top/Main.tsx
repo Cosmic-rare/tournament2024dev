@@ -35,10 +35,12 @@ const Main: React.FC<YourComponentProps> = ({ data }) => {
         event={data.event}
       />
       <Button variant="contained" onClick={showModal} sx={{width: "100%", height: 54, borderRadius: "50rem"}} style={{textTransform: "none", backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#8BC34A"}}>
-        {data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}{data.title}
+        {/* {data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""} */}
+        {data.title}
       </Button>
       <Modal 
-        title={`${data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}${data.title} (${data.gread}年)`} 
+        // title={`${data.sex === "male" ? "男" : data.sex === "female" ? "女" : ""}${data.title} (${data.gread}年)`} 
+        title={`${data.title} (${data.gread}年)`} 
         open={isModalOpen} 
         onCancel={handleCancel} 
         width={30 * 15 + 24 * 2} 

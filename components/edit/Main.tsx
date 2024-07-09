@@ -143,10 +143,12 @@ const Main = ({ data, eAPI }: any) => {
       }
       <div style={{ width: "100%", maxWidth: "50%", paddingLeft: 4, paddingRight: 4 }}>
         <Button variant="contained" onClick={showModal} sx={{ width: "100%", height: 54, borderRadius: "50rem" }} style={{ textTransform: "none", backgroundColor: data.sex === "male" ? "#448aff" : data.sex === "female" ? "#ff5252" : "#8BC34A" }}>
-          {d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}{d.title}
+          {/* {d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""} */}
+          {d.title}
         </Button>
         <Modal
-          title={`${d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}${d.title} (${d.gread}年)`}
+          // title={`${d.sex === "male" ? "男" : d.sex === "female" ? "女" : ""}${d.title} (${d.gread}年)`}
+          title={`${d.title} (${d.gread}年)`}
           open={isModalOpen1}
           onCancel={handleCancel}
           width={30 * 15 + 24 * 2}
