@@ -15,11 +15,19 @@ const width = {
 }
 
 const Index = () => {
-  const [match, setMatch] = useState([])
+  const [match1, setMatch1] = useState([])
+  const [match2, setMatch2] = useState([])
   useEffect(() => {
     const fetchData = async () => {
       const res = await APIget(`match/now`, () => { }, () => { })
-      setMatch(res)
+      setMatch1(res)
+    }
+    fetchData()
+  }, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await APIget(`match/soon`, () => { }, () => { })
+      setMatch2(res)
     }
     fetchData()
   }, [])
@@ -35,10 +43,10 @@ const Index = () => {
           sx={{ width: width }}
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
-          <h3>開催まで{Math.ceil((new Date(2024, 6, 16).valueOf() - Date.now())/1000/60/60/24)}日</h3>
+          <h3>開催まで{Math.ceil((new Date(2024, 6, 16).valueOf() - Date.now()) / 1000 / 60 / 60 / 24)}日</h3>
         </Card>
       </div>
-      
+
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
         <Card
           sx={{ width: width }}
@@ -51,11 +59,11 @@ const Index = () => {
                 <TableRow>
                   <TableCell align="center">種目</TableCell>
                   <TableCell align="center">学年</TableCell>
-                  <TableCell align="center">クラス</TableCell>
+                  <TableCell align="center">対戦クラス</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {match.map((m: any) => (
+                {match1.map((m: any) => (
                   <TableRow
                     key={m.id}
                   >
@@ -66,7 +74,7 @@ const Index = () => {
                       {m.data.gread}
                     </TableCell>
                     <TableCell align="center">
-                      {getClass(m.data, m.data.event)[m.game-1][0]} - {getClass(m.data, m.data.event)[m.game-1][1]}
+                      {getClass(m.data, m.data.event)[m.game - 1][0]}, {getClass(m.data, m.data.event)[m.game - 1][1]}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -74,7 +82,44 @@ const Index = () => {
             </Table>
           </TableContainer>
         </Card>
-      </div>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
+          <Card
+            sx={{ width: width }}
+            style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
+          >
+            <h3>開催が近い競技</h3>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 0 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center">種目</TableCell>
+                    <TableCell align="center">学年</TableCell>
+                    <TableCell align="center">対戦クラス</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {match2.map((m: any) => (
+                    <TableRow
+                      key={m.id}
+                    >
+                      <TableCell align="center">
+                        {m.data.title}
+                      </TableCell>
+                      <TableCell align="center">
+                        {m.data.gread}
+                      </TableCell>
+                      <TableCell align="center">
+                        {getClass(m.data, m.data.event)[m.game - 1][0]}, {getClass(m.data, m.data.event)[m.game - 1][1]}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Card>
+        </div>
     </div>
   )
 }
