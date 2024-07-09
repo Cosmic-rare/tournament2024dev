@@ -53,11 +53,16 @@ export const ModalContent = ({ g, event }: any) => {
 
   return (
     <>
-      <h3>
+      <h1>
         {g.data.title}
-        {g.data.gread}
+        {" "}
+        {g.data.gread}年
+      </h1>
+
+      <h3>
         {getClass(g.data, g.data.event)[g.game - 1][0]} - {getClass(g.data, g.data.event)[g.game - 1][1]}
-        {g.game}
+        {" "}
+        ({g.game})
       </h3>
 
 
