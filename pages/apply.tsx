@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { APIget } from "@/util/api"
+import { APIget, APIpost } from "@/util/api"
 import { Button, Card } from "@mui/material"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -10,6 +10,8 @@ import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import getClass from "@/util/cl"
 import PointEditModal from "@/components/apply/pointEditModal"
+import { useTokenStore } from "@/util/store"
+import { notification } from "antd"
 
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
@@ -18,28 +20,53 @@ const width = {
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [applyGame, setApplyGame] = useState<null | number>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const token = useTokenStore((s) => s.token)
+  const updateToken = useTokenStore((s) => s.setToken)
+  const [api, contextHolder] = notification.useNotification()
   const [d, sD] = useState([])
+
+  const fetchData = async () => {
+    const res = await APIget(`match/nApplied`, () => { }, () => { })
+    sD(res)
+  }
+
+  const eAPI = (message: string, description = "だめですごめんなさい") => {
+    api.error({ message: message, description: description, duration: 6, placement: "bottomRight", className: "custom-notification" })
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await APIget(`match/nApplied`, () => { }, () => { })
-      sD(res)
-    }
     fetchData()
   }, [])
 
-  const updateFetch = () => {
-    console.log("update-api")
+  const updateFetch = async (id: string, game: number) => {
+    setIsLoading(true)
+    await APIpost(
+      `match/apply/${id}/${game}`,
+      { token: token },
+      () => eAPI("Faild to update"),
+      async () => {
+        fetchData()
+        setIsLoading(false)
+        setIsModalOpen(false)
+        setApplyGame(null)
+      },
+      () => { updateToken("") }
+    )
   }
 
   return (
     <div>
+      {contextHolder}
+
       {applyGame != null ?
         <PointEditModal
           isModalOpen={isModalOpen}
           closeModal={() => { setIsModalOpen(false); setApplyGame(null) }}
-          isLoading={false}
+          isLoading={isLoading}
           game={d[applyGame]}
-          updateFetch={() => { updateFetch() }}
+          // @ts-ignore
+          updateFetch={() => { updateFetch(d[applyGame].id, d[applyGame].game) }}
         />
         : null
       }
