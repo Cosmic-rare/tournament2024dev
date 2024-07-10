@@ -123,6 +123,8 @@ const Main = ({ data, eAPI }: any) => {
             game={editGame}
             setGame={setEditGame}
             event={d.event}
+            p={editPoint}
+            title={d.title}
           />
           <ClassEditModal
             isModalOpen={isClassEditModalOpen}

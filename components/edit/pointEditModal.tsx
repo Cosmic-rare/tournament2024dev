@@ -13,9 +13,11 @@ interface YourComponentProps {
   game: gameType
   setGame: Function
   event: string
+  p: any
+  title: string
 }
 
-const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, game, setGame, event }) => {
+const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalOpen, isLoading, onUpdate, editPoint, game, setGame, event, p, title }) => {
   return (
     <Modal
       open={isModalOpen}
@@ -35,6 +37,7 @@ const PointEditModal: React.FC<YourComponentProps> = ({ isModalOpen, setIsModalO
         </Button>
       ]}
     >
+      <h2 style={{ marginLeft: 10 }}>{title} ({p})</h2>
       <div style={{ position: "relative", maxWidth: 330, margin: "auto" }}>
         <Backdrop
           sx={{ color: "#fff", zIndex: 9999 }}

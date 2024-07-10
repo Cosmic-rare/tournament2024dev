@@ -1,6 +1,5 @@
 # TODO
 
-- adminのeditモーダルに組とか欲しい...?
 - デプロイ
   - 自宅鯖にtraefik?
   - mongoもそのままでええやん
