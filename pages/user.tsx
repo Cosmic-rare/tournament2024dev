@@ -67,7 +67,7 @@ const App = () => {
           sx={{ width: width }}
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
-          <input value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" />
           <button onClick={async () => {
             const r = await APIpost(
               "auth/login",
