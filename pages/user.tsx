@@ -78,10 +78,6 @@ const App = () => {
             updateToken(r?.token ? r.token : "")
           }}>login</button>
           <button onClick={() => { updateToken("") }}>logout</button>
-
-          <div>
-            <code>{localStorage.getItem("id")}</code>
-          </div>
         </Card>
       </div>
     </div>
