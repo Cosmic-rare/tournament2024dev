@@ -44,8 +44,8 @@ const routes: routeType[] = [
 
 const adminRoutes: routeType[] = [
   ...routes,
-  { href: "/user", iconMobail: <AccountCircle sx={{ color: blueGrey[50] }} />, title: "User", iconDesktop: <AccountCircle style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
   { href: "/apply", iconMobail: <LibraryAdd sx={{ color: blueGrey[50] }} />, title: "Apply", iconDesktop: <LibraryAdd style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+  { href: "/user", iconMobail: <AccountCircle sx={{ color: blueGrey[50] }} />, title: "User", iconDesktop: <AccountCircle style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
 ]
 
 const userRoutes: routeType[] = [
