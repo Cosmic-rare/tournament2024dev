@@ -99,7 +99,7 @@ function App({ Component, pageProps }: AppProps) {
           sx={{ height: 60 }}
         >
           {//@ts-ignore
-            (roleType == "ADMIN" ? userRoutes : roleType == "USER" ? userRoutes : routes).map((v: routeType, i: number) => <BottomNavigationAction key={i} label={v.title} icon={v.iconMobail} style={{ color: blueGrey[100] }} />)
+            (roleType == "ADMIN" ? adminMobileRoute : roleType == "USER" ? userRoutes : routes).map((v: routeType, i: number) => <BottomNavigationAction key={i} label={v.title} icon={v.iconMobail} style={{ color: blueGrey[100] }} />)
           }
         </BottomNavigation>
       </Paper>
