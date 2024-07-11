@@ -20,6 +20,7 @@ const Schedule = () => {
   const { targetGrade, targetClass } = router.query
   const [displayApplied, setDisplayApplied] = useState(false)
   const [displayConfirmed, setDisplayConfirmed] = useState(false)
+  const [sortType, setSortType] = useState(false) // false->normal, true->scheduledAt
 
   const [rows, setRows] = useState([])
   useEffect(() => {
@@ -30,6 +31,19 @@ const Schedule = () => {
     }
     fetchData()
   }, [targetGrade, targetClass])
+
+  useEffect(() => {
+    // @ts-ignore
+    setRows((preRows: any) => {
+      let pRows = [...preRows]
+      if (sortType) {
+        pRows.sort((a, b) => (a!=null && b!=null) ? (a.scheduledAt - b.scheduledAt) : 0)
+      } else {
+        pRows.sort((a, b) => a.c - b.c)
+      }
+      return pRows
+    })
+  }, [sortType])
 
   return (
     <div>
@@ -50,6 +64,9 @@ const Schedule = () => {
           </div>
           <div>
             <FormControlLabel control={<Checkbox checked={displayConfirmed} onClick={() => setDisplayConfirmed((p: any) => !p)} />} label="確定した試合のみ表示" />
+          </div>
+          <div>
+            <FormControlLabel control={<Checkbox checked={sortType} onClick={() => setSortType((p: any) => !p)} />} label="開始時刻でソート" />
           </div>
         </Card>
       </div>
