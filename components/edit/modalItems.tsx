@@ -108,6 +108,45 @@ const DateInput = ({ setGame, game, column, title }: any) => {
   )
 }
 
+const FHitted = ({ i, setGame, game }: any) => {
+  return (
+    <Row justify="center">
+      <Col flex={3}>
+        <div style={{ textAlign: "left" }}>
+          <span style={{ marginTop: "25px", display: "inline-block" }}>先当り</span>
+        </div>
+      </Col>
+      <Col flex={9}>
+        <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
+        <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
+          <Radio.Group
+            onChange={(e: RadioChangeEvent) =>
+              setGame((p: gameType) => {
+                let pr = { ...p }
+                pr.fHitted[`p${i}`] = e.target.value
+                return pr
+              })
+            }
+            value={game.fHitted[`p${i}`]}>
+            <Radio.Button value={"l"}>{"<"}</Radio.Button>
+            <Button
+              onClick={() =>
+                setGame((p: gameType) => {
+                  let pr = { ...p }
+                  pr.fHitted[`p${i}`] = null
+                  return pr
+                })
+              }
+            >
+              {"-"}</Button>
+            <Radio.Button value={"h"}>{">"}</Radio.Button>
+          </Radio.Group>
+        </div>
+      </Col>
+    </Row>
+  )
+}
+
 export const ModalContent = ({ setGame, game, event }: any) => {
   // must be "ADMIN"
 
@@ -115,7 +154,7 @@ export const ModalContent = ({ setGame, game, event }: any) => {
     <>
       <PointInput pos={1} setGame={setGame} game={game} />
       {
-        !["soccer", "dodgeball", "esport"].includes(event) ?
+        !["soccer", "esport"].includes(event) ?
           <>
             <PointInput pos={2} setGame={setGame} game={game} />
             <PointInput pos={3} setGame={setGame} game={game} />
@@ -129,27 +168,11 @@ export const ModalContent = ({ setGame, game, event }: any) => {
       {/* esport, soccer用の入力 */}
 
       {event == "dodgeball" ?
-        <Row justify="center">
-          <Col flex={3}>
-            <div style={{ textAlign: "left" }}>
-              <span style={{ marginTop: "25px", display: "inline-block" }}>先当り</span>
-            </div>
-          </Col>
-          <Col flex={9}>
-            <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
-            <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
-              <Radio.Group
-                onChange={(e: RadioChangeEvent) => {
-                  setGame((p: gameType) => { return { ...p, fHitted: e.target.value } })
-                }}
-                value={game.fHitted}>
-                <Radio.Button value={"l"}>{"<"}</Radio.Button>
-                <Button onClick={() => setGame((p: gameType) => { return { ...p, fHitted: null } })}>{"-"}</Button>
-                <Radio.Button value={"h"}>{">"}</Radio.Button>
-              </Radio.Group>
-            </div>
-          </Col>
-        </Row>
+        <>
+          <FHitted game={game} setGame={setGame} i={1} />
+          <FHitted game={game} setGame={setGame} i={2} />
+          <FHitted game={game} setGame={setGame} i={3} />
+        </>
         : null
       }
 

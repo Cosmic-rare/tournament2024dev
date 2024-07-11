@@ -11,7 +11,7 @@ export interface gameType {
   h_p2: number | null
   l_p3: number | null
   h_p3: number | null
-  fHitted?: boolean
+  fHitted: any
   eSport?: string
   soccer?: string
   startedAt?: number

@@ -1,3 +1,4 @@
+import { gameType } from "@/util/type"
 import { Input, Row, Col, Radio, Button } from "antd"
 import type { RadioChangeEvent } from "antd"
 
@@ -54,9 +55,9 @@ const PointInput = ({ setGame, game, pos, p }: any) => {
       </Col>
       <Col span={4}>
         <div style={{ textAlign: "center" }}>
-        <div style={{ textAlign: "center" }}>
-          <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
-        </div>
+          <div style={{ textAlign: "center" }}>
+            <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
+          </div>
           <Button
             onClick={() => {
               setGame((pre: any) => {
@@ -75,20 +76,54 @@ const PointInput = ({ setGame, game, pos, p }: any) => {
   )
 }
 
-export const ModalContent = ({ setGame, game, p }: any) => {
-  const onChange = (e: RadioChangeEvent) => {
-    setGame((pre: any) => {
-      let nPre = { ...pre }
-      nPre[`p_${p}`].fHitted = e.target.value
-      return nPre
-    })
-  }
+const FHitted = ({ i, setGame, game, p }: any) => {
+  return (
+    <Row justify="center">
+      <Col flex={3}>
+        <div style={{ textAlign: "left" }}>
+          <span style={{ marginTop: "25px", display: "inline-block" }}>先当り</span>
+        </div>
+      </Col>
+      <Col flex={9}>
+        <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
+        <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
+          <Radio.Group
+            onChange={(e: RadioChangeEvent) =>
+              setGame((pre: any) => {
+                let pr = { ...pre }
+                // @ts-ignore
+                pr[`p_${p}`].fHitted[`p${i}`] = e.target.value
+                return pr
+              })
+            }
+            value={game.fHitted[`p${i}`]}>
+            <Radio.Button value={"l"}>{"<"}</Radio.Button>
+            <Button
+              onClick={() =>
+                setGame((pre: any) => {
+                  let pr = { ...pre }
+                  console.log(pr.p_1)
+                  // @ts-ignore
+                  pr[`p_${p}`].fHitted[`p${i}`] = null
+                  return pr
+                })
+              }
+            >
+              {"-"}</Button>
+            <Radio.Button value={"h"}>{">"}</Radio.Button>
+          </Radio.Group>
+        </div>
+      </Col>
+    </Row>
+  )
+}
 
+export const ModalContent = ({ setGame, game, p }: any) => {
   return (
     <>
       <PointInput pos={1} setGame={setGame} game={game} p={p} />
       {
-        !["soccer", "dodgeball", "esport"].includes(game.event) ?
+        !["soccer", "esport"].includes(game.event) ?
           <>
             <PointInput pos={2} setGame={setGame} game={game} p={p} />
             <PointInput pos={3} setGame={setGame} game={game} p={p} />
@@ -96,23 +131,11 @@ export const ModalContent = ({ setGame, game, p }: any) => {
       }
 
       {game.event == "dodgeball" ?
-        <Row justify="center">
-          <Col flex={3}>
-            <div style={{ textAlign: "left" }}>
-              <span style={{ marginTop: "25px", display: "inline-block" }}>先当り</span>
-            </div>
-          </Col>
-          <Col flex={9}>
-            <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
-            <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
-              <Radio.Group onChange={onChange} value={game[`p_${p}`].fHitted}>
-                <Radio.Button value={"l"}>{"<"}</Radio.Button>
-                <Button onClick={() => setGame((pre: any) => { let nPre = { ...pre }; nPre[`p_${p}`].fHitted = null; return nPre })}>{"-"}</Button>
-                <Radio.Button value={"h"}>{">"}</Radio.Button>
-              </Radio.Group>
-            </div>
-          </Col>
-        </Row>
+        <>
+          <FHitted game={game[`p_${p}`]} setGame={setGame} i={1} p={p} />
+          <FHitted game={game[`p_${p}`]} setGame={setGame} i={2} p={p} />
+          <FHitted game={game[`p_${p}`]} setGame={setGame} i={3} p={p} />
+        </>
         : null
       }
     </>

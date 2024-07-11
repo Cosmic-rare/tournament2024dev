@@ -43,7 +43,7 @@ const PointModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen, data, event 
         <Point l={data?.l_p1} h={data?.h_p1} t="1st" />
         
         {
-          !["soccer", "dodgeball", "esport"].includes(event) ?
+          !["soccer", "esport"].includes(event) ?
             <>
               <Point l={data?.l_p2} h={data?.h_p2} t="2nd" />
               <Point l={data?.l_p3} h={data?.h_p3} t="3rd" />

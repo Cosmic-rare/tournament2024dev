@@ -46,6 +46,29 @@ const DateInput = ({ game, column, title }: any) => {
   )
 }
 
+const FHitted = ({ i, game }: any) => {
+  return (
+    <Grid container style={{ height: 50 }}>
+      <Grid item xs={2}>
+        <div style={{ textAlign: "left" }}>
+          先当り
+        </div>
+      </Grid>
+      <Grid item xs={10}>
+        <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
+          <Radio.Group
+            value={game.fHitted[`p${i}`]}
+          >
+            <Radio.Button value={"l"}>{"<"}</Radio.Button>
+            <Radio.Button value={"h"}>{">"}</Radio.Button>
+          </Radio.Group>
+        </div>
+      </Grid>
+    </Grid>
+
+  )
+}
+
 export const ModalContent = ({ g, event }: any) => {
   // must be "ADMIN"
   const game = g.data[`p_${g.game}`]
@@ -77,22 +100,11 @@ export const ModalContent = ({ g, event }: any) => {
       {/* esport, soccer用の入力 */}
 
       {event == "dodgeball" ?
-        <Grid container style={{ height: 50 }}>
-          <Grid item xs={2}>
-            <div style={{ textAlign: "left" }}>
-              先当り
-            </div>
-          </Grid>
-          <Grid item xs={10}>
-            <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
-              <Radio.Group
-                value={game.fHitted}>
-                <Radio.Button value={"l"}>{"<"}</Radio.Button>
-                <Radio.Button value={"h"}>{">"}</Radio.Button>
-              </Radio.Group>
-            </div>
-          </Grid>
-        </Grid>
+        <>
+          <FHitted game={game} i={1} />
+          <FHitted game={game} i={2} />
+          <FHitted game={game} i={3} />
+        </>
         : null
       }
 
