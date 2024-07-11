@@ -51,7 +51,7 @@ const FHitted = ({ i, game }: any) => {
     <Grid container style={{ height: 50 }}>
       <Grid item xs={2}>
         <div style={{ textAlign: "left" }}>
-          先当り
+          先に当てたチーム
         </div>
       </Grid>
       <Grid item xs={10}>

@@ -81,7 +81,7 @@ const FHitted = ({ i, setGame, game, p }: any) => {
     <Row justify="center">
       <Col flex={3}>
         <div style={{ textAlign: "left" }}>
-          <span style={{ marginTop: "25px", display: "inline-block" }}>先当り</span>
+          <span style={{ marginTop: "25px", display: "inline-block" }}>先に当てたチーム</span>
         </div>
       </Col>
       <Col flex={9}>
