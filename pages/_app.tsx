@@ -44,8 +44,13 @@ const routes: routeType[] = [
 
 const adminRoutes: routeType[] = [
   ...routes,
-  { href: "/apply", iconMobail: <LibraryAdd sx={{ color: blueGrey[50] }} />, title: "Apply", iconDesktop: <LibraryAdd style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
   { href: "/user", iconMobail: <AccountCircle sx={{ color: blueGrey[50] }} />, title: "User", iconDesktop: <AccountCircle style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+  { href: "/apply", iconMobail: <LibraryAdd sx={{ color: blueGrey[50] }} />, title: "Apply", iconDesktop: <LibraryAdd style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
+]
+
+const adminMobileRoute: routeType[] = [
+  ...routes,
+  { href: "/apply", iconMobail: <LibraryAdd sx={{ color: blueGrey[50] }} />, title: "Apply", iconDesktop: <LibraryAdd style={{ width: 30, height: 30, margin: 10 }} sx={{ color: blueGrey[900] }} /> },
 ]
 
 const userRoutes: routeType[] = [
@@ -87,7 +92,7 @@ function App({ Component, pageProps }: AppProps) {
         <BottomNavigation
           value={null}
           onChange={(_, newValue) => {
-            router.push((roleType == "ADMIN" ? userRoutes : roleType == "USER" ? userRoutes : routes)[newValue].href)
+            router.push((roleType == "ADMIN" ? adminMobileRoute : roleType == "USER" ? userRoutes : routes)[newValue].href)
           }}
           showLabels={true}
           style={{ backgroundColor: "#080808" }}
