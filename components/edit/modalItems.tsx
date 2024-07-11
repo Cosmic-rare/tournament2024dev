@@ -205,7 +205,7 @@ export const ModalContent = ({ setGame, game, event }: any) => {
         <Row justify="center">
           <Col flex={3}>
             <div style={{ textAlign: "left" }}>
-              <span style={{ marginTop: "25px", display: "inline-block" }}>1位回数</span>
+              <span style={{ marginTop: "25px", display: "inline-block" }}>最高得点者</span>
             </div>
           </Col>
           <Col flex={9}>

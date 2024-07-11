@@ -132,7 +132,7 @@ export const ModalContent = ({ g, event }: any) => {
         <Grid container style={{ height: 50 }}>
           <Grid item xs={2}>
             <div style={{ textAlign: "left" }}>
-              1位回数
+              最高得点者
             </div>
           </Grid>
           <Grid item xs={10}>

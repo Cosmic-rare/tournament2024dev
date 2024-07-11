@@ -91,7 +91,6 @@ const FHitted = ({ i, setGame, game, p }: any) => {
             onChange={(e: RadioChangeEvent) =>
               setGame((pre: any) => {
                 let pr = { ...pre }
-                // @ts-ignore
                 pr[`p_${p}`].fHitted[`p${i}`] = e.target.value
                 return pr
               })
@@ -102,8 +101,6 @@ const FHitted = ({ i, setGame, game, p }: any) => {
               onClick={() =>
                 setGame((pre: any) => {
                   let pr = { ...pre }
-                  console.log(pr.p_1)
-                  // @ts-ignore
                   pr[`p_${p}`].fHitted[`p${i}`] = null
                   return pr
                 })
@@ -136,6 +133,46 @@ export const ModalContent = ({ setGame, game, p }: any) => {
           <FHitted game={game[`p_${p}`]} setGame={setGame} i={2} p={p} />
           <FHitted game={game[`p_${p}`]} setGame={setGame} i={3} p={p} />
         </>
+        : null
+      }
+
+      {game.event == "esport" ?
+        <Row justify="center">
+          <Col flex={3}>
+            <div style={{ textAlign: "left" }}>
+              <span style={{ marginTop: "25px", display: "inline-block" }}>最高得点者</span>
+            </div>
+          </Col>
+          <Col flex={9}>
+            <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
+            <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
+              <Radio.Group
+                onChange={(e: RadioChangeEvent) =>
+                  setGame((pre: any) => {
+                    let pr = { ...pre }
+                    // @ts-ignore
+                    pr[`p_${p}`].eSport = e.target.value
+                    return pr
+                  })
+                }
+                value={game[`p_${p}`].eSport}>
+                <Radio.Button value={"l"}>{"<"}</Radio.Button>
+                <Button
+                  onClick={() =>
+                    setGame((pre: any) => {
+                      let pr = { ...pre }
+                      pr[`p_${p}`].eSport = null
+                      return pr
+                    })
+                  }
+                >
+                  {"-"}</Button>
+                <Radio.Button value={"h"}>{">"}</Radio.Button>
+              </Radio.Group>
+            </div>
+          </Col>
+        </Row>
+
         : null
       }
     </>
