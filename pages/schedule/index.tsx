@@ -3,6 +3,7 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Link from "next/link"
 import { blueGrey } from "@mui/material/colors"
+import Head from "next/head"
 
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
@@ -11,6 +12,9 @@ const width = {
 const Schedule = () => {
   return (
     <div>
+      <Head>
+        <title>スケジュール</title>
+      </Head>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h2>スケジュール</h2>
       </div>

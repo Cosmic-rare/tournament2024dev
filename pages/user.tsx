@@ -5,6 +5,7 @@ import { APIpost } from "@/util/api"
 import { jwtDecode } from "jwt-decode"
 import { useState } from "react"
 import { useTokenStore } from "@/util/store"
+import Head from "next/head"
 
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
@@ -52,6 +53,10 @@ const App = () => {
 
   return (
     <div>
+      <Head>
+        <title>{token ? "ユーザー" : "ログイン" }</title>
+      </Head>
+
       {contextHolder}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
         <GenToken token={token} updateToken={updateToken} />

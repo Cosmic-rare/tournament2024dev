@@ -6,6 +6,7 @@ import { notification } from "antd"
 import { ModalContent } from "@/components/record/inputs"
 import { CircularProgress, Backdrop, Button } from "@mui/material"
 import getClass from "@/util/cl"
+import Head from "next/head"
 
 const Post = () => {
   const router = useRouter()
@@ -69,9 +70,19 @@ const Post = () => {
     }
   }
 
+  const Header = () => {
+    return (
+      <Head>
+        {/* @ts-ignore */}
+        <title>記録ページ: {d.title}, {getClass(d, d.event)[p - 1][0] ?? "未定"} - {getClass(d, d.event)[p - 1][1] ?? "未定"}</title>
+      </Head>
+    )
+  }
+
   if (d) {
     return (
       <div>
+        <Header />
         <div style={{ position: "relative", maxWidth: 330, margin: "auto" }}>
           <Backdrop
             sx={{ color: "#fff", zIndex: 9999 }}
@@ -99,7 +110,7 @@ const Post = () => {
       </div>
     )
   } else {
-    <>{contextHolder}</>
+    <><Header />{contextHolder}</>
   }
 }
 

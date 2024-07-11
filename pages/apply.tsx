@@ -12,6 +12,7 @@ import getClass from "@/util/cl"
 import PointEditModal from "@/components/apply/pointEditModal"
 import { useTokenStore } from "@/util/store"
 import { notification } from "antd"
+import Head from "next/head"
 
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
@@ -57,6 +58,10 @@ const Index = () => {
 
   return (
     <div>
+      <Head>
+        <title>試合結果の反映</title>
+      </Head>
+
       {contextHolder}
 
       {applyGame != null ?

@@ -9,6 +9,7 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import getClass from "@/util/cl"
+import Head from "next/head"
 
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
@@ -34,6 +35,10 @@ const Index = () => {
 
   return (
     <div>
+      <Head>
+        <title>スポーツ大会2024公式</title>
+      </Head>
+
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h2>スポーツ大会2024</h2>
       </div>

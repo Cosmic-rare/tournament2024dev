@@ -6,6 +6,7 @@ import { APIget } from "@/util/api"
 import ViewMain from "@/components/top/Main"
 import Main from "@/components/edit/Main"
 import { useTokenStore } from "@/util/store"
+import Head from "next/head"
 
 export interface TournamentCellData {
   text?: string
@@ -52,9 +53,13 @@ const App = () => {
   if (data) {
     return (
       <div>
+        <Head>
+          <title>試合結果一覧</title>
+        </Head>
+
         {contextHolder}
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <h2>トーナメント表</h2>
+          <h2>試合結果一覧</h2>
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>

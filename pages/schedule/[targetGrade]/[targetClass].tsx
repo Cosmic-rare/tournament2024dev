@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper"
 import { APIget } from "@/util/api"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
@@ -32,6 +33,9 @@ const Schedule = () => {
 
   return (
     <div>
+      <Head>
+        <title>{targetGrade}-{targetClass}のスケジュール</title>
+      </Head>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h1>{targetGrade}-{targetClass}</h1>
       </div>
