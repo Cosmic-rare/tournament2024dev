@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASEURL = "https://api.tournament2024.tani-exe.net"
+const BASEURL = "https://api.dev.tournament2024.tani-exe.net"
 // const BASEURL = "http://localhost:4000"
 
 export const APIget = async (path: string, e: Function, f: Function) => {
