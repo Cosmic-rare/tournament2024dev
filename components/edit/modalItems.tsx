@@ -1,4 +1,4 @@
-import { Input, Row, Col, Radio, Button, TimePicker } from "antd"
+import { Input, Row, Col, Radio, Button, TimePicker, Select } from "antd"
 import { gameType } from "@/util/type"
 import type { RadioChangeEvent, TimePickerProps } from "antd"
 import dayjs from "dayjs"
@@ -147,6 +147,44 @@ const FHitted = ({ i, setGame, game }: any) => {
   )
 }
 
+const PlaceInput = ({setGame, game} :any) => {
+  const handleChange = (value: string) => {
+    setGame((p: gameType) => { return { ...p, place: value } })
+  }
+
+  return (
+    <Row justify="center">
+      <Col flex={3}>
+        <div style={{ textAlign: "left" }}>
+          <span style={{ marginTop: "25px", display: "inline-block" }}>場所</span>
+        </div>
+      </Col>
+      <Col flex={9}>
+        <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
+        <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
+          <Select
+            defaultValue="lucy"
+            style={{ width: 180 }}
+            onChange={handleChange}
+            value={game.place}
+            options={[
+              { value: 'a1', label: '1体A(ステージ側・西)' },
+              { value: 'b1', label: '1体B(入口側・東)' },
+              { value: 'a2', label: '2体A(1体・外側・南西)' },
+              { value: 'b2', label: '2体B(プール・外側・北西)' },
+              { value: 'c2', label: '2体C(1体・校舎側・南東)' },
+              { value: 'd2', label: '2体D(プール・校舎側・北東)' },
+              { value: 'mo', label: 'ミニ校庭' },
+              { value: 'ma', label: '校庭A(北)' },
+              { value: 'mb', label: '校庭B(南)' },
+            ]}
+          />
+        </div>
+      </Col>
+    </Row>
+  )
+}
+
 export const ModalContent = ({ setGame, game, event }: any) => {
   // must be "ADMIN"
 
@@ -224,6 +262,12 @@ export const ModalContent = ({ setGame, game, event }: any) => {
           </Col>
         </Row>
         : null
+      }
+
+      {
+        ["volleyball", "badminton", "dodgeball"].includes(event) ?
+          <PlaceInput game={game} setGame={setGame} />
+          : null
       }
 
       <Row justify="center">

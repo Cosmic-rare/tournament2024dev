@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import getClass from "@/util/cl"
 import Head from "next/head"
+import { places } from "./schedule/[targetGrade]/[targetClass]"
 
 const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
@@ -65,6 +66,7 @@ const Index = () => {
                   <TableCell align="center">種目</TableCell>
                   <TableCell align="center">学年</TableCell>
                   <TableCell align="center">対戦クラス</TableCell>
+                  <TableCell align="center">場所</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -80,6 +82,10 @@ const Index = () => {
                     </TableCell>
                     <TableCell align="center">
                       {getClass(m.data, m.data.event)[m.game - 1][0]}, {getClass(m.data, m.data.event)[m.game - 1][1]}
+                    </TableCell>
+                    <TableCell align="center">
+                      {/* @ts-ignore */}
+                      {m.data[`p_${m.game}`].place ? places[m.data[`p_${m.game}`].place] : "-"}
                     </TableCell>
                   </TableRow>
                 ))}

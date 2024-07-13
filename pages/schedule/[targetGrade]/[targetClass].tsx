@@ -15,6 +15,18 @@ const width = {
   xs: 0.9, sm: 350, md: 450, lg: 450, xl: 450,
 }
 
+export const places = {
+  'a1': '1体A(ステージ側・西)',
+  'b1': '1体B(入口側・東)',
+  'a2': '2体A(1体・外側・南西)',
+  'b2': '2体B(プール・外側・北西)',
+  'c2': '2体C(1体・校舎側・南東)',
+  'd2': '2体D(プール・校舎側・北東)',
+  'mo': 'ミニ校庭',
+  'ma': '校庭A(北)',
+  'mb': '校庭B(南)',
+}
+
 const Schedule = () => {
   const router = useRouter()
   const { targetGrade, targetClass } = router.query
@@ -37,7 +49,7 @@ const Schedule = () => {
     setRows((preRows: any) => {
       let pRows = [...preRows]
       if (sortType) {
-        pRows.sort((a, b) => (a!=null && b!=null) ? (a.scheduledAt - b.scheduledAt) : 0)
+        pRows.sort((a, b) => (a != null && b != null) ? (a.scheduledAt - b.scheduledAt) : 1)
       } else {
         pRows.sort((a, b) => a.c - b.c)
       }
@@ -77,14 +89,15 @@ const Schedule = () => {
           style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
         >
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 400 }} aria-label="simple table">
+            <Table sx={{ minWidth: 550 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">済</TableCell>
                   <TableCell align="center">種目</TableCell>
                   <TableCell align="center">確定(試)</TableCell>
                   <TableCell align="center">相手</TableCell>
-                  <TableCell align="center">game</TableCell>
+                  <TableCell align="center">場所</TableCell>
+                  <TableCell align="center">開始時刻</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -105,6 +118,8 @@ const Schedule = () => {
                             <Checkbox disabled={false} checked={row.certaintyMatch} />
                           </TableCell>
                           <TableCell align="left">{row.opponent ? row.opponent.join(", ") : null}</TableCell>
+                          {/* @ts-ignore */}
+                          <TableCell align="center">{row.data[`p_${row.game}`].place ? places[row.data[`p_${row.game}`].place] : "-"}</TableCell>
                           <TableCell align="right">
                             {
                               row.data[`p_${row.game}`].scheduledAt ?
