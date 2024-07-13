@@ -28,7 +28,8 @@ const Index = () => {
   }, [])
   useEffect(() => {
     const fetchData = async () => {
-      const res = await APIget(`match/soon`, () => { }, () => { })
+      let res = await APIget(`match/soon`, () => { }, () => { })
+      res.sort((a: any, b: any) => a.data[`p_${a.game}`].scheduledAt - b.data[`p_${b.game}`].scheduledAt)
       setMatch2(res)
     }
     fetchData()
@@ -93,44 +94,56 @@ const Index = () => {
             </Table>
           </TableContainer>
         </Card>
-        </div>
+      </div>
 
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
-          <Card
-            sx={{ width: width }}
-            style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
-          >
-            <h3>開催が近い競技</h3>
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 0 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">種目</TableCell>
-                    <TableCell align="center">学年</TableCell>
-                    <TableCell align="center">対戦クラス</TableCell>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
+        <Card
+          sx={{ width: width }}
+          style={{ backgroundColor: "#eae9eb", borderRadius: 9, padding: 24 }}
+        >
+          <h3>開催が近い競技</h3>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 0 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">種目</TableCell>
+                  <TableCell align="center">学年</TableCell>
+                  <TableCell align="center">対戦クラス</TableCell>
+                  <TableCell align="center">開始時刻</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {match2.map((m: any) => (
+                  <TableRow
+                    key={m.id}
+                  >
+                    <TableCell align="center">
+                      {m.data.title}
+                    </TableCell>
+                    <TableCell align="center">
+                      {m.data.gread}
+                    </TableCell>
+                    <TableCell align="center">
+                      {
+                        getClass(m.data, m.data.event)[m.game - 1][0] && getClass(m.data, m.data.event)[m.game - 1][1] ?
+                          `${getClass(m.data, m.data.event)[m.game - 1][0]}, ${getClass(m.data, m.data.event)[m.game - 1][1]}`
+                          : "-"
+                      }
+                    </TableCell>
+                    <TableCell align="right">
+                      {
+                        m.data[`p_${m.game}`].scheduledAt ?
+                          new Date(m.data[`p_${m.game}`].scheduledAt).toLocaleString('en-us', { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false })
+                          : "-"
+                      }
+                    </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {match2.map((m: any) => (
-                    <TableRow
-                      key={m.id}
-                    >
-                      <TableCell align="center">
-                        {m.data.title}
-                      </TableCell>
-                      <TableCell align="center">
-                        {m.data.gread}
-                      </TableCell>
-                      <TableCell align="center">
-                        {getClass(m.data, m.data.event)[m.game - 1][0]}, {getClass(m.data, m.data.event)[m.game - 1][1]}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Card>
-        </div>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Card>
+      </div>
     </div>
   )
 }

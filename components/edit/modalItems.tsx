@@ -71,7 +71,7 @@ const DateInput = ({ setGame, game, column, title }: any) => {
     setGame((p: gameType) => {
       // @ts-ignore
       const da = new Date(p[column] as number ?? new Date(1721055600000))
-      da.setDate(e.target.value + 1)
+      da.setDate(e.target.value)
       return { ...p, [column]: da.valueOf() }
     })
   }
@@ -97,7 +97,7 @@ const DateInput = ({ setGame, game, column, title }: any) => {
       <Col flex={4.5}>
         <span style={{ marginBottom: "10px", display: "inline-block" }}></span>
         <div style={{ textAlign: "center", justifyContent: "center", alignItems: "center", display: "flex" }}>
-          <Radio.Group onChange={onChangeDate} value={new Date(game[column]).getDate() - 1} defaultValue={16}>
+          <Radio.Group onChange={onChangeDate} value={new Date(game[column]).getDate()} defaultValue={16}>
             <Radio.Button value={16}>16</Radio.Button>
             <Radio.Button value={17}>17</Radio.Button>
             <Button onClick={() => setGame((p: gameType) => { return { ...p, [column]: null } })}>{"-"}</Button>
@@ -147,7 +147,7 @@ const FHitted = ({ i, setGame, game }: any) => {
   )
 }
 
-const PlaceInput = ({setGame, game} :any) => {
+const PlaceInput = ({ setGame, game }: any) => {
   const handleChange = (value: string) => {
     setGame((p: gameType) => { return { ...p, place: value } })
   }

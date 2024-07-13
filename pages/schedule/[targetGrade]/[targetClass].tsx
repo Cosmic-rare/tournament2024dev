@@ -49,7 +49,7 @@ const Schedule = () => {
     setRows((preRows: any) => {
       let pRows = [...preRows]
       if (sortType) {
-        pRows.sort((a, b) => (a != null && b != null) ? (a.scheduledAt - b.scheduledAt) : 1)
+        pRows.sort((a, b) => (a != null && b != null) ? (a.scheduledAt - b.scheduledAt) : 0)
       } else {
         pRows.sort((a, b) => a.c - b.c)
       }
